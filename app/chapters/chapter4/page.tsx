@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Button from "@/app/component/button";
-import { House } from "lucide-react";
 import ModuleCard from "../ModuleCard";
 import { moduleData_1 } from "../data-local/module";
+import Link from "next/link";
+import { House } from "lucide-react";
 
 export default function Page() {
   const [showModule, setShowModule] = useState(false);

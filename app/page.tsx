@@ -16,7 +16,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden mt-30">
             <Link
-             href="/chapter7"
+             href="/chapters/chapter7"
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -27,7 +27,7 @@ export default function Home() {
 
         <div>
             <Link 
-             href='/chapter6' 
+             href='/chapters/chapter6' 
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden">
             <Link
-             href='/chapter5'
+             href='/chapters/chapter5'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -49,7 +49,7 @@ export default function Home() {
 
         <div>
             <Link
-             href='/chapter4'
+             href='/chapters/chapter4'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
@@ -60,7 +60,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden">
             <Link
-             href='/chapter3'
+             href='/chapters/chapter3'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -71,7 +71,7 @@ export default function Home() {
 
         <div>
             <Link
-             href='/chapter2'
+             href='/chapters/chapter2'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
