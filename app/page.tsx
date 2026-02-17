@@ -1,65 +1,105 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="bg-[url(/img/sunflower.png)] bg-no-repeat bg-cover bg-center bg-scroll w-full h-full px-5 py-80 md:py-120 m-0">
+        <div className="relative -mt-88 -ml-8 md:-mt-135 aspect-3/2 w-40 md:w-90 overflow-hidden">
+            <div className="bg-[url(/img/wooden-signboard.png)] bg-no-repeat bg-contain bg-center absolute inset-0 top-0 left-0"></div>
+            <div className="absolute inset-0 flex justify-center items-center">
+                <h2 className="text-xl md:text-2xl font-bold text-white font-jaro">Rosie</h2>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="bg-red-300 w-full h-60 md:h-120 lg:h-160 mt-10 md:mt-20 lg:mt-80 items-center justify-center flex">
+            <p className="text-white text-xl">Post Test</p>
         </div>
-      </main>
+
+        <div className="overflow-x-hidden mt-30">
+            <Link
+             href="/chapter7"
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
+                <div className="right-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 7</p>
+                </div>
+            </Link>
+        </div>
+
+        <div>
+            <Link 
+             href='/chapter6' 
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
+                <div className="left-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 6</p>
+                </div>
+            </Link>
+        </div>
+
+        <div className="overflow-x-hidden">
+            <Link
+             href='/chapter5'
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
+                <div className="right-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 5</p>
+                </div>
+            </Link>
+        </div>
+
+        <div>
+            <Link
+             href='/chapter4'
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
+                <div className="left-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 4</p>
+                </div>
+            </Link>
+        </div>
+
+        <div className="overflow-x-hidden">
+            <Link
+             href='/chapter3'
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
+                <div className="right-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 3</p>
+                </div>
+            </Link>
+        </div>
+
+        <div>
+            <Link
+             href='/chapter2'
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
+                <div className="left-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 2</p>
+                </div>
+            </Link>
+        </div>
+
+        <div className="overflow-x-hidden">
+            <Link
+             href='/chapters/chapter1'
+             className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
+                <div className="right-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-2xl md:text-3xl font-jaro">Chapter 1</p>
+                </div>
+            </Link>
+        </div>
+
+        {/* <div>
+            <div className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20">
+                <div className="left-leaf"></div>
+                <div className="relative z-10">
+                    <p className="text-white text-xl relative z-10">Pre Test</p>
+                </div>
+            </div>
+        </div> */}
+  
     </div>
-  );
+  )
 }
