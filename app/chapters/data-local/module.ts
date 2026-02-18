@@ -284,4 +284,103 @@ const moduleData_2 = {
         <p class="text-sm lg:text-lg leading-5 mb-4">Tubuhmu unik, dan penting untuk memahaminya.</p>
         <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`,
 };
-export { moduleData_1, moduleData_2 };
+
+const moduleData_3 = {
+  card_1: `<p class="my-4 text-sm lg:text-lg">Menjaga kebersihan tubuh adalah bagian penting dari kesehatan.</p>
+
+        <p class="text-sm lg:text-lg mb-1">Beberapa kebiasaan sederhana yang bisa dilakukan setiap hari:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+        <li>Mandi secara teratur, minimal 2 kali sehari</li>
+        <li>Membersihkan area kewanitaan dengan air bersih</li>
+        <li>Keringkan area tersebut dengan lembut menggunakan handuk bersih</li>
+        <li>Cuci tangan sebelum dan sesudah dari toilet</li>
+        </ul>
+        <p class="text-sm lg:text-lg mb-1 font-semibold">Penting diingat:</p>
+        <p class="text-sm lg:text-lg mb-4">Area kewanitaan memiliki kemampuan membersihkan diri secara alami. Tidak perlu menggunakan produk khusus yang berlebih.</p>`,
+  card_2: `<h3 class="font-semibold text-lg lg:text-xl my-4">Cara Merawat Vulva dengan Benar</h3>
+
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>
+           Bersihkan dengan air bersih
+          </li>
+          <li>
+           Tidak perlu menggunakan sabun khusus, terutama yang memiliki pewangi
+          </li>
+          <li>
+           Bersihkan dari depan ke belakang setelah buang air kecil atau besar
+          </li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-4">Tujuannya untuk mencegah kuman dari area belakang berpindah ke area depan.</p>
+
+        <p class="text-sm lg:text-lg mb-2 font-semibold">Hindari:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>
+           Sabun dengan pewangi kuat
+          </li>
+          <li>
+           Cairan pembersih khusus tanpa anjuran tenaga kesehatan
+          </li>
+        </ul>
+<p class="text-sm lg:text-lg mb-4">Karena bisa menyebabkan iritasi.</p>`,
+  card_3: `<h3 class="font-semibold text-lg lg:text-xl leading-5 my-4">Kebersihan Pakaian Dalam</h3>
+
+  <p class="text-sm lg:text-lg">Pakaian dalam yang bersih membantu menjaga kesehatan.</p>
+  <p class="text-sm lg:text-lg mb-2">Hal yang perlu diperhatikan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>
+            Ganti pakaian dalam minimal 2 kali sehari
+          </li>
+          <li>
+            Gunakan bahan yang menyerap keringat, seperti katun
+          </li>
+          <li>
+            Hindari pakaian dalam yang terlalu ketat
+          </li>
+          <li>
+            Ganti jika terasa lembap atau basah
+          </li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-4">Pakaian dalam yang bersih membantu mencegah iritasi dan infeksi.</p>`,
+  card_4: `<h3 class="font-semibold text-lg lg:text-xl my-4">Kebersihan Saat Menstruasi</h3>
+
+        <p class="text-sm lg:text-lg">Saat menstruasi, kebersihan perlu lebih diperhatikan.</p>
+        <p class="text-sm lg:text-lg mb-2">Hal yang perlu dilakukan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Ganti pembalut setiap 3–4 jam, atau saat sudah penuh</li>
+          <li>Cuci tangan sebelum dan sesudah mengganti pembalut</li>
+          <li>Bersihkan area kewanitaan dengan air bersih</li>
+          <li>Buang pembalut bekas ke tempat sampah</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-4">Jangan menggunakan pembalut terlalu lama, karena dapat menyebabkan iritasi.</p>`,
+  card_5: `<h3 class="font-semibold text-lg lg:text-xl my-4">Cara Aman Saat Olahraga atau Aktivitas Padat</h3>
+
+        <p class="text-sm lg:text-lg">Saat berolahraga, tubuh akan berkeringat.</p>
+        <p class="text-sm lg:text-lg mb-2">Hal yang bisa dilakukan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Gunakan pakaian yang nyaman dan menyerap keringat</li>
+          <li>Ganti pakaian setelah berolahraga</li>
+          <li>Mandi setelah aktivitas berat</li>
+          <li>Ganti pakaian dalam jika sudah lembap</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-4">Area yang lembap terlalu lama bisa menyebabkan rasa tidak nyaman.</p>`,
+  card_6: `<h3 class="font-semibold text-lg lg:text-xl my-4">Penutup</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Menjaga kebersihan area kewanitaan adalah bagian penting dari merawat diri sendiri.</p>
+        <p class="text-sm lg:text-lg leading-5 mb-2">Ingat hal utama ini:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>Bersihkan dengan air bersih</li>
+          <li>Gunakan pakaian dalam yang bersih dan nyaman</li>
+          <li>Jaga kebersihan saat menstruasi</li>
+          <li>Hindari produk yang tidak perlu atau berpewangi kuat</li>
+          <li>Ganti pakaian setelah berkeringat</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-2">Tubuhmu berharga, dan merawatnya adalah bentuk menghargai diri sendiri.</p>
+        <p class="text-sm lg:text-lg leading-5 mb-4">Dengan kebiasaan sederhana setiap hari, kamu bisa menjaga kesehatan dan merasa lebih nyaman dalam beraktivitas.</p>
+        <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`,
+};
+export { moduleData_1, moduleData_2, moduleData_3 };

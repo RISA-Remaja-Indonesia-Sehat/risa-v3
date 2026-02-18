@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Button from "@/app/component/button";
 import ModuleCard from "../ModuleCard";
-import { moduleData_1 } from "../data-local/module";
+import { moduleData_3 } from "../data-local/module";
 import Link from "next/link";
 import { House } from "lucide-react";
 
@@ -17,10 +17,10 @@ export default function Page() {
       {!showModule && (
         <div className="max-w-md w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4">
         <h2 className="font-jaro text-center text-3xl md:text-4xl text-pink-600">
-          Kenalan dengan Tubuhku
+          Kebersihan & Perawatan Diri
         </h2>
         <p className="text-center text-gray-700 leading-relaxed">
-          Tujuan : memahami bagian tubuh reproduksi, fungsinya, perubahan pubertas, dan mengenali kondisi normal serta tidak normal.
+          Tujuan : memahami cara menjaga kebersihan area kewanitaan dengan benar dan mengetahui cara menghindari kebiasaan atau produk yang dapat membahayakan kesehatan.
         </p>
         <p className="text-center text-sm text-gray-600">
           Durasi : ±10–15 menit
@@ -33,8 +33,8 @@ export default function Page() {
       )}
 
       {showModule && (
-        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4">
-          <ModuleCard moduleData={moduleData_1} />
+        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4 mt-8">
+          <ModuleCard moduleData={moduleData_3} />
         </div>
       )}
     </div>
