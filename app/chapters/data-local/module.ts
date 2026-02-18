@@ -151,10 +151,12 @@ const moduleData_1 = {
         <p class="text-sm lg:text-lg mb-2">Tubuhmu adalah milikmu.</p>
 
         <p class="text-sm lg:text-lg leading-5 mb-1">Memahami tubuh sendiri membantu kamu:</p>
-        <ul class="text-sm lg:text-lg list-disc ps-4 mb-4">
+        <ul class="text-sm lg:text-lg list-disc ps-4 mb-2">
           <li>Tetap sehat</li>
           <li>Tetap aman</li>
           <li>Tetap percaya diri</li>
-        </ul>`,
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`
 };
 export { moduleData_1 };

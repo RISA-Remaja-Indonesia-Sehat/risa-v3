@@ -2,6 +2,8 @@
 
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import { useButtonGameState } from "@/app/store/useButtonGame";
+import { useRouter, usePathname} from 'next/navigation';
 
 export default function ModuleCard({ moduleData }: { moduleData: Record<string, string> }) {
   const [currentCard, setCurrentCard] = useState(1);
@@ -17,12 +19,29 @@ export default function ModuleCard({ moduleData }: { moduleData: Record<string, 
     if (currentCard > 1) setCurrentCard(currentCard - 1);
   };
 
+  const router = useRouter();
+  const pathname = usePathname();
+  function showGamePage() {
+    useButtonGameState.getState().activateButtonGame();
+    const buttonState = useButtonGameState.getState().isButtonGameActive;
+    console.log(buttonState);
+    if(buttonState === true) router.push(`${pathname}/game`);
+  };
+
   return (
     <div>
       <div 
         className="text-gray-800 leading-relaxed mb-6 touch-pan-y"
         dangerouslySetInnerHTML={{ __html: cards[currentCard - 1] }}
       />
+
+      {currentCard === totalCards && (
+        <div className="flex justify-center my-5">
+          <button className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300 text-sm lg:text-lg" id="game" onClick={showGamePage}>
+            Let&apos;s goooo~ 
+          </button>
+        </div>
+      )}
       
       <div className="flex items-center justify-between gap-4">
         <button 

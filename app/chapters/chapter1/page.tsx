@@ -33,7 +33,7 @@ export default function Page() {
       )}
 
       {showModule && (
-        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4">
+        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4 mt-8">
           <ModuleCard moduleData={moduleData_1} />
         </div>
       )}
