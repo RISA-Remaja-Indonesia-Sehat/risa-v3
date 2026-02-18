@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Button from "@/app/component/button";
-import { House } from "lucide-react";
 import ModuleCard from "../ModuleCard";
 import { moduleData_1 } from "../data-local/module";
+import Link from "next/link";
+import { House } from "lucide-react";
 
 export default function Page() {
   const [showModule, setShowModule] = useState(false);
@@ -33,7 +33,7 @@ export default function Page() {
       )}
 
       {showModule && (
-        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4 mt-8">
+        <div className="max-w-2xl w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4">
           <ModuleCard moduleData={moduleData_1} />
         </div>
       )}
