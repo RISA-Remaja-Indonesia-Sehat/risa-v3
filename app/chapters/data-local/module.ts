@@ -383,4 +383,152 @@ const moduleData_3 = {
         <p class="text-sm lg:text-lg leading-5 mb-4">Dengan kebiasaan sederhana setiap hari, kamu bisa menjaga kesehatan dan merasa lebih nyaman dalam beraktivitas.</p>
         <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`,
 };
-export { moduleData_1, moduleData_2, moduleData_3 };
+
+const moduleData_4 = {
+  card_1: `<h3 class="font-semibold text-lg lg:text-xl my-4">Apa itu Hubungan Sehat?</h3>
+
+        <p class="text-sm lg:text-lg mb-1">Hubungan sehat bisa dengan <span class="font-semibold">keluarga, teman, atau pacar.</span></p>
+
+        <p class="text-sm lg:text-lg mb-1">Ciri hubungan sehat:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+        <li>Saling menghormati</li>
+        <li>Merasa aman dan nyaman</li>
+        <li>Tidak dipaksa melakukan sesuatu</li>
+        <li>Bisa menjadi diri sendiri</li>
+        </ul>
+        
+        <p class="text-sm lg:text-lg mb-4">Hubungan sehat membuatmu merasa <span class="font-semibold">dihargai, bukan takut.</span></p>`,
+  card_2: `<h3 class="font-semibold text-lg lg:text-xl my-4">Hak atas Tubuh, Privasi, dan Batasan</h3>
+        
+        <p class="text-sm lg:text-lg mb-1">Kamu berhak:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>
+           Mengatakan “tidak”
+          </li>
+          <li>
+           Menjaga privasi
+          </li>
+          <li>
+           Memilih apa yang membuatmu nyaman
+          </li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-2 font-semibold">Contoh batasan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>
+           Tidak ingin dipeluk
+          </li>
+          <li>
+           Tidak ingin barang pribadimu dibuka
+          </li>
+          <li>
+           Tidak ingin cerita pribadimu disebarkan
+          </li>
+        </ul>
+        <p class="text-sm lg:text-lg mb-4">Menetapkan batasan adalah hal yang sehat, bukan egois.</p>`,
+  card_3: `<h3 class="font-semibold text-lg lg:text-xl my-4">Apa itu Consent (Persetujuan)?</h3>
+
+  <p class="text-sm lg:text-lg mb-2">Consent berarti <span class="font-semibold">memberi izin atau persetujuan.</span></p>
+
+  <p class="text-sm lg:text-lg mb-2">Contoh dalam kehidupan remaja:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>
+            Meminjam barang → harus izin
+          </li>
+          <li>
+            Menyentuh → harus izin
+          </li>
+          <li>
+            Membagikan foto teman → harus izin
+          </li>
+        </ul>
+
+  <p class="text-sm lg:text-lg mb-2">Consent harus:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>
+            Jelas
+          </li>
+          <li>
+            Sukarela
+          </li>
+          <li>
+            Tidak dipaksa
+          </li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-4">Jika kamu tidak nyaman, kamu boleh berkata tidak.</p>`,
+  card_4: `<h3 class="font-semibold text-lg lg:text-xl my-4">Tanda Hubungan Tidak Sehat</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Waspadai jika seseorang:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Memaksa kamu melakukan sesuatu</li>
+          <li>Membuatmu takut</li>
+          <li>Mengontrol kamu berlebihan</li>
+          <li>Menghina atau merendahkan</li>
+          <li>Membuatmu merasa bersalah terus-menerus</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-2">Ini bukan hubungan yang sehat.</p>
+        <p class="text-sm lg:text-lg mb-4">Kamu pantas diperlakukan dengan baik.</p>`,
+  card_5: `<h3 class="font-semibold text-lg lg:text-xl my-4">Menghindari Tekanan Teman Sebaya</h3>
+
+        <p class="text-sm lg:text-lg">Tekanan teman sebaya adalah saat teman memaksa kamu mengikuti mereka.</p>
+
+        <p class="text-sm lg:text-lg mb-2">Contoh:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Memaksa melakukan hal yang tidak kamu mau</li>
+          <li>Mengolok jika kamu menolak</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-2">Cara menghadapinya:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Katakan “tidak”</li>
+          <li>Tetap pada keputusanmu</li>
+          <li>Cari teman yang menghargai kamu</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-4">Teman yang baik akan menghormati pilihanmu.</p>`,
+  card_6: `<h3 class="font-semibold text-lg lg:text-xl my-4">Mengenali Kekerasan</h3>
+
+        <p class="text-sm lg:text-lg">Kekerasan tidak selalu berupa fisik.</p>
+        
+        <p class="text-sm lg:text-lg mb-2">Contohnya:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+        <li><span class="font-semibold">Fisik:</span> memukul, mendorong</li>
+        <li><span class="font-semibold">Verbal:</span> menghina, membentak</li>
+        <li><span class="font-semibold">Digital:</span> menyebarkan foto tanpa izin, mengirim pesan kasar</li>
+        </ul>
+        
+        <p class="text-sm lg:text-lg leading-5 mb-4">Semua ini tidak boleh terjadi.</p>`,
+  card_7: `<h3 class="font-semibold text-lg lg:text-xl my-4">Keamanan Digital</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Saat menggunakan internet:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Jangan membagikan data pribadi</li>
+          <li>Jangan mudah percaya orang asing online</li>
+          <li>Jangan kirim foto pribadi</li>
+          </ul>
+          
+          <p class="text-sm lg:text-lg leading-5 mb-4">Jika sesuatu membuatmu tidak nyaman, segera hentikan komunikasi.</p>`,
+  card_8: `<h3 class="font-semibold text-lg lg:text-xl my-4">Mengidentifikasi Situasi Berisiko dan Meminta Bantuan</h3>
+          
+        <p class="text-sm lg:text-lg">Percayai perasaanmu.</p>
+        
+        <p class="text-sm lg:text-lg mb-2">Jika kamu merasa tidak nyaman, takut, atau terancam, segera beri tahu orang yang kamu percaya.</p>
+
+        <p class="text-sm lg:text-lg mb-2">Kamu bisa bicara dengan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Orang tua</li>
+          <li>Guru atau wali kelas</li>
+          <li>Konselor</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-4">Melapor adalah tindakan berani dan benar.</p>`,
+  card_9: `<h3 class="font-semibold text-lg lg:text-xl my-4">Penutup</h3>
+
+        <p class="text-sm lg:text-lg">Menjaga diri bukan berarti kamu lemah.</p>
+        <p class="text-sm lg:text-lg mb-4">Itu berarti kamu menghargai dirimu sendiri.</p>
+
+        <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`,
+};
+export { moduleData_1, moduleData_2, moduleData_3, moduleData_4 };
