@@ -31,7 +31,7 @@ export default function GamePage() {
 
   const handleChange = (key: AnswerKey, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
-    setResults((prev) => ({ ...prev, [key]: null }));
+    // setResults((prev) => ({ ...prev, [key]: null }));
   };
 
   const submitAnswer = () => {
