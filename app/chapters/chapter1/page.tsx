@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Button from "@/app/component/button";
 import { House } from "lucide-react";
-import ModuleCard from "../ModuleCard";
+import ModuleCard from "../../component/ModuleCard";
 import { moduleData_1 } from "../data-local/module";
 
 export default function Page() {

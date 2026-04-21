@@ -87,7 +87,7 @@ export default function GamePage() {
             onClick={submitAnswer}
             disabled={submitted}
           >
-            Cek Jawaban
+            {submitted ? "Sudah Dikumpulkan" : "Cek Jawaban"}
           </button>
         </div>
       </section>

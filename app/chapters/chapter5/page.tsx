@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Button from "@/app/component/button";
-import ModuleCard from "../ModuleCard";
+import ModuleCard from "../../component/ModuleCard";
 import { moduleData_1 } from "../data-local/module";
 import Link from "next/link";
 import { House } from "lucide-react";
