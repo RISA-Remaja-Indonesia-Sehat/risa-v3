@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from "react";
-import { DndContext, DragEndEvent, useDroppable, useDraggable } from "@dnd-kit/core";
-import { House } from "lucide-react";
+import { DndContext, DragEndEvent, useDroppable, useDraggable, useSensors, useSensor, PointerSensor, TouchSensor } from "@dnd-kit/core";
+import { House, X } from "lucide-react";
 import Link from "next/link";
 import { game_2 } from "../../data-local/game";
 
@@ -48,6 +48,15 @@ export default function GamePage() {
   const [unplaced, setUnplaced] = useState<Statement[]>(game_2);
   const [zones, setZones] = useState<Record<Zone, Statement[]>>({ myth: [], fact: [] });
   const [submitted, setSubmitted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 150, tolerance: 5 },
+    })
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -82,14 +91,15 @@ export default function GamePage() {
       ...zones.myth.filter((s) => s.isMyth),
       ...zones.fact.filter((s) => !s.isMyth),
     ].length;
-    const total = game_2.length;
-    console.log(`Score: ${correct} / ${total}`);
+    setScore(correct);
     setSubmitted(true);
+    setShowScore(true);
   };
 
   const allPlaced = unplaced.length === 0;
 
   return (
+    <>
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100">
       <Link href="/" className="absolute top-4 left-4">
         <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600 cursor-pointer" />
@@ -101,7 +111,7 @@ export default function GamePage() {
           <p className="text-center text-sm text-gray-500">Seret pernyataan berikut ke dalam kotak Mitos atau Fakta</p>
         </div>
 
-        <DndContext onDragEnd={handleDragEnd}>
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
           {/* Unplaced cards */}
           <DropZone id={"myth" as Zone} label="" color="bg-transparent border-transparent">
             <div className="flex flex-col gap-2">
@@ -139,5 +149,18 @@ export default function GamePage() {
         </div>
       </section>
     </div>
+
+    {showScore && (
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-2">
+            <div className="bg-white rounded-lg p-6 shadow-lg text-center w-full max-w-sm">
+              <div className="w-full flex justify-end">
+                <X className="w-5 h-5 text-gray-500 cursor-pointer" onClick={() => setShowScore(false)} />
+              </div>
+              <h2 className="md:text-2xl font-bold mb-2 md:mb-4 text-lg">Skor Anda</h2>
+              <p className="md:text-xl text-sm">Anda mendapatkan {score} dari {game_2.length} jawaban yang benar.</p>
+            </div>
+          </div>
+        )}
+      </>
   );
 }
