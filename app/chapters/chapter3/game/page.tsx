@@ -13,6 +13,7 @@ import {
   useSensor,
   PointerSensor,
   TouchSensor,
+  pointerWithin,
 } from "@dnd-kit/core";
 import { game_3, GameItem } from "../../data-local/game";
 
@@ -28,12 +29,12 @@ function DraggableItem({ item, disabled }: { item: GameItem; disabled: boolean }
       style={style}
       {...listeners}
       {...attributes}
-      className={`flex items-center justify-center p-1 rounded-xl bg-white/80 border-2 border-pink-200 select-none
+      className={`flex items-center justify-center p-1 rounded-xl bg-white/80 border-2 border-pink-200 select-none touch-none w-15 h-15 md:w-[100px] md:h-[100px]
         ${isDragging ? "opacity-50 cursor-grabbing z-50" : "cursor-grab"}
         ${disabled ? "pointer-events-none opacity-50" : ""}
       `}
     >
-      <Image src={item.image} alt={item.label} width={100} height={100} className="w-15 h-15 md:w-[100px] md:h-[100px] object-contain" />
+      <Image src={item.image} alt={item.label} width={100} height={100} className="w-full object-contain" />
     </div>
   );
 }
@@ -41,14 +42,13 @@ function DraggableItem({ item, disabled }: { item: GameItem; disabled: boolean }
 function BagDropZone({ submitted, bagCount, disabled }: { submitted: boolean; bagCount: number; disabled: boolean }) {
   const { setNodeRef, isOver } = useDroppable({ id: "bag" });
   return (
-    <div ref={setNodeRef} className="relative flex justify-center items-end">
-      <div className={`absolute inset-0 rounded-2xl transition-colors ${isOver && !disabled ? "bg-pink-200/40" : ""}`} />
+    <div ref={setNodeRef} className={`relative flex justify-center items-end rounded-2xl transition-colors ${isOver && !disabled ? "bg-pink-200/40" : ""}`}>
       <Image
         src={submitted ? "/img/close-bag.png" : "/img/open-bag.png"}
         alt="bag"
         width={280}
         height={280}
-        className="w-sm lg:w-md object-contain relative z-10 pointer-events-none"
+        className="w-44 md:w-sm lg:w-md object-contain pointer-events-none"
       />
       {!submitted && bagCount > 0 && (
         <div className="absolute top-0 right-0 bg-pink-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center z-20">
@@ -56,13 +56,6 @@ function BagDropZone({ submitted, bagCount, disabled }: { submitted: boolean; ba
         </div>
       )}
     </div>
-  );
-}
-
-function ScatterArea() {
-  const { setNodeRef } = useDroppable({ id: "items" });
-  return (
-    <div ref={setNodeRef} className="absolute inset-0 -z-10" />
   );
 }
 
@@ -111,14 +104,12 @@ export default function GamePage() {
   const handleDragEnd = (event: DragEndEvent) => {
     if (isGameDone) return;
     const { active, over } = event;
+    console.log("dragEnd", { activeId: active.id, overId: over?.id });
     if (!over) return;
-    const draggedItem = game_3.find((item) => item.id === active.id);
+    const draggedItem = game_3.find((item) => item.id === Number(active.id));
     if (!draggedItem) return;
-
     if (over.id === "bag") {
       setBagItems((prev) => prev.find((b) => b.id === draggedItem.id) ? prev : [...prev, draggedItem]);
-    } else if (over.id === "items") {
-      setBagItems((prev) => prev.filter((b) => b.id !== draggedItem.id));
     }
   };
 
@@ -149,7 +140,7 @@ export default function GamePage() {
       </Link>
 
       {/* Game layout */}
-      <div className="relative z-10 flex flex-col h-screen p-4 pt-4 gap-3">
+      <div className="relative z-10 flex flex-col  p-4 pt-4 gap-3">
         {/* Header */}
         <div className="items-center justify-between mt-8">
           <div className="text-center flex-1 mb-2">
@@ -166,16 +157,15 @@ export default function GamePage() {
           </div>
         </div>
 
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-          <ScatterArea />
+        <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragEnd={handleDragEnd}>
           {/* Mobile: items atas, bag bawah */}
-          <div className="flex-1 flex flex-col gap-3 sm:hidden">
+          {/* <div className="flex-1 flex flex-col gap-3 sm:hidden">
             <div className="flex flex-wrap gap-2 justify-center">
               {unplacedItems.map((item) => (
                 <DraggableItem key={item.id} item={item} disabled={isGameDone} />
               ))}
             </div>
-            <div className="flex flex-col items-center gap-2 mt-4">
+            <div className="flex flex-col items-center gap-2 mt-2">
               <BagDropZone submitted={submitted} bagCount={bagItems.length} disabled={isGameDone} />
               <div className="flex gap-3">
                 <button onClick={handleSubmit} disabled={bagItems.length === 0 || isGameDone} className={`font-bold py-2 px-6 rounded-full shadow-md transition duration-300 text-white ${bagItems.length === 0 || isGameDone ? "bg-gray-400 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}>
@@ -186,10 +176,10 @@ export default function GamePage() {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* md+: Items kiri | Bag | Items kanan */}
-          <div className="flex-1 hidden sm:grid grid-cols-[1fr_auto_1fr] gap-3 items-center">
+          <div className="flex-1 grid grid-cols-[1fr_auto_1fr] sm:gap-3 items-center mt-12">
             {/* Left items */}
             <div className="flex flex-col gap-2 items-end">
               {unplacedItems.filter((i) => itemZones[i.id] === "left").map((item) => (
@@ -201,7 +191,7 @@ export default function GamePage() {
             <div className="flex flex-col items-center gap-2">
               <BagDropZone submitted={submitted} bagCount={bagItems.length} disabled={isGameDone} />
               <div className="flex gap-3">
-                <button onClick={handleSubmit} disabled={bagItems.length === 0 || isGameDone} className={`font-bold py-2 px-6 rounded-full shadow-md transition duration-300 text-white ${bagItems.length === 0 || isGameDone ? "bg-gray-400 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}>
+                <button onClick={handleSubmit} disabled={bagItems.length === 0 || isGameDone} className={`font-bold px-4 sm:py-2 sm:px-6 rounded-full shadow-md transition duration-300 text-white text-xs sm:text-base ${bagItems.length === 0 || isGameDone ? "bg-gray-400 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}>
                   {submitted ? "Sudah Dicek!" : "Cek Isi Tas"}
                 </button>
                 <button onClick={handleReset} disabled={bagItems.length === 0 || isGameDone} className={`p-2 rounded-full shadow-md transition duration-300 ${bagItems.length === 0 || isGameDone ? "bg-gray-300 cursor-not-allowed text-gray-400" : "bg-white hover:bg-pink-100 text-pink-500"}`} title="Kosongkan tas">
