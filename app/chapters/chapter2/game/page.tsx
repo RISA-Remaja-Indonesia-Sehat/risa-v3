@@ -19,7 +19,7 @@ function DraggableCard({ statement, disabled }: { statement: Statement; disabled
       style={style}
       {...listeners}
       {...attributes}
-      className={`border-2 border-pink-300 bg-white rounded-xl p-3 text-sm text-center shadow-sm select-none
+      className={`border-2 border-pink-300 bg-white rounded-xl p-3 text-sm text-center shadow-sm select-none touch-none
         ${isDragging ? "opacity-50 cursor-grabbing" : "cursor-grab"}
         ${disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : ""}
       `}
@@ -116,7 +116,7 @@ export default function GamePage() {
           <DropZone id={"myth" as Zone} label="" color="bg-transparent border-transparent">
             <div className="flex flex-col gap-2">
               {unplaced.map((s) => (
-                <DraggableCard key={s.id} statement={s} disabled={submitted} />
+                <DraggableCard key={s.id} statement={s} disabled={submitted}/>
               ))}
             </div>
           </DropZone>

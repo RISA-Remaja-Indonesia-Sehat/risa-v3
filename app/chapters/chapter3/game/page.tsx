@@ -175,7 +175,7 @@ export default function GamePage() {
                 <DraggableItem key={item.id} item={item} disabled={isGameDone} />
               ))}
             </div>
-            <div className="flex flex-col items-center gap-2 mt-auto">
+            <div className="flex flex-col items-center gap-2 mt-4">
               <BagDropZone submitted={submitted} bagCount={bagItems.length} disabled={isGameDone} />
               <div className="flex gap-3">
                 <button onClick={handleSubmit} disabled={bagItems.length === 0 || isGameDone} className={`font-bold py-2 px-6 rounded-full shadow-md transition duration-300 text-white ${bagItems.length === 0 || isGameDone ? "bg-gray-400 cursor-not-allowed" : "bg-pink-500 hover:bg-pink-600"}`}>
