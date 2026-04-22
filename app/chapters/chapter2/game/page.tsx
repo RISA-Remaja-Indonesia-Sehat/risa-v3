@@ -19,7 +19,7 @@ function DraggableCard({ statement, disabled }: { statement: Statement; disabled
       style={style}
       {...listeners}
       {...attributes}
-      className={`border-2 border-pink-300 bg-white rounded-xl p-3 text-sm text-center shadow-sm select-none touch-none
+      className={`border-2 border-pink-300 bg-white rounded-xl p-3 text-sm text-center shadow-sm select-none touch-none z-10
         ${isDragging ? "opacity-50 cursor-grabbing" : "cursor-grab"}
         ${disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : ""}
       `}

@@ -10,9 +10,9 @@ import { House } from "lucide-react";
 export default function Page() {
   const [showModule, setShowModule] = useState(false);
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100">
-      <Link href='/' className="absolute top-4 left-4">
-        <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600 cursor-pointer"/>
+    <div className={`min-h-screen w-full flex flex-col items-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 ${!showModule ? 'justify-center' : ''}`}>
+      <Link href="/" className={`mb-6 w-full max-w-3xl ${showModule ? 'flex justify-start' : 'hidden'}`}>
+        <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600 cursor-pointer" />
       </Link>
       {!showModule && (
         <div className="max-w-md w-full p-6 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-4">

@@ -531,4 +531,161 @@ const moduleData_4 = {
 
         <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`,
 };
-export { moduleData_1, moduleData_2, moduleData_3, moduleData_4 };
+
+const moduleData_5 = {
+  card_1: `<h3 class="font-semibold text-lg lg:text-xl my-4">Nutrisi untuk Remaja Perempuan</h3>
+
+        <p class="text-sm lg:text-lg mb-1">Makanan yang kamu konsumsi membantu tubuh tumbuh dan berfungsi dengan baik, termasuk organ reproduksi.</span></p>
+        
+        <p class="text-sm lg:text-lg mb-1">Beberapa nutrisi penting:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+        <li>
+        <span class="font-semibold">Zat besi</span> → membantu mencegah lemas saat menstruasi
+        <br> Contoh: daging, telur, bayam</li>
+        <li>
+        <span class="font-semibold">Vitamin D</span> → membantu penyerapan kalsium
+        <br> Contoh: ikan, telur, susu</li>
+        <li>
+        <span class="font-semibold">Folate</span> → penting untuk produksi sel darah
+        <br> Contoh: sayuran hijau, kacang-kacangan</li>
+        </ul>
+        
+        <div class="bg-yellow-100 p-4 rounded-md mb-4">
+        <p class="mb-1">💡 Tips sederhana:</p>
+        <ul class="text-xs lg:text-base list-disc list-inside mb-4">
+        <li>Jangan melewatkan waktu makan</li>
+        <li>Minum air putih yang cukup</li>
+        <li>Hindari terlalu banyak makanan manis atau cepat saji</li>
+        </ul>
+        </div>
+        
+        <p class="text-sm lg:text-lg mb-4">Tubuh yang mendapat nutrisi cukup akan bekerja lebih sehat.</p>`,
+  card_2: `<h3 class="font-semibold text-lg lg:text-xl my-4">Olahraga untuk Kesehatan Hormon</h3>
+        
+        <p class="text-sm lg:text-lg mb-2">Olahraga membantu menjaga keseimbangan hormon.</p>
+
+        <p class="text-sm lg:text-lg mb-1">Manfaat olahraga:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>
+           Membantu siklus menstruasi lebih teratur
+          </li>
+          <li>
+           Mengurangi nyeri haid
+          </li>
+          <li>
+           Meningkatkan mood
+          </li>
+          <li>
+           Membuat tubuh lebih bugar
+          </li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-1">Contoh olahraga ringan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>
+           Jalan kaki
+          </li>
+          <li>
+           Bersepeda
+          </li>
+          <li>
+           Senam
+          </li>
+          <li>
+           Peregangan
+          </li>
+        </ul>
+        <p class="text-sm lg:text-lg mb-4">Cukup 30 menit, 3–5 kali seminggu. Tidak perlu olahraga berat, yang penting rutin.</p>`,
+  card_3: `<h3 class="font-semibold text-lg lg:text-xl my-4">Tidur dan Kesehatan Siklus</h3>
+
+  <p class="text-sm lg:text-lg mb-2">Tidur adalah waktu bagi tubuh untuk beristirahat dan memperbaiki diri.</p>
+  <p class="text-sm lg:text-lg mb-2">Remaja membutuhkan sekitar <span class="font-semibold">8–10 jam tidur setiap malam.</span></p>
+
+  <p class="text-sm lg:text-lg mb-1">Kurang tidur dapat menyebabkan:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>
+            Tubuh mudah lelah
+          </li>
+          <li>
+            Mood berubah
+          </li>
+          <li>
+            Siklus menstruasi bisa terganggu
+          </li>
+        </ul>
+
+        <div class="bg-yellow-100 p-4 rounded-md mb-4">
+          <p class="mb-1">💡 Tips tidur sehat:</p>
+          <ul class="text-xs lg:text-base list-disc list-inside mb-4">
+            <li>Tidur di waktu yang sama setiap hari</li>
+            <li>Kurangi penggunaan gadget sebelum tidur</li>
+          </ul>
+        </div>
+
+        <p class="text-sm lg:text-lg mb-4">Tidur cukup membantu tubuh tetap seimbang.</p>`,
+  card_4: `<h3 class="font-semibold text-lg lg:text-xl my-4">Stres dan Dampaknya pada Menstruasi</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Stres adalah bagian dari kehidupan, tetapi stres berlebihan dapat memengaruhi tubuh.</p>
+
+        <p class="text-sm lg:text-lg mb-1">Dampaknya bisa berupa:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+          <li>Menstruasi terlambat</li>
+          <li>Mood berubah</li>
+          <li>Tubuh terasa lelah</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-1">Cara mengelola stres</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Cerita dengan orang yang dipercaya</li>
+          <li>Melakukan hobi</li>
+          <li>Istirahat cukup</li>
+          <li>Menarik napas dalam</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-4">Menjaga pikiran tetap sehat sama pentingnya dengan menjaga tubuh.</p>`,
+  card_5: `<h3 class="font-semibold text-lg lg:text-xl my-4">Self-Care untuk Remaja</h3>
+
+        <p class="text-sm lg:text-lg">Self-care berarti merawat diri sendiri.</p>
+
+        <p class="text-sm lg:text-lg mb-2">Contoh sederhana:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-2">
+          <li>Istirahat saat lelah</li>
+          <li>Makan teratur</li>
+          <li>Menjaga kebersihan tubuh</li>
+          <li>Melakukan hal yang disukai</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg leading-5 mb-4">Self-care membantu kamu merasa lebih nyaman dan percaya diri. Ini bukan hal mewah, tapi kebutuhan.</p>`,
+  card_6: `<h3 class="font-semibold text-lg lg:text-xl my-4">Cek Kesehatan Rutin untuk Remaja</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Memeriksa kesehatan membantu memastikan tubuh tetap sehat./p>
+        
+        <p class="text-sm lg:text-lg mb-1">Contohnya:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+        <li>Memperhatikan siklus menstruasi</li>
+        <li>Memperhatikan perubahan pada tubuh</li>
+        <li>Berkonsultasi jika ada keluhan</li>
+        </ul>
+
+        <p class="text-sm lg:text-lg mb-2">Jika ada hal yang membuatmu khawatir, kamu bisa bicara dengan orang tua, guru, atau petugas kesehatan.</p>
+        
+        <p class="text-sm lg:text-lg leading-5 mb-4">Memeriksa kesehatan adalah cara menjaga diri.</p>`,
+  card_7: `<h3 class="font-semibold text-lg lg:text-xl my-4">Penutup</h3>
+
+        <p class="text-sm lg:text-lg mb-2">Gaya hidup sehat membantu tubuh bekerja dengan baik, termasuk kesehatan reproduksi.</p>
+        
+        <p class="text-sm lg:text-lg mb-1">Ingat kebiasaan penting ini:</p>
+        <ul class="text-sm lg:text-lg list-disc list-inside mb-4">
+        <li>Makan makanan bergizi</li>
+        <li>Olahraga secara teratur</li>
+        <li>Tidur cukup</li>
+        <li>Mengelola stres</li>
+        <li>Merawat diri sendiri</li>
+        <li>Memperhatikan kesehatan tubuh</li>
+        </ul>
+        
+        <p class="text-sm lg:text-lg mb-2">Perubahan kecil yang dilakukan setiap hari dapat membuat perbedaan besar.</p>
+        <p class="text-sm lg:text-lg leading-5 mb-2">Tubuhmu adalah bagian penting dari dirimu. Menjaganya adalah bentuk kepedulian terhadap diri sendiri.</p>
+        <p class="text-sm lg:text-lg leading-5 mb-2">Sekarang, ayo kita ingat kembali materinya</p>`
+};
+export { moduleData_1, moduleData_2, moduleData_3, moduleData_4, moduleData_5 };
