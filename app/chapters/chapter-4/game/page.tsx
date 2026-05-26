@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { House, ChevronRight, RotateCcw } from "lucide-react";
 import { game_4, SimulationOption } from "../../data-local/game";
+import { motion } from "motion/react";
 
 type AnswerState = "idle" | "correct" | "wrong";
 
@@ -77,9 +78,8 @@ export default function GamePage() {
 
   if (finished) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-pink-50 via-yellow-50 to-pink-100 p-4">
+      <div className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 p-4">
         <div className="bg-white/90 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg p-8 max-w-sm w-full flex flex-col items-center gap-6 text-center">
-          <Image src="/img/game-simulation/correct-1.png" alt="result" width={160} height={240} className="w-32 object-contain" />
           <div>
             <h2 className="font-jaro text-3xl text-pink-700 mb-1">Selesai!</h2>
             <p className="text-gray-500 text-sm">Jawaban benar</p>
@@ -123,33 +123,46 @@ export default function GamePage() {
         <div className="flex flex-1 items-end">
 
           {/* Character */}
-          <div className="flex-shrink-0 flex items-end self-end
-            w-72 h-[420px]
+          <div className="shrink-0 flex items-end self-end
+            w-72 h-105
             md:w-64 md:h-96
-            lg:w-72 lg:h-[420px]
+            lg:w-72 lg:h-105
             absolute bottom-0 left-0
             md:relative md:bottom-auto md:left-auto
             -z-10 md:z-auto
           ">
-            <Image
+            <motion.div
               key={characterImg}
-              src={characterImg}
-              alt="character"
-              fill
-              className="object-contain object-bottom drop-shadow-2xl transition-all duration-300"
-            />
+              className="relative w-full h-full"
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            >
+              <Image
+                src={characterImg}
+                alt="character"
+                fill
+                className="object-contain object-bottom drop-shadow-2xl"
+              />
+            </motion.div>
           </div>
 
           {/* Dialog panel */}
           <div className="flex-1 flex flex-col justify-end pb-4 px-3 md:px-4 md:pb-6 w-full">
-            <div className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <motion.div
+              key={sceneIndex}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
+              className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+            >
 
               {/* Dialog header */}
               <div className="px-4 pt-3 pb-1 border-b border-white/10">
                 <span className="font-jaro text-pink-300 text-base md:text-lg tracking-wide">Situasi</span>
               </div>
 
-              <div className="p-4 flex flex-col gap-3 h-[150px] sm:h-auto sm:max-h-[40vh] overflow-y-auto">
+              <div className="p-4 flex flex-col gap-3 h-37.5 sm:h-auto sm:max-h-[40vh] overflow-y-auto">
                 {!hasAnswered ? (
                   <>
                     {/* Situation text */}
@@ -181,12 +194,18 @@ export default function GamePage() {
                       onClick={handleNext}
                       className="self-end flex items-center gap-2 text-white font-bold py-2 px-5 text-sm"
                     >
-                      {isLast ? "Lihat Hasil" : "Lanjut"} <ChevronRight className="w-4 h-4" />
+                      {isLast ? "Lihat Hasil" : "Lanjut"} 
+                      <motion.span
+                        animate={{ x: [0, 4, 0] }}
+                        transition={{ type: "tween", ease: "easeInOut", duration: 0.6, repeat: Infinity, repeatDelay: 0.8 }}
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </motion.span>
                     </button>
                   </>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
