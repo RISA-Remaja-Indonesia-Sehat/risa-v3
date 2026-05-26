@@ -16,7 +16,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden mt-30">
             <Link
-             href="/chapters/chapter7"
+             href="/chapters/chapter-7"
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -27,7 +27,7 @@ export default function Home() {
 
         <div>
             <Link 
-             href='/chapters/chapter6' 
+             href='/chapters/chapter-6' 
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden">
             <Link
-             href='/chapters/chapter5'
+             href='/chapters/chapter-5'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -49,7 +49,7 @@ export default function Home() {
 
         <div>
             <Link
-             href='/chapters/chapter4'
+             href='/chapters/chapter-4'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
@@ -60,7 +60,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden">
             <Link
-             href='/chapters/chapter3'
+             href='/chapters/chapter-3'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">
@@ -71,7 +71,7 @@ export default function Home() {
 
         <div>
             <Link
-             href='/chapters/chapter2'
+             href='/chapters/chapter-2'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center -ml-10 md:-ml-20 lg:-ml-40">
                 <div className="left-leaf"></div>
                 <div className="relative z-10">
@@ -82,7 +82,7 @@ export default function Home() {
 
         <div className="overflow-x-hidden">
             <Link
-             href='/chapters/chapter1'
+             href='/chapters/chapter-1'
              className="relative w-3/4 aspect-3/2 flex justify-center items-center ml-28 md:ml-72 lg:ml-135">
                 <div className="right-leaf"></div>
                 <div className="relative z-10">

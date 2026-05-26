@@ -9,21 +9,34 @@ const game_1 = {
 
 const game_2: { id: number; text: string; isMyth: boolean }[] = [
   { id: 1, text: "Darah menstruasi adalah darah kotor", isMyth: true },
-  { id: 2, text: "Darah menstruasi bisa berwarna merah cerah, coklat, atau kehitaman", isMyth: false },
+  {
+    id: 2,
+    text: "Darah menstruasi bisa berwarna merah cerah, coklat, atau kehitaman",
+    isMyth: false,
+  },
   { id: 3, text: "Haid selalu datang tepat waktu", isMyth: true },
-  { id: 4, text: "Wanita yang sedang haid dilarang berenang karena dapat mencemari kolam atau menghentikan siklus haid", isMyth: true },
+  {
+    id: 4,
+    text: "Wanita yang sedang haid dilarang berenang karena dapat mencemari kolam atau menghentikan siklus haid",
+    isMyth: true,
+  },
   { id: 5, text: "Menstruasi adalah penyakit", isMyth: true },
 ];
 
-export type GameItem = { id: number; label: string; image: string; isCorrect: boolean };
+export type GameItem = {
+  id: number;
+  label: string;
+  image: string;
+  isCorrect: boolean;
+};
 
 const game_3: GameItem[] = [
-  { id: 1,  label: "Pad",               image: "/img/pad.png",               isCorrect: true  },
-  { id: 2,  label: "Pants",             image: "/img/pants.png",             isCorrect: true  },
-  { id: 3,  label: "Wet Wipes",        image: "/img/wet-wipes.png",        isCorrect: true  },
-  { id: 4,  label: "Bottle",            image: "/img/bottle.png",            isCorrect: true  },
-  { id: 5, label: "Lipstick",          image: "/img/lipstick.png",          isCorrect: false },
-  { id: 6, label: "Comb",              image: "/img/comb.png",              isCorrect: false },
+  { id: 1, label: "Pad", image: "/img/pad.png", isCorrect: true },
+  { id: 2, label: "Pants", image: "/img/pants.png", isCorrect: true },
+  { id: 3, label: "Wet Wipes", image: "/img/wet-wipes.png", isCorrect: true },
+  { id: 4, label: "Bottle", image: "/img/bottle.png", isCorrect: true },
+  { id: 5, label: "Lipstick", image: "/img/lipstick.png", isCorrect: false },
+  { id: 6, label: "Comb", image: "/img/comb.png", isCorrect: false },
 ];
 
 export type SimulationOption = {
@@ -35,9 +48,9 @@ export type SimulationOption = {
 
 export type SimulationScene = {
   id: number;
-  scene: string;        // background image path
-  character: string;    // idle character image path
-  situation: string;    // narration text shown to user
+  scene: string; // background image path
+  character: string; // idle character image path
+  situation: string; // narration text shown to user
   options: SimulationOption[];
 };
 
@@ -46,63 +59,201 @@ const game_4: SimulationScene[] = [
     id: 1,
     scene: "/img/game-simulation/bedroom.png",
     character: "/img/game-simulation/idle-1.png",
-    situation: "Kamu menerima pesan tidak sopan dari seseorang di Instagram. Apa yang kamu lakukan?",
+    situation:
+      "Seseorang mengirim DM tidak sopan dan bikin kamu nggak nyaman di Instagram. Apa yang kamu lakukan?",
     options: [
-      { id: "a", text: "Balas dengan marah supaya dia kapok",  isCorrect: false, feedback: "Membalas dengan marah hanya memperburuk situasi dan bisa menyebabkan konflik lebih besar." },
-      { id: "b", text: "Abaikan saja tapi tetap follow dia",   isCorrect: false, feedback: "Mengabaikan tanpa tindakan membiarkan perilaku buruk terus berlanjut." },
-      { id: "c", text: "Kirim balik pesan kasar",              isCorrect: false, feedback: "Membalas dengan kasar tidak menyelesaikan masalah dan bisa merugikan dirimu sendiri." },
-      { id: "d", text: "Screenshot → lapor → blokir",         isCorrect: true,  feedback: "Tepat! Screenshot sebagai bukti, laporkan ke platform, lalu blokir agar kamu tetap aman." },
+      {
+        id: "a",
+        text: "Balas dengan marah supaya dia jera",
+        isCorrect: false,
+        feedback:
+          "Wajar kalau kamu kesal, tapi membalas dengan emosi bisa bikin situasi makin panjang dan melelahkan",
+      },
+      {
+        id: "b",
+        text: "Abaikan tapi tetap biarkan dia follow kamu",
+        isCorrect: false,
+        feedback:
+          "Mengabaikan saja kadang belum cukup. Kalau perilakunya mengganggu, kamu berhak menjaga batas dan keamanan akunmu.",
+      },
+      {
+        id: "c",
+        text: "Upload chat-nya ke story biar dia malu",
+        isCorrect: false,
+        feedback:
+          "Melampiaskan di media sosial bisa memicu drama baru dan membuat masalah makin besar.",
+      },
+      {
+        id: "d",
+        text: "Screenshot → laporkan → blokir akun",
+        isCorrect: true,
+        feedback:
+          "Pilihan yang aman dan dewasa. Simpan bukti, laporkan perilakunya, lalu blokir agar kamu bisa merasa lebih tenang.",
+      },
     ],
   },
   {
     id: 2,
     scene: "/img/game-simulation/school-hallway.png",
     character: "/img/game-simulation/idle-2.png",
-    situation: "Seorang teman terus memaksa memeluk kamu, padahal kamu sudah bilang tidak nyaman. Apa yang kamu lakukan?",
+    situation:
+      "Seorang teman terus memeluk atau menyentuh kamu meski kamu sudah bilang nggak nyaman. Apa yang kamu lakukan?",
     options: [
-      { id: "a", text: "Diam saja supaya tidak dianggap lebay",  isCorrect: false, feedback: "Membalas dengan marah hanya memperburuk situasi dan bisa menyebabkan konflik lebih besar." },
-      { id: "b", text: "Tertawa agar tidak canggung",   isCorrect: false, feedback: "Mengabaikan tanpa tindakan membiarkan perilaku buruk terus berlanjut." },
-      { id: "c", text: "Tegas berkata, &quot;Aku tidak nyaman, tolong berhenti&quot;",              isCorrect: true, feedback: "Membalas dengan kasar tidak menyelesaikan masalah dan bisa merugikan dirimu sendiri." },
-      { id: "d", text: "Membalas dengan mendorong keras",         isCorrect: false,  feedback: "Tepat! Screenshot sebagai bukti, laporkan ke platform, lalu blokir agar kamu tetap aman." },
+      {
+        id: "a",
+        text: "Diam saja karena takut dianggap sensitif",
+        isCorrect: false,
+        feedback:
+          "Perasaan nggak nyaman itu valid. Kamu nggak harus memaksakan diri demi menyenangkan orang lain.",
+      },
+      {
+        id: "b",
+        text: "Ketawa biar suasananya nggak awkward",
+        isCorrect: false,
+        feedback:
+          "Kadang kita reflex menutupi rasa nggak nyaman dengan bercanda, tapi batas diri tetap penting.",
+      },
+      {
+        id: "c",
+        text: "Bilang tegas: “Aku nggak nyaman, tolong berhenti.”",
+        isCorrect: true,
+        feedback:
+          "Bagus! Menyampaikan batas dengan jelas adalah bentuk menjaga diri dan menghargai perasaanmu sendiri.",
+      },
+      {
+        id: "d",
+        text: "Dorong dia dengan kasar",
+        isCorrect: false,
+        feedback:
+          "Kamu boleh membela diri, tapi reaksi agresif bisa membuat situasi makin buruk.",
+      },
     ],
   },
   {
     id: 3,
     scene: "/img/game-simulation/schoolyard.png",
     character: "/img/game-simulation/idle-3.png",
-    situation: "Kamu mendengar temanmu menyebarkan cerita pribadimu tanpa izin. Apa yang kamu lakukan?",
+    situation:
+      "Kamu tahu ada teman yang membocorkan cerita pribadimu ke grup chat tanpa izin. Apa yang kamu lakukan?",
     options: [
-      { id: "a", text: "Balas menyebarkan rahasianya",  isCorrect: false, feedback: "Membalas dengan marah hanya memperburuk situasi dan bisa menyebabkan konflik lebih besar." },
-      { id: "b", text: "Diam dan pura-pura tidak tahu",   isCorrect: false, feedback: "Mengabaikan tanpa tindakan membiarkan perilaku buruk terus berlanjut." },
-      { id: "c", text: "Bicara langsung dan minta dia berhenti",              isCorrect: true, feedback: "Membalas dengan kasar tidak menyelesaikan masalah dan bisa merugikan dirimu sendiri." },
-      { id: "d", text: "Putuskan semua pertemanan tanpa penjelasan",         isCorrect: false,  feedback: "Tepat! Screenshot sebagai bukti, laporkan ke platform, lalu blokir agar kamu tetap aman." },
+      {
+        id: "a",
+        text: "Balas bongkar rahasianya juga",
+        isCorrect: false,
+        feedback:
+          "Balas dendam biasanya cuma bikin hubungan makin toxic dan drama makin panjang.",
+      },
+      {
+        id: "b",
+        text: "Pura-pura nggak tahu walau sebenarnya sakit hati",
+        isCorrect: false,
+        feedback:
+          "Memendam semuanya sendiri bisa bikin kamu makin stres dan overthinking.",
+      },
+      {
+        id: "c",
+        text: "Ajak dia bicara baik-baik dan bilang kamu kecewa",
+        isCorrect: true,
+        feedback:
+          "Komunikasi yang jujur membantu orang lain memahami batas privasi dan perasaanmu.",
+      },
+      {
+        id: "d",
+        text: "Langsung cut off tanpa penjelasan",
+        isCorrect: false,
+        feedback:
+          "Menjauh boleh saja, tapi memberi penjelasan bisa membantu menyelesaikan masalah lebih sehat.",
+      },
     ],
   },
   {
     id: 4,
     scene: "/img/game-simulation/schoolyard.png",
     character: "/img/game-simulation/idle-4.png",
-    situation: "Pacarmu melarang kamu berteman dengan orang lain dan mengecek HP-mu setiap hari. Apa yang kamu lakukan?",
+    situation:
+      "Pacarmu sering minta password HP, melarang kamu dekat dengan teman lain, dan marah kalau kamu telat balas chat. Apa yang kamu lakukan?",
     options: [
-      { id: "a", text: "Menuruti supaya dia tidak marah",  isCorrect: false, feedback: "Membalas dengan marah hanya memperburuk situasi dan bisa menyebabkan konflik lebih besar." },
-      { id: "b", text: "Menanggap itu tanda cinta",   isCorrect: false, feedback: "Mengabaikan tanpa tindakan membiarkan perilaku buruk terus berlanjut." },
-      { id: "c", text: "Menjelaskan bahwa kamu berhak atas privasi",              isCorrect: true, feedback: "Membalas dengan kasar tidak menyelesaikan masalah dan bisa merugikan dirimu sendiri." },
-      { id: "d", text: "Balas mengontrol dia juga",         isCorrect: false,  feedback: "Tepat! Screenshot sebagai bukti, laporkan ke platform, lalu blokir agar kamu tetap aman." },
+      {
+        id: "a",
+        text: "Nurutin saja supaya dia nggak ngambek",
+        isCorrect: false,
+        feedback:
+          "Hubungan sehat nggak seharusnya bikin kamu kehilangan privasi atau merasa takut setiap saat.",
+      },
+      {
+        id: "b",
+        text: "Menganggap itu bukti dia sayang banget",
+        isCorrect: false,
+        feedback:
+          "Rasa posesif sering terlihat seperti perhatian, padahal bisa menjadi tanda hubungan yang tidak sehat.",
+      },
+      {
+        id: "c",
+        text: "Jelaskan bahwa kamu tetap berhak punya privasi dan pertemanan",
+        isCorrect: true,
+        feedback:
+          "Bagus! Hubungan yang sehat dibangun dengan rasa percaya, bukan kontrol.",
+      },
+      {
+        id: "d",
+        text: "Balas cek HP dan mengontrol dia juga",
+        isCorrect: false,
+        feedback:
+          "Membalas dengan perilaku yang sama hanya membuat hubungan makin toxic dan melelahkan.",
+      },
     ],
   },
   {
     id: 5,
     scene: "/img/game-simulation/canteen.png",
     character: "/img/game-simulation/idle-5.png",
-    situation: "Teman-temanmu mengejek kamu karena tidak mau ikut melakukan hal yang kamu anggap berisiko. Apa yang kamu lakukan?",
+    situation:
+      "Teman-temanmu mengejek kamu karena menolak ikut pesta malam yang menurutmu nggak aman. Apa yang kamu lakukan?",
     options: [
-      { id: "a", text: "Tetap pada keputusanmu dan cari teman yang menghargaimu",  isCorrect: true, feedback: "Membalas dengan marah hanya memperburuk situasi dan bisa menyebabkan konflik lebih besar." },
-      { id: "b", text: "Ikut saja supaya tidak dikucilkan",   isCorrect: false, feedback: "Mengabaikan tanpa tindakan membiarkan perilaku buruk terus berlanjut." },
-      { id: "c", text: "Marah dan membentak mereka",              isCorrect: false, feedback: "Membalas dengan kasar tidak menyelesaikan masalah dan bisa merugikan dirimu sendiri." },
-      { id: "d", text: "Menyalahkan diri sendiri",         isCorrect: false,  feedback: "Tepat! Screenshot sebagai bukti, laporkan ke platform, lalu blokir agar kamu tetap aman." },
+      {
+        id: "a",
+        text: "Tetap pada keputusanmu dan cari circle yang menghargai batasmu",
+        isCorrect: true,
+        feedback:
+          "Keren! Kamu nggak harus mengikuti orang lain demi diterima. Teman yang baik akan menghargai keputusanmu.",
+      },
+      {
+        id: "b",
+        text: "Ikut saja biar nggak dibilang cupu",
+        isCorrect: false,
+        feedback:
+          "Memaksakan diri demi validasi orang lain bisa membuatmu menyesal dan nggak nyaman.",
+      },
+      {
+        id: "c",
+        text: "Marah lalu membentak mereka di depan umum",
+        isCorrect: false,
+        feedback:
+          "Kesal itu wajar, tapi meluapkan emosi secara agresif biasanya bikin suasana makin buruk.",
+      },
+      {
+        id: "d",
+        text: "Menyalahkan diri sendiri karena beda dari mereka",
+        isCorrect: false,
+        feedback:
+          "Menjaga diri bukan hal yang salah. Kamu berhak menentukan apa yang membuatmu aman dan nyaman.",
+      },
     ],
   },
   // tambahkan scene berikutnya di sini
 ];
 
-export { game_1, game_2, game_3, game_4 };
+export type SnackItem = { id: number; image: string; points: number };
+
+const game_5: SnackItem[] = [
+  { id: 1, image: "/img/snack-dash/spinach.png",    points:  5 },
+  { id: 2, image: "/img/snack-dash/egg.png",        points:  5 },
+  { id: 3, image: "/img/snack-dash/milk.png",       points:  5 },
+  { id: 4, image: "/img/snack-dash/watermelon.png", points:  5 },
+  { id: 5, image: "/img/snack-dash/almond.png",     points:  5 },
+  { id: 6, image: "/img/snack-dash/fish.png",       points:  5 },
+  { id: 7, image: "/img/snack-dash/noodle.png",     points: -10 },
+  { id: 8, image: "/img/snack-dash/crackers.png",   points: -10 },
+];
+
+export { game_1, game_2, game_3, game_4, game_5 };
