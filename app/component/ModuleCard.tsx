@@ -31,7 +31,7 @@ export default function ModuleCard({ moduleData }: { moduleData: Record<string, 
   return (
     <div>
       <div 
-        className="text-gray-800 leading-relaxed mb-6 touch-pan-y"
+        className="text-gray-800 leading-relaxed mb-6 touch-pan-y font-jakarta"
         dangerouslySetInnerHTML={{ __html: cards[currentCard - 1] }}
       />
 

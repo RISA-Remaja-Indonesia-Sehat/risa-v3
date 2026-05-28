@@ -193,7 +193,7 @@ export default function GamePage() {
 
       {/* HUD */}
       {!gameOver && (
-        <div className="relative flex items-center justify-between px-4 pt-4 gap-3">
+        <div className="relative z-20 flex items-center justify-between px-4 pt-4 gap-3">
           <Link href="/">
             <House className="w-6 h-6 text-pink-500 drop-shadow" />
           </Link>
@@ -211,7 +211,7 @@ export default function GamePage() {
           {/* Timer */}
           <div
             className={`flex items-center gap-1.5 bg-white/70 backdrop-blur-sm border-2 rounded-2xl px-4 py-1.5 shadow-sm font-mono font-bold text-lg
-          ${isUrgent ? "border-red-300 text-red-400 animate-bounce" : "border-pink-200 text-pink-600"}
+          ${isUrgent ? "border-red-300 text-red-400 animate-scale-pulse" : "border-pink-200 text-pink-600"}
         `}
           >
             {minutes}:{seconds}
@@ -248,7 +248,7 @@ export default function GamePage() {
 
         {/* Basket */}
         <div
-          className="absolute bottom-0 transition-none"
+          className="absolute bottom-5 transition-none"
           style={{
             left: `calc(${basketX}% - ${BASKET_WIDTH / 2}px)`,
             width: BASKET_WIDTH,
