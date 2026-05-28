@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Jaro, Inter } from "next/font/google";
+import { Jaro, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jakarta',
 });
 
 const jaro = Jaro({
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${jaro.variable} antialiased`}
+        className={`${jakarta.className} ${jaro.variable} antialiased`}
       >
         {children}
       </body>
