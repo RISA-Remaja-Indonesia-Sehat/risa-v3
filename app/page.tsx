@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { Pencil } from "lucide-react";
 
 const CHARACTERS = [
   "/img/avatar/avatar-1.png",
@@ -50,7 +51,7 @@ export default function Home() {
             className="object-contain object-bottom"
           />
           <div className="absolute -bottom-1 -right-1 bg-yellow-300 border-2 border-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow">
-            ✏️
+            <Pencil className="w-3 h-3 text-gray-600" />
           </div>
         </div>
 
