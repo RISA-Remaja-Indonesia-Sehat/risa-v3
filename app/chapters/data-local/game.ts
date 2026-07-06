@@ -256,4 +256,4 @@ const game_5: SnackItem[] = [
   { id: 8, image: "/img/snack-dash/crackers.png",   points: -10 },
 ];
 
-export { game_1, game_2, game_3, game_4, game_5 };
+export { game_1, game_2, game_3, game_4, game_5};
