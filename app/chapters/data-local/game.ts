@@ -240,7 +240,6 @@ const game_4: SimulationScene[] = [
       },
     ],
   },
-  // tambahkan scene berikutnya di sini
 ];
 
 export type SnackItem = { id: number; image: string; points: number };
@@ -256,4 +255,122 @@ const game_5: SnackItem[] = [
   { id: 8, image: "/img/snack-dash/crackers.png",   points: -10 },
 ];
 
-export { game_1, game_2, game_3, game_4, game_5};
+export type CrosswordCell = [number, number];
+
+export type CrosswordWord = {
+  id: number;
+  number: number;
+  answer: string;
+  clue: string;
+  explanation: string;
+  direction: "Mendatar" | "Menurun";
+  cells: CrosswordCell[];
+};
+
+export type CrosswordGameData = {
+  title: string;
+  challenge: string;
+  words: CrosswordWord[];
+};
+
+const game_7: CrosswordGameData = {
+  title: "TTS IMS",
+  challenge: "Challenge: bisa selesai dalam 3 menit?",
+
+  words: [
+    {
+      id: 1,
+      number: 1,
+      answer: "KEPUTIHAN",
+      clue:
+        "Salah satu tanda yang perlu diperhatikan adalah _____ yang warna, bau, atau jumlahnya tidak biasa.",
+      explanation:
+        "Keputihan yang warna, bau, atau jumlahnya berbeda dari biasanya termasuk salah satu tanda yang perlu diperhatikan.",
+      direction: "Mendatar",
+      cells: [
+        [3, 1],
+        [3, 2],
+        [3, 3],
+        [3, 4],
+        [3, 5],
+        [3, 6],
+        [3, 7],
+        [3, 8],
+        [3, 9],
+      ],
+    },
+
+    {
+      id: 2,
+      number: 2,
+      answer: "HIV",
+      clue:
+        "Virus apa yang menyerang sistem kekebalan tubuh?",
+      explanation:
+        "HIV adalah virus yang menyerang sistem kekebalan tubuh, yaitu bagian tubuh yang membantu melindungi kita dari penyakit.",
+      direction: "Mendatar",
+      cells: [
+        [7, 0],
+        [7, 1],
+        [7, 2],
+      ],
+    },
+
+    {
+      id: 3,
+      number: 3,
+      answer: "BAKTERI",
+      clue:
+        "Selain virus, penyebab IMS yang disebutkan dalam materi adalah apa?",
+      explanation:
+        "Selain virus, beberapa Infeksi Menular Seksual juga dapat disebabkan oleh bakteri.",
+      direction: "Menurun",
+      cells: [
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [4, 1],
+        [5, 1],
+        [6, 1],
+        [7, 1],
+      ],
+    },
+
+    {
+      id: 4,
+      number: 4,
+      answer: "HPV",
+      clue:
+        "Virus apa yang beberapa jenisnya dapat menyebabkan kutil atau kanker serviks?",
+      explanation:
+        "HPV adalah virus yang sangat umum. Beberapa jenis HPV dapat menyebabkan kutil atau penyakit serius seperti kanker serviks.",
+      direction: "Menurun",
+      cells: [
+        [2, 3],
+        [3, 3],
+        [4, 3],
+      ],
+    },
+
+    {
+      id: 5,
+      number: 5,
+      answer: "STIGMA",
+      clue:
+        "Sikap negatif atau menghakimi seseorang karena kondisi kesehatannya disebut apa?",
+      explanation:
+        "Stigma adalah sikap negatif atau menghakimi seseorang karena kondisi kesehatannya. Stigma bisa membuat seseorang takut mencari bantuan.",
+      direction: "Menurun",
+      cells: [
+        [1, 6],
+        [2, 6],
+        [3, 6],
+        [4, 6],
+        [5, 6],
+        [6, 6],
+      ],
+    },
+  ],
+};
+
+export { game_1, game_2, game_3, game_4, game_5, game_7 };

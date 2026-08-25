@@ -40,6 +40,7 @@ export default function GamePage() {
   const [gameOver, setGameOver] = useState(false);
 
   const rafRef = useRef<number>(0);
+  const gameLoopRef = useRef<() => void>(() => {});
   const spawnRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const keysRef = useRef<Set<string>>(new Set());
@@ -111,12 +112,14 @@ export default function GamePage() {
     if (scoreChanged) setScore(s.score);
     setItems([...s.items]);
 
-    rafRef.current = requestAnimationFrame(gameLoop);
+    rafRef.current = requestAnimationFrame(gameLoopRef.current);
   }, []);
+
+  gameLoopRef.current = gameLoop;
 
   const startTimers = useCallback(() => {
     const s = stateRef.current;
-    rafRef.current = requestAnimationFrame(gameLoop);
+    rafRef.current = requestAnimationFrame(gameLoopRef.current);
     spawnRef.current = setInterval(spawnItem, SPAWN_INTERVAL);
     timerRef.current = setInterval(() => {
       s.timeLeft -= 1;
