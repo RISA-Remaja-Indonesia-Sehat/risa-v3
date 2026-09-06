@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Button from "@/app/component/button";
+import Button from "@/components/button";
 import { House } from "lucide-react";
-import ModuleCard from "../../component/ModuleCard";
+import ModuleCard from "@/components/ModuleCard";
 import { moduleData_1 } from "../data-local/module";
 
 export default function Page() {
