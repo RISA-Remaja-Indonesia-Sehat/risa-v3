@@ -1,18 +1,25 @@
 "use client";
 
 import { useState } from "react";
-
 import Profile from "@/components/profile/Profile";
 import SunflowerProgressMap from "./SunflowerProgressMap";
+import { useChildSession } from "@/hooks/useChildSession";
+import { isGuestChapter1Completed } from "@/lib/game/guest-progress";
 
 export default function HomeScreen() {
-  const [user, setUser] = useState({
-    username: "User123",
-    avatarId: "avatar-01",
-  });
+  const {
+    child,
+    loading: childLoading,
+    isChildAuthenticated,
+    completedChapters,
+    postTestCompleted,
+  } = useChildSession();
 
-  // Dummy progress sementara
-  const completedChapters = [1, 2];
+  const [guestChapter1Completed] = useState(isGuestChapter1Completed);
+
+  const handleAvatarChange = (avatarId: string) => {
+    console.log("Avatar baru:", avatarId);
+  };
 
   return (
     <main
@@ -27,21 +34,19 @@ export default function HomeScreen() {
         md:pt-120
       "
     >
-      <Profile
-        username={user.username}
-        avatarId={user.avatarId}
-        onAvatarChange={(avatarId) => {
-          setUser((currentUser) => ({
-            ...currentUser,
-            avatarId,
-          }));
-        }}
-      />
+      {!childLoading && child && (
+        <Profile
+          username={child.username}
+          avatarId={child.avatarId}
+          onAvatarChange={handleAvatarChange}
+        />
+      )}
 
       <SunflowerProgressMap
-        isAuthenticated={true}
+        isChildAuthenticated={isChildAuthenticated}
         completedChapters={completedChapters}
-        postTestCompleted={false}
+        guestChapter1Completed={guestChapter1Completed}
+        postTestCompleted={postTestCompleted}
       />
     </main>
   );

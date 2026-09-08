@@ -6,18 +6,20 @@ import { CHAPTERS } from "./data-local";
 import { getChapterStatus, getPostTestStatus } from "@/lib/game/progress";
 
 type SunflowerProgressMapProps = {
-  isAuthenticated: boolean;
+  isChildAuthenticated: boolean;
   completedChapters: number[];
   postTestCompleted: boolean;
+  guestChapter1Completed?: boolean;
 };
 
 export default function SunflowerProgressMap({
-  isAuthenticated,
+  isChildAuthenticated,
   completedChapters,
   postTestCompleted,
+  guestChapter1Completed = false,
 }: SunflowerProgressMapProps) {
   const postTestStatus = getPostTestStatus({
-    isAuthenticated,
+    isChildAuthenticated,
     completedChapters,
     postTestCompleted,
   });
@@ -72,8 +74,9 @@ export default function SunflowerProgressMap({
         {CHAPTERS.map((chapter) => {
           const status = getChapterStatus({
             chapterNumber: chapter.number,
-            isAuthenticated,
+            isChildAuthenticated,
             completedChapters,
+            guestChapter1Completed,
           });
 
           return (

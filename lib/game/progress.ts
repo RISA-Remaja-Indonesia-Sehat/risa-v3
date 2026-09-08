@@ -5,21 +5,21 @@ export type ProgressStatus =
 
 type GetChapterStatusParams = {
   chapterNumber: number;
-  isAuthenticated: boolean;
+  isChildAuthenticated: boolean;
   completedChapters: number[];
   guestChapter1Completed?: boolean;
 };
 
 export function getChapterStatus({
   chapterNumber,
-  isAuthenticated,
+  isChildAuthenticated,
   completedChapters,
   guestChapter1Completed = false,
 }: GetChapterStatusParams): ProgressStatus {
   // =========================
   // USER BELUM LOGIN
   // =========================
-  if (!isAuthenticated) {
+  if (!isChildAuthenticated) {
     // Hanya Chapter 1 yang boleh dimainkan
     if (chapterNumber === 1) {
       return guestChapter1Completed
@@ -54,18 +54,18 @@ export function getChapterStatus({
 }
 
 type GetPostTestStatusParams = {
-  isAuthenticated: boolean;
+  isChildAuthenticated: boolean;
   completedChapters: number[];
   postTestCompleted: boolean;
 };
 
 export function getPostTestStatus({
-  isAuthenticated,
+  isChildAuthenticated,
   completedChapters,
   postTestCompleted,
 }: GetPostTestStatusParams): ProgressStatus {
   // Guest tidak boleh membuka Post Test
-  if (!isAuthenticated) {
+  if (!isChildAuthenticated) {
     return "locked";
   }
 
