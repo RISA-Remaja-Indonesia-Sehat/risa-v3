@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/app/component/button";
-import ModuleCard from "../../component/ModuleCard";
+import Button from "@/components/button";
+import ModuleCard from "@/components/ModuleCard";
 import { moduleData_7 } from "../data-local/module";
 import Link from "next/link";
 import { House } from "lucide-react";
