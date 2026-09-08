@@ -69,7 +69,7 @@ export default function GuardianLoginPage() {
         profile.data.guardian
       );
 
-      router.push(next);
+      router.push("/guardian/dashboard");
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {
