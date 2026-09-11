@@ -2,7 +2,7 @@
 
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState } from "react";
-import { useButtonGameState } from "@/app/store/useButtonGame";
+import { useButtonGameState } from "@/lib/game/useButtonGame";
 import { useRouter, usePathname} from 'next/navigation';
 
 export default function ModuleCard({ moduleData }: { moduleData: Record<string, string> }) {

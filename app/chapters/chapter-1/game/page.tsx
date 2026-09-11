@@ -7,7 +7,6 @@ import { useState } from "react";
 import { completeGuestChapter1 } from "@/lib/game/guest-progress";
 import { useChildSession } from "@/hooks/useChildSession";
 import LoginPrompt from "@/components/auth/LoginPrompt";
-import AgeGate from "@/components/auth/AgeGate";
 import { useRouter } from "next/navigation";
 
 type AnswerKey = "A" | "B" | "C" | "D" | "E" | "F";
@@ -43,7 +42,6 @@ export default function GamePage() {
   const [showScore, setShowScore] = useState(false);
 
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [showAgeGate, setShowAgeGate] = useState(false);
 
   const retryGame = () => {
     setAnswers(emptyState());
@@ -66,7 +64,7 @@ export default function GamePage() {
     }
 
     if (isChildAuthenticated) {
-      router.push("/chapters/chapter-2/game");
+      router.push("/chapters/chapter-2");
 
       return;
     }
@@ -308,34 +306,7 @@ export default function GamePage() {
           router.push("/child/login?next=/chapters/chapter-2");
         }}
         onCreateAccess={() => {
-          setShowLoginPrompt(false);
-          setShowAgeGate(true);
-        }}
-      />
-
-      <AgeGate
-        open={showAgeGate}
-        onClose={() => setShowAgeGate(false)}
-        onMinor={() => {
-          setShowAgeGate(false);
-
-          router.push("/guardian/consent");
-        }}
-        onAdult={() => {
-          setShowAgeGate(false);
-
-          /*
-           * Kita belum membuat flow akun
-           * pengguna 18+.
-           *
-           * Jangan arahkan ke Guardian Register,
-           * karena pengguna 18+ bukan Guardian
-           * dari dirinya sendiri.
-           *
-           * Route ini akan kita buat setelah
-           * flow minor selesai.
-           */
-          console.log("Flow akun pengguna 18+ belum dibuat.");
+          router.push("/guardian/login");
         }}
       />
     </>
