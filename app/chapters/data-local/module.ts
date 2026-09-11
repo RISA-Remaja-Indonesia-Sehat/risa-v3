@@ -305,7 +305,7 @@ const moduleData_1 = {
           <ul class="space-y-4">
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
               <span class="mt-3 h-1.5 w-1.5 rounded-full bg-sky-300 shrink-0"></span>
-              <span>Ovarium mulai menghasilkan sel telur</span>
+              <span>Ovarium mulai mematangkan dan melepaskan sel telur</span>
             </li>
 
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -323,7 +323,7 @@ const moduleData_1 = {
           <ul class="space-y-4">
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
               <span class="mt-3 h-1.5 w-1.5 rounded-full bg-yellow-400 shrink-0"></span>
-              <span>Mood mudah berubah</span>
+              <span>Suasana hati (mood) mudah berubah</span>
             </li>
 
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -401,7 +401,7 @@ const moduleData_1 = {
           <ul class="space-y-4">
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
               <span class="mt-3 h-1.5 w-1.5 rounded-full bg-sky-300 shrink-0"></span>
-              <span>Terjadi setiap 21–35 hari</span>
+              <span>Terjadi setiap 21–45 hari</span>
             </li>
 
             <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -527,7 +527,7 @@ const moduleData_2 = {
       <ul class="space-y-4">
         <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
           <span class="mt-3 h-1.5 w-1.5 rounded-full bg-yellow-400 shrink-0"></span>
-          <span>Biasanya terjadi setiap 21–35 hari</span>
+          <span>Biasanya terjadi setiap 21–45 hari</span>
         </li>
 
         <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -590,7 +590,7 @@ const moduleData_2 = {
         </h4>
 
         <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-          Tubuh mulai mempersiapkan sel telur baru untuk matang.
+          Salah satu sel telur mulai matang di ovarium
         </p>
       </div>
 
@@ -915,12 +915,12 @@ const moduleData_3 = {
 
         <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
           <span class="mt-3 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-          <span>Mandi secara teratur, minimal 2 kali sehari</span>
+          <span>Mandi secara teratur, terutama setelah banyak berkeringat.</span>
         </li>
 
         <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
           <span class="mt-3 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-          <span>Membersihkan area kewanitaan dengan air bersih</span>
+          <span>Membersihkan vulva (bagian luar organ genital) dengan air bersih</span>
         </li>
 
         <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -944,8 +944,7 @@ const moduleData_3 = {
       </p>
 
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Area kewanitaan memiliki kemampuan membersihkan diri secara alami.
-        Tidak perlu menggunakan produk khusus yang berlebih.
+        Vagina memiliki sistem alami untuk menjaga kebersihannya. Bagian luar, yaitu vulva, cukup dibersihkan dengan lembut menggunakan air bersih.
       </p>
 
     </div>
@@ -1048,7 +1047,7 @@ const moduleData_3 = {
 
       <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
         <span class="mt-3 h-1.5 w-1.5 rounded-full bg-sky-300 shrink-0"></span>
-        <span>Ganti pakaian dalam minimal 2 kali sehari</span>
+        <span>Ganti pakaian dalam setiap hari dan segera ganti jika terasa lembap, basah, atau kotor.</span>
       </li>
 
       <li class="flex gap-4 text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -1325,7 +1324,7 @@ const moduleData_4 = {
     <div class="space-y-6">
 
       <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800 leading-snug">
-        Hak atas Tubuh, Privasi, dan Batasan
+        Hak atas Tubuh, Privasi, dan Batas Pribadi
       </h3>
 
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -1356,7 +1355,7 @@ const moduleData_4 = {
     <div class="space-y-5">
 
       <p class="font-semibold text-zinc-700 lg:text-lg">
-        Contoh batasan:
+        Contoh batas pribadi:
       </p>
 
       <ul class="space-y-4">
@@ -1394,13 +1393,13 @@ const moduleData_4 = {
     <div class="space-y-6">
 
       <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800 leading-snug">
-        Apa itu Consent (Persetujuan)?
+        Apa itu Persetujuan (Consent)?
       </h3>
 
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Consent berarti
+        Persetujuan atau consent berarti
         <span class="font-semibold text-rose-600">
-          memberi izin atau persetujuan.
+          aturan tentang bagaimana kita menghargai tubuh, barang, dan pilihan orang lain.
         </span>
       </p>
 
@@ -1436,7 +1435,7 @@ const moduleData_4 = {
     <div class="space-y-5">
 
       <p class="font-semibold text-zinc-700 lg:text-lg">
-        Consent harus:
+        Persetujuan atau consent harus:
       </p>
 
       <ul class="space-y-4">
@@ -1741,7 +1740,7 @@ const moduleData_4 = {
     </div>
 
     <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-      Melapor adalah tindakan berani dan benar.
+      Melapor adalah tindakan berani dan benar. Kalau orang pertama tidak membantu, cari orang dewasa lain yang kamu percaya.
     </p>
 
   </div>
@@ -1777,7 +1776,7 @@ const moduleData_5 = {
     <div class="space-y-6">
 
       <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800 leading-snug">
-        Nutrisi untuk Remaja Perempuan
+        Gizi untuk Remaja Perempuan
       </h3>
 
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
@@ -1791,7 +1790,7 @@ const moduleData_5 = {
       
       <div class="space-y-8">
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Beberapa nutrisi penting:
+        Beberapa Gizi penting:
       </p>
 
       <div class="space-y-3">
@@ -1828,7 +1827,7 @@ const moduleData_5 = {
 
         <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
           <span class="font-semibold text-emerald-600">
-            Folate
+            Folat (vitamin B9)
           </span>
           → penting untuk produksi sel darah
         </p>
@@ -2357,8 +2356,7 @@ const moduleData_6 = {
       </h3>
 
       <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        HPV menular melalui kontak kulit ke kulit
-        di area pribadi.
+        HPV terutama dapat menular melalui kontak seksual atau kontak kulit-ke-kulit di area genital.
       </p>
 
     </div>
@@ -2544,55 +2542,77 @@ const moduleData_6 = {
   card_5: `
   <div class="space-y-10 max-w-[68ch]">
 
-    <div class="space-y-6">
+  <div class="space-y-6">
 
-      <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800">
-        Umur dan Jadwal Pemberian Vaksin
-      </h3>
-
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Vaksin HPV biasanya diberikan mulai usia
-        <span class="font-semibold text-rose-600">
-          9–14 tahun.
-        </span>
-      </p>
-
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Pada usia ini,
-        tubuh memberikan respons perlindungan yang sangat baik.
-      </p>
-
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Jumlah dosis tergantung usia:
-      </p>
-
-    </div>
-
-    <ul class="space-y-6">
-
-      <li class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        <span class="font-semibold text-sky-600">
-          Usia 9–14 tahun
-        </span>
-        → 2 dosis,
-        dengan jarak 6–12 bulan
-      </li>
-
-      <li class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        <span class="font-semibold text-sky-600">
-          Usia 15–26 tahun
-        </span>
-        → 3 dosis,
-        dengan jadwal 0, 1–2 bulan, dan 6 bulan
-      </li>
-
-    </ul>
+    <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800">
+      Umur dan Jadwal Pemberian Vaksin
+    </h3>
 
     <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-      Tenaga kesehatan akan membantu menentukan jadwal yang tepat.
+      Vaksin HPV paling baik diberikan sejak usia muda,
+      sebelum seseorang terpapar virus HPV.
     </p>
 
   </div>
+
+  <div class="space-y-6">
+
+    <div class="border-2 border-pink-200 bg-pink-50 rounded-2xl p-5 space-y-2">
+      <p class="font-semibold text-rose-600 lg:text-lg">
+        Usia 9–14 tahun
+      </p>
+
+      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
+        Usia ini merupakan kelompok utama yang dianjurkan
+        untuk mendapatkan vaksin HPV karena tubuh dapat
+        membentuk perlindungan dengan sangat baik.
+      </p>
+    </div>
+
+    <div class="border-2 border-sky-200 bg-sky-50 rounded-2xl p-5 space-y-2">
+      <p class="font-semibold text-sky-600 lg:text-lg">
+        Usia 15–26 tahun
+      </p>
+
+      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
+        Jika belum mendapatkan vaksin HPV, vaksinasi masih
+        dapat bermanfaat. Jadwal dan jumlah dosis dapat berbeda
+        sesuai usia saat mulai vaksin, kondisi kesehatan,
+        jenis vaksin, dan pedoman yang digunakan.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-5 space-y-3">
+
+    <p class="font-semibold text-yellow-900 lg:text-lg">
+      💡 Bagaimana dengan program di Indonesia?
+    </p>
+
+    <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-yellow-900">
+      Program imunisasi HPV di Indonesia memiliki sasaran
+      dan jadwal tersendiri. Sejak 2025, program pemerintah
+      menggunakan satu dosis untuk kelompok sasaran tertentu.
+    </p>
+
+    <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-yellow-900">
+      Tanyakan kepada orang tua, puskesmas, atau tenaga kesehatan
+      untuk mengetahui jadwal yang sesuai untukmu.
+    </p>
+
+  </div>
+
+  <a
+    href="https://ayosehat.kemkes.go.id/apa-itu-vaksin-hpv"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-2 text-sm lg:text-base font-semibold text-pink-600 underline underline-offset-4 hover:text-pink-700"
+  >
+    Lihat informasi terbaru tentang vaksin HPV dari Kemenkes ↗
+  </a>
+
+</div>
   `,
 
   card_6: `
@@ -2723,42 +2743,32 @@ const moduleData_7 = {
   card_1: `
   <div class="space-y-10 max-w-[68ch]">
 
-    <div class="space-y-6">
+  <div class="space-y-6">
 
-      <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800">
-        Apa itu IMS?
-      </h3>
+    <h3 class="text-lg lg:text-2xl font-semibold text-zinc-800">
+      Apa itu IMS?
+    </h3>
 
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Infeksi Menular Seksual (IMS) adalah
-        <span class="font-semibold text-rose-600">
-          infeksi yang disebabkan oleh virus atau bakteri
-          yang menyerang organ reproduksi dan area sekitarnya.
-        </span>
-      </p>
+    <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
+      Infeksi Menular Seksual (IMS) adalah infeksi yang dapat disebabkan oleh
+      <span class="font-semibold text-rose-600">
+        bakteri, virus, atau parasit dan terutama menular melalui kontak seksual.
+      </span>
+    </p>
 
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Beberapa infeksi bisa menimbulkan gejala,
-        tetapi beberapa lainnya tidak langsung terlihat.
-      </p>
+    <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
+      IMS dapat memengaruhi kesehatan reproduksi dan juga bagian tubuh lainnya.
+      Beberapa IMS bahkan bisa terjadi tanpa menimbulkan gejala.
+    </p>
 
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        IMS adalah masalah kesehatan,
-        dan seperti penyakit lain,
-        IMS bisa
-        <span class="font-semibold text-rose-600">
-          dicegah, diperiksa, dan ditangani oleh tenaga kesehatan.
-        </span>
-      </p>
-
-      <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
-        Memahami informasi yang benar membantu kita
-        lebih peduli pada kesehatan diri.
-      </p>
-
-    </div>
+    <p class="text-sm lg:text-[17px] leading-7 lg:leading-8 text-zinc-600">
+      IMS adalah masalah kesehatan. Seperti infeksi lainnya,
+      IMS perlu dicegah, diperiksa, dan ditangani dengan tepat.
+    </p>
 
   </div>
+
+</div>
   `,
 
   card_2: `
@@ -3117,5 +3127,12 @@ const moduleData_7 = {
   `,
 };
 
-export { moduleData_1, moduleData_2, moduleData_3, moduleData_4, moduleData_5, moduleData_6, moduleData_7,
+export {
+  moduleData_1,
+  moduleData_2,
+  moduleData_3,
+  moduleData_4,
+  moduleData_5,
+  moduleData_6,
+  moduleData_7,
 };

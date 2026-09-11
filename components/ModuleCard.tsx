@@ -38,7 +38,7 @@ export default function ModuleCard({ moduleData }: { moduleData: Record<string, 
       {currentCard === totalCards && (
         <div className="flex justify-center my-5">
           <button className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300 text-sm lg:text-lg" id="game" onClick={showGamePage}>
-            Let&apos;s goooo~ 
+            Ayo main! 🎮
           </button>
         </div>
       )}
