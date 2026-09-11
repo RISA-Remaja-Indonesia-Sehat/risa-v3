@@ -10,6 +10,11 @@ type SunflowerProgressMapProps = {
   completedChapters: number[];
   postTestCompleted: boolean;
   guestChapter1Completed?: boolean;
+
+  showChapter1Ftue?: boolean;
+  showPostTestFtue?: boolean;
+
+  onStartChapter1?: () => void;
 };
 
 export default function SunflowerProgressMap({
@@ -17,6 +22,11 @@ export default function SunflowerProgressMap({
   completedChapters,
   postTestCompleted,
   guestChapter1Completed = false,
+
+  showChapter1Ftue = false,
+  showPostTestFtue = false,
+
+  onStartChapter1,
 }: SunflowerProgressMapProps) {
   const postTestStatus = getPostTestStatus({
     isChildAuthenticated,
@@ -68,7 +78,7 @@ export default function SunflowerProgressMap({
         />
 
         {/* Bunga */}
-        <PostTestFlower status={postTestStatus} />
+        <PostTestFlower status={postTestStatus} highlight={showPostTestFtue} />
 
         {/* Semua daun */}
         {CHAPTERS.map((chapter) => {
@@ -84,6 +94,8 @@ export default function SunflowerProgressMap({
               key={chapter.number}
               chapter={chapter}
               status={status}
+              showFtue={chapter.number === 1 && showChapter1Ftue}
+              onStartFtue={onStartChapter1}
             />
           );
         })}

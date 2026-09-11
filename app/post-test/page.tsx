@@ -1,5 +1,5 @@
-export default function page() {
-  return (
-    <div>page</div>
-  )
+import PostTestContent from "./PostTestContent";
+
+export default function PostTestPage() {
+  return <PostTestContent />;
 }

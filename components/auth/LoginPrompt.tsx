@@ -1,5 +1,7 @@
 "use client";
 
+import { CheckCircle2, LogIn, Users } from "lucide-react";
+
 type LoginPromptProps = {
   open: boolean;
   onClose: () => void;
@@ -20,116 +22,199 @@ export default function LoginPrompt({
       className="
         fixed inset-0 z-100
         flex items-center justify-center
-        bg-black/30
-        px-4
+        bg-black/40
+        px-4 py-6
+        backdrop-blur-[2px]
       "
     >
       <div
         role="dialog"
         aria-modal="true"
+        aria-labelledby="login-prompt-title"
         className="
           w-full
           max-w-md
-          rounded-2xl
-          border
-          border-[#DFE1DA]
-          bg-white
+
+          rounded-3xl
+          border-2
+          border-pink-200
+
+          bg-white/95
           p-6
           shadow-xl
+          backdrop-blur-sm
 
-          sm:p-7
+          sm:p-8
         "
       >
-        <p
-          className="
-            text-xs
-            font-semibold
-            uppercase
-            tracking-[0.14em]
-            text-[#6B806C]
-          "
-        >
-          Chapter 1 selesai
-        </p>
-
-        <h2
-          className="
-            mt-2
-            text-2xl
-            font-semibold
-            tracking-tight
-            text-[#253029]
-          "
-        >
-          Simpan progresmu
-        </h2>
-
-        <p
-          className="
-            mt-3
-            text-sm
-            leading-6
-            text-[#667068]
-          "
-        >
-          Masuk untuk menyimpan progres
-          dan melanjutkan ke chapter
-          berikutnya.
-        </p>
-
-        <div className="mt-7 space-y-3">
-          <button
-            type="button"
-            onClick={onLogin}
+        {/* Success */}
+        <div className="flex flex-col items-center text-center">
+          <div
             className="
-              w-full
-              rounded-xl
-              bg-[#4F6751]
-              px-4 py-3
-              text-sm
-              font-semibold
-              text-white
-              transition
-              hover:bg-[#405642]
+              flex h-14 w-14
+              items-center justify-center
+              rounded-full
+              bg-pink-100
             "
           >
-            Saya sudah punya akun
-          </button>
+            <CheckCircle2
+              className="
+                h-8 w-8
+                text-pink-500
+              "
+            />
+          </div>
 
-          <button
-            type="button"
-            onClick={onCreateAccess}
+          <h2
+            id="login-prompt-title"
             className="
-              w-full
-              rounded-xl
-              border
-              border-[#CBD2C9]
-              bg-white
-              px-4 py-3
-              text-sm
-              font-semibold
-              text-[#425347]
-              transition
-              hover:bg-[#F5F6F2]
+              mt-4
+              font-jaro
+              text-3xl
+              text-pink-600
+
+              sm:text-4xl
             "
           >
-            Belum punya akun? Daftar
-          </button>
+            Chapter 1 selesai!
+          </h2>
 
-          <button
-            type="button"
-            onClick={onClose}
+          <p
             className="
-              w-full
-              py-2
+              mt-3
+              max-w-xs
               text-sm
-              text-[#7A827C]
-              hover:text-[#4C5750]
+              leading-6
+              text-gray-600
             "
           >
-            Nanti saja
-          </button>
+            Untuk melanjutkan ke chapter berikutnya, masuk dengan akun RISA.
+          </p>
         </div>
+
+        {/* Login */}
+        <button
+          type="button"
+          onClick={onLogin}
+          className="
+            mt-6
+            flex w-full
+            items-center justify-center
+            gap-2
+
+            rounded-full
+            bg-pink-500
+            px-5 py-3.5
+
+            text-sm
+            font-bold
+            text-white
+
+            shadow-md
+            transition
+
+            hover:bg-pink-600
+            hover:shadow-lg
+
+            focus-visible:outline-none
+            focus-visible:ring-4
+            focus-visible:ring-pink-200
+          "
+        >
+          <LogIn className="h-4 w-4" />
+          Saya sudah punya akun
+        </button>
+
+        {/* Divider */}
+        <div
+          className="
+            my-6
+            h-px
+            bg-pink-100
+          "
+        />
+
+        {/* Parent help */}
+        <div className="text-center">
+          <p
+            className="
+              text-sm
+              font-semibold
+              text-gray-700
+            "
+          >
+            Belum punya akun?
+          </p>
+
+          <p
+            className="
+              mx-auto
+              mt-1
+              max-w-xs
+              text-sm
+              leading-6
+              text-gray-500
+            "
+          >
+            Minta bantuan orang tua atau wali untuk membuat akses.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={onCreateAccess}
+          className="
+            mt-4
+            flex w-full
+            items-center justify-center
+            gap-2
+
+            rounded-full
+            border-2
+            border-pink-200
+
+            bg-yellow-50
+            px-5 py-3.5
+
+            text-sm
+            font-bold
+            text-pink-600
+
+            transition
+
+            hover:border-pink-300
+            hover:bg-yellow-100
+
+            focus-visible:outline-none
+            focus-visible:ring-4
+            focus-visible:ring-pink-100
+          "
+        >
+          <Users className="h-4 w-4" />
+          Minta bantuan orang tua/wali
+        </button>
+
+        {/* Later */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="
+            mt-5
+            w-full
+            py-2
+
+            text-sm
+            font-medium
+            text-gray-400
+
+            transition
+
+            hover:text-gray-600
+            focus-visible:outline-none
+          "
+        >
+          Nanti saja
+        </button>
       </div>
     </div>
   );
