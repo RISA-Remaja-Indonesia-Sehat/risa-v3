@@ -238,10 +238,10 @@ const patients: Patient[] = [
         options: [
           {
             id: "a",
-            text: "Masih bisa, Rara! Vaksin HPV bisa diberikan hingga usia 26 tahun. Di usiamu, kamu akan mendapat 3 dosis dengan jadwal 0, 1-2 bulan, dan 6 bulan.",
+            text: "Masih bisa, Rara! Di usia 19 tahun vaksin HPV masih dapat memberikan perlindungan. Jumlah dosis dan jadwalnya bisa berbeda, jadi sebaiknya konsultasikan dengan tenaga kesehatan untuk mengetahui jadwal yang sesuai.",
             accuracy: 10,
-            empathy: 9,
-            feedback: "Jawaban yang informatif dan meyakinkan! Kamu memberikan detail jadwal yang tepat.",
+            empathy: 10,
+            feedback: "Bagus! Kamu menjelaskan bahwa vaksin masih bermanfaat tanpa memberikan jadwal dosis yang terlalu umum untuk semua orang.",
           },
           {
             id: "b",
@@ -295,10 +295,10 @@ const patients: Patient[] = [
         options: [
           {
             id: "a",
-            text: "Kamu bisa mendapatkan vaksin HPV di Puskesmas, klinik, atau rumah sakit terdekat. Untuk usia 9-14 tahun biasanya gratis melalui program pemerintah. Di usiamu, bisa konsultasi dulu dengan dokter di fasilitas kesehatan.",
+            text: "Kamu bisa bertanya di puskesmas, klinik, atau rumah sakit. Program pemerintah menyediakan imunisasi HPV untuk kelompok usia tertentu. Karena kamu berusia 19 tahun, tanyakan kepada tenaga kesehatan tentang pilihan vaksin dan jadwal yang sesuai untukmu.",
             accuracy: 10,
             empathy: 9,
-            feedback: "Jawaban yang sangat lengkap dan praktis! Rara tahu persis langkah selanjutnya.",
+            feedback: "Bagus! Kamu memberi langkah yang jelas tanpa menganggap semua usia mendapat program dan jadwal yang sama.",
           },
           {
             id: "b",
