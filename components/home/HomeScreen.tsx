@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 
 import Profile from "@/components/profile/Profile";
 import SunflowerProgressMap from "./SunflowerProgressMap";
@@ -229,7 +230,12 @@ export default function HomeScreen() {
                 leading-none
               "
             >
-              🌻
+              <Image
+                src="/icon-risa.png"
+                alt="Icon RISA"
+                width={100}
+                height={100}
+              />
             </div>
 
             <h2

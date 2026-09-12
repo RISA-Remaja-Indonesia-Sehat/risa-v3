@@ -8,19 +8,15 @@ import { Clock3, House } from "lucide-react";
 import Button from "@/components/button";
 import ModuleCard from "./ModuleCard";
 
-import type {
-  ChapterModuleData,
-} from "@/lib/modules/types";
+import type { ChapterModuleData, ModuleCardData } from "@/lib/modules/types";
 
 type Props = {
   module: ChapterModuleData;
+  cards: ModuleCardData[];
 };
 
-export default function ChapterModulePage({
-  module,
-}: Props) {
-  const [showModule, setShowModule] =
-    useState(false);
+export default function ChapterModulePage({ module, cards }: Props) {
+  const [showModule, setShowModule] = useState(false);
 
   return (
     <main
@@ -38,11 +34,7 @@ export default function ChapterModulePage({
 
         font-jakarta
 
-        ${
-          !showModule
-            ? "flex items-center justify-center"
-            : ""
-        }
+        ${!showModule ? "flex items-center justify-center" : ""}
       `}
     >
       {!showModule ? (
@@ -82,6 +74,7 @@ export default function ChapterModulePage({
           <h1
             className="
               mt-2
+
               font-jaro
               text-3xl
               text-pink-600
@@ -95,6 +88,7 @@ export default function ChapterModulePage({
           <p
             className="
               mt-4
+
               text-sm
               leading-6
               text-gray-600
@@ -107,22 +101,32 @@ export default function ChapterModulePage({
           </p>
 
           <div
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-yellow-50 px-4 py-2 text-sm font-medium text-yellow-800"
+            className="
+              mt-4
+
+              inline-flex
+              items-center
+              gap-2
+
+              rounded-full
+
+              bg-yellow-50
+
+              px-4
+              py-2
+
+              text-sm
+              font-medium
+              text-yellow-800
+            "
           >
             <Clock3 className="h-4 w-4" aria-hidden="true" />
-            <span>
-              {module.durationLabel}
-            </span>
+
+            <span>{module.durationLabel}</span>
           </div>
 
           <div className="mt-6">
-            <Button
-              onClick={() =>
-                setShowModule(true)
-              }
-            >
-              Mulai belajar
-            </Button>
+            <Button onClick={() => setShowModule(true)}>Mulai belajar</Button>
           </div>
         </section>
       ) : (
@@ -140,7 +144,8 @@ export default function ChapterModulePage({
               mb-5
 
               inline-flex
-              h-11 w-11
+              h-11
+              w-11
 
               items-center
               justify-center
@@ -148,13 +153,11 @@ export default function ChapterModulePage({
               rounded-full
 
               bg-white/80
-
               text-pink-600
 
               shadow-sm
 
               transition
-
               hover:bg-white
             "
           >
@@ -176,7 +179,7 @@ export default function ChapterModulePage({
               md:p-8
             "
           >
-            <ModuleCard cards={module.cards} />
+            <ModuleCard cards={cards} />
           </section>
         </div>
       )}

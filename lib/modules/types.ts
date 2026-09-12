@@ -1,3 +1,5 @@
+// lib/modules/types.ts
+
 export type CalloutVariant =
   | "concept"
   | "remember"
@@ -47,13 +49,6 @@ export type ModuleBlock =
       description?: string;
     };
 
-export type ModuleCardData = {
-  id: string;
-  order: number;
-  title: string;
-  blocks: ModuleBlock[];
-};
-
 export type ChapterModuleData = {
   id?: string;
 
@@ -61,11 +56,17 @@ export type ChapterModuleData = {
 
   title: string;
   objective: string;
-
   durationLabel: string;
 
   contentVersion: number;
   lastReviewedAt?: string | null;
+};
 
-  cards: ModuleCardData[];
+export type ModuleCardData = {
+  id: string;
+
+  order: number;
+  title: string;
+
+  blocks: ModuleBlock[];
 };

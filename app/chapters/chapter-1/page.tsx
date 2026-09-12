@@ -2,13 +2,28 @@ import ChapterModulePage
   from "@/components/modules/ChapterModulePage";
 
 import {
-  moduleData_1,
+  ModuleData,
+} from "../data-local/module-intro";
+
+import {
+  moduleCards_1,
 } from "../data-local/module";
 
 export default function Page() {
+  const content =
+    ModuleData.find(
+      (item) =>
+        item.chapterNumber === 1
+    );
+
+if (!content) {
+    return null;
+  }
+
   return (
     <ChapterModulePage
-      module={moduleData_1}
+      module={content}
+      cards={moduleCards_1}
     />
   );
 }
