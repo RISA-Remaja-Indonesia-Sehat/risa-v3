@@ -225,13 +225,10 @@ export default function HomeScreen() {
             "
           >
             <div
-              className="
-                text-5xl
-                leading-none
-              "
+              className="w-fit mx-auto leading-none"
             >
               <Image
-                src="/icon-risa.png"
+                src="/img/icon-risa.png"
                 alt="Icon RISA"
                 width={100}
                 height={100}

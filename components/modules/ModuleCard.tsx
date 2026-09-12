@@ -1,87 +1,53 @@
 "use client";
 
-import {
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 
-import {
-  usePathname,
-  useRouter,
-} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-import Button
-  from "@/components/button";
+import Button from "@/components/button";
 
-import ModuleRenderer
-  from "@/components/modules/ModuleRenderer";
+import ModuleRenderer from "@/components/modules/ModuleRenderer";
 
-import {
-  useButtonGameState,
-} from "@/lib/game/useButtonGame";
+import { useButtonGameState } from "@/lib/game/useButtonGame";
 
-import type {
-  ModuleCardData,
-} from "@/lib/modules/types";
+import type { ModuleCardData } from "@/lib/modules/types";
 
 type Props = {
   cards: ModuleCardData[];
 };
 
-export default function ModuleCard({
-  cards,
-}: Props) {
-  const [
-    currentIndex,
-    setCurrentIndex,
-  ] = useState(0);
+export default function ModuleCard({ cards }: Props) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const totalCards =
-    cards.length;
+  const totalCards = cards.length;
 
-  const currentCard =
-    cards[currentIndex];
+  const currentCard = cards[currentIndex];
 
-  const isFirstCard =
-    currentIndex === 0;
+  const isFirstCard = currentIndex === 0;
 
-  const isLastCard =
-    currentIndex ===
-    totalCards - 1;
+  const isLastCard = currentIndex === totalCards - 1;
 
   const nextCard = () => {
     if (!isLastCard) {
-      setCurrentIndex(
-        (current) =>
-          current + 1
-      );
+      setCurrentIndex((current) => current + 1);
     }
   };
 
   const prevCard = () => {
     if (!isFirstCard) {
-      setCurrentIndex(
-        (current) =>
-          current - 1
-      );
+      setCurrentIndex((current) => current - 1);
     }
   };
 
   const showGamePage = () => {
-    useButtonGameState
-      .getState()
-      .activateButtonGame();
+    useButtonGameState.getState().activateButtonGame();
 
-    router.push(
-      `${pathname}/game`
-    );
+    router.push(`${pathname}/game`);
   };
 
   if (!currentCard) {
@@ -103,8 +69,7 @@ export default function ModuleCard({
             text-pink-400
           "
         >
-          Materi{" "}
-          {currentIndex + 1}
+          Materi {currentIndex + 1}
           {" / "}
           {totalCards}
         </p>
@@ -124,11 +89,7 @@ export default function ModuleCard({
         </h2>
       </header>
 
-      <ModuleRenderer
-        blocks={
-          currentCard.blocks
-        }
-      />
+      <ModuleRenderer blocks={currentCard.blocks} />
 
       {isLastCard && (
         <div
@@ -138,13 +99,7 @@ export default function ModuleCard({
             justify-center
           "
         >
-          <Button
-            onClick={
-              showGamePage
-            }
-          >
-            Ayo main! 🎮
-          </Button>
+          <Button onClick={showGamePage}>Ayo main! 🎮</Button>
         </div>
       )}
 
@@ -162,48 +117,12 @@ export default function ModuleCard({
       >
         <button
           type="button"
-
           onClick={prevCard}
-
-          disabled={
-            isFirstCard
-          }
-
-          aria-label=
-            "Materi sebelumnya"
-
-          className="
-            flex
-            h-11 w-11
-
-            items-center
-            justify-center
-
-            rounded-full
-
-            border-2
-            border-pink-200
-
-            bg-white
-            text-pink-600
-
-            shadow-sm
-
-            transition
-
-            hover:bg-pink-50
-
-            active:scale-95
-
-            disabled:
-              cursor-not-allowed
-
-            disabled:opacity-30
-          "
+          disabled={isFirstCard}
+          aria-label="Materi sebelumnya"
+          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white text-pink-600 shadow-sm transition cursor-pointer hover:bg-pink-50 active:scale-95    disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:active:scale-100"
         >
-          <ArrowLeft
-            className="h-5 w-5"
-          />
+          <ArrowLeft className="h-5 w-5" />
         </button>
 
         <span
@@ -220,48 +139,12 @@ export default function ModuleCard({
 
         <button
           type="button"
-
           onClick={nextCard}
-
-          disabled={
-            isLastCard
-          }
-
-          aria-label=
-            "Materi berikutnya"
-
-          className="
-            flex
-            h-11 w-11
-
-            items-center
-            justify-center
-
-            rounded-full
-
-            border-2
-            border-pink-200
-
-            bg-white
-            text-pink-600
-
-            shadow-sm
-
-            transition
-
-            hover:bg-pink-50
-
-            active:scale-95
-
-            disabled:
-              cursor-not-allowed
-
-            disabled:opacity-30
-          "
+          disabled={isLastCard}
+          aria-label="Materi berikutnya"
+          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200   bg-white text-pink-600 shadow-sm transition cursor-pointer hover:bg-pink-50 active:scale-95    disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:active:scale-100"
         >
-          <ArrowRight
-            className="h-5 w-5"
-          />
+          <ArrowRight className="h-5 w-5" />
         </button>
       </nav>
     </div>
