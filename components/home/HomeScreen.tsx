@@ -2,17 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, LogIn, LogOut } from "lucide-react";
 import Image from "next/image";
 
 import Profile from "@/components/profile/Profile";
 import SunflowerProgressMap from "./SunflowerProgressMap";
+import LoginPrompt from "@/components/auth/LoginPrompt";
+import ChildLogoutPrompt from "@/components/auth/ChildLogoutPrompt";
 
 import { useChildSession } from "@/hooks/useChildSession";
 import { isGuestChapter1Completed } from "@/lib/game/guest-progress";
 import { getPostTestStatus } from "@/lib/game/progress";
 
 type FtueStep = "welcome" | "chapter1" | "posttest" | null;
+type AuthDialog = "login" | "logout" | null;
 
 const HOME_FTUE_KEY = "risa-home-ftue-seen";
 
@@ -27,7 +30,41 @@ export default function HomeScreen() {
     isChildAuthenticated,
     completedChapters,
     postTestCompleted,
+    logoutChild,
   } = useChildSession();
+
+  const [authDialog, setAuthDialog] = useState<AuthDialog>(null);
+  const [logoutLoading, setLogoutLoading] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
+
+  const handleAuthButtonClick = () => {
+    // Mencegah modal FTUE dan autentikasi
+    // terbuka bersamaan.
+    setFtueStep(null);
+    setLogoutError("");
+
+    setAuthDialog(isChildAuthenticated ? "logout" : "login");
+  };
+
+  const handleConfirmLogout = async () => {
+    try {
+      setLogoutLoading(true);
+      setLogoutError("");
+
+      await logoutChild();
+
+      setAuthDialog(null);
+
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      setLogoutError(
+        error instanceof Error ? error.message : "Gagal keluar dari akun.",
+      );
+    } finally {
+      setLogoutLoading(false);
+    }
+  };
 
   const [guestChapter1Completed] = useState(isGuestChapter1Completed);
 
@@ -151,6 +188,24 @@ export default function HomeScreen() {
           md:pt-120
         "
       >
+        {!childLoading && (
+          <button
+            type="button"
+            onClick={handleAuthButtonClick}
+            aria-label={
+              isChildAuthenticated ? "Keluar dari akun" : "Masuk ke akun"
+            }
+            title={isChildAuthenticated ? "Keluar" : "Masuk"}
+            className="fixed right-4 top-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/90 text-[#4F6751] shadow-md backdrop-blur-sm transition      hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-4   focus-visible:ring-white/60 md:right-6 md:top-6 md:h-12 md:w-12"
+          >
+            {isChildAuthenticated ? (
+              <LogOut className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <LogIn className="h-5 w-5" aria-hidden="true" />
+            )}
+          </button>
+        )}
+
         {/* SEO + accessibility */}
         <section className="sr-only">
           <h1>RISA - Remaja Indonesia Sehat</h1>
@@ -224,9 +279,7 @@ export default function HomeScreen() {
               sm:py-9
             "
           >
-            <div
-              className="w-fit mx-auto leading-none"
-            >
+            <div className="w-fit mx-auto leading-none">
               <Image
                 src="/img/icon-risa.png"
                 alt="Icon RISA"
@@ -483,6 +536,31 @@ export default function HomeScreen() {
           </div>
         </div>
       )}
+
+      <LoginPrompt
+        open={authDialog === "login"}
+        variant="home"
+        onClose={() => setAuthDialog(null)}
+        onLogin={() => {
+          router.push("/child/login?next=%2F");
+        }}
+        onCreateAccess={() => {
+          router.push("/guardian/login");
+        }}
+      />
+
+      <ChildLogoutPrompt
+        open={authDialog === "logout"}
+        loading={logoutLoading}
+        errorMessage={logoutError}
+        onClose={() => {
+          if (!logoutLoading) {
+            setAuthDialog(null);
+            setLogoutError("");
+          }
+        }}
+        onConfirm={handleConfirmLogout}
+      />
     </>
   );
 }
