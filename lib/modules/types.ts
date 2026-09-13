@@ -68,5 +68,5 @@ export type ModuleCardData = {
   order: number;
   title: string;
 
-  blocks: ModuleBlock[];
+  content: ModuleBlock[];
 };

@@ -89,7 +89,7 @@ export default function ModuleCard({ cards }: Props) {
         </h2>
       </header>
 
-      <ModuleRenderer blocks={currentCard.blocks} />
+      <ModuleRenderer blocks={currentCard.content} />
 
       {isLastCard && (
         <div
