@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Child = {
   id: string;
@@ -23,57 +19,57 @@ type ChildMeResponse = {
   data: ChildSessionData;
 };
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function useChildSession() {
-  const [session, setSession] =
-    useState<ChildSessionData | null>(null);
+  const [session, setSession] = useState<ChildSessionData | null>(null);
 
-  const [loading, setLoading] =
-    useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const refreshChild = useCallback(
-    async () => {
-      try {
-        setLoading(true);
+  const refreshChild = useCallback(async () => {
+    try {
+      setLoading(true);
 
-        const response = await fetch(
-          `${API_URL}/api/child/me`,
-          {
-            method: "GET",
-            credentials: "include",
-          },
-        );
+      const response = await fetch(`${API_URL}/api/child/me`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-        if (response.status === 401) {
-          setSession(null);
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error(
-            "Gagal memeriksa session anak.",
-          );
-        }
-
-        const result =
-          (await response.json()) as ChildMeResponse;
-
-        setSession(result.data);
-      } catch (error) {
-        console.error(
-          "Child session error:",
-          error,
-        );
-
+      if (response.status === 401) {
         setSession(null);
-      } finally {
-        setLoading(false);
+        return;
       }
-    },
-    [],
-  );
+
+      if (!response.ok) {
+        throw new Error("Gagal memeriksa session anak.");
+      }
+
+      const result = (await response.json()) as ChildMeResponse;
+
+      setSession(result.data);
+    } catch (error) {
+      console.error("Child session error:", error);
+
+      setSession(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const logoutChild = useCallback(async () => {
+    const response = await fetch(`${API_URL}/api/child/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message ?? "Gagal keluar dari akun.");
+    }
+
+    setSession(null);
+  }, []);
 
   useEffect(() => {
     void refreshChild();
@@ -83,14 +79,12 @@ export function useChildSession() {
     child: session?.child ?? null,
     loading,
     refreshChild,
+    logoutChild,
 
-    completedChapters:
-      session?.completedChapters ?? [],
+    completedChapters: session?.completedChapters ?? [],
 
-    postTestCompleted:
-      session?.postTestCompleted ?? false,
+    postTestCompleted: session?.postTestCompleted ?? false,
 
-    isChildAuthenticated:
-      session !== null,
+    isChildAuthenticated: session !== null,
   };
 }

@@ -4,6 +4,7 @@ import { CheckCircle2, LogIn, Users } from "lucide-react";
 
 type LoginPromptProps = {
   open: boolean;
+  variant?: "chapter-complete" | "home";
   onClose: () => void;
   onLogin: () => void;
   onCreateAccess: () => void;
@@ -11,11 +12,20 @@ type LoginPromptProps = {
 
 export default function LoginPrompt({
   open,
+  variant = "chapter-complete",
   onClose,
   onLogin,
   onCreateAccess,
 }: LoginPromptProps) {
   if (!open) return null;
+
+  const isHome = variant === "home";
+
+  const title = isHome ? "Masuk ke RISA" : "Chapter 1 selesai!";
+
+  const description = isHome
+    ? "Masuk untuk melanjutkan progres belajarmu."
+    : "Untuk melanjutkan ke chapter berikutnya, masuk dengan akun RISA.";
 
   return (
     <div
@@ -76,7 +86,7 @@ export default function LoginPrompt({
               sm:text-4xl
             "
           >
-            Chapter 1 selesai!
+            {title}
           </h2>
 
           <p
@@ -88,7 +98,7 @@ export default function LoginPrompt({
               text-gray-600
             "
           >
-            Untuk melanjutkan ke chapter berikutnya, masuk dengan akun RISA.
+            {description}
           </p>
         </div>
 
