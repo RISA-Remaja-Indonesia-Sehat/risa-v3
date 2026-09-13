@@ -196,7 +196,7 @@ export default function HomeScreen() {
               isChildAuthenticated ? "Keluar dari akun" : "Masuk ke akun"
             }
             title={isChildAuthenticated ? "Keluar" : "Masuk"}
-            className="fixed right-4 top-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/90 text-[#4F6751] shadow-md backdrop-blur-sm transition      hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-4   focus-visible:ring-white/60 md:right-6 md:top-6 md:h-12 md:w-12"
+            className="absolute right-4 top-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/90 text-[#4F6751] shadow-md backdrop-blur-sm transition      hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-4   focus-visible:ring-white/60 md:right-6 md:top-6 md:h-12 md:w-12"
           >
             {isChildAuthenticated ? (
               <LogOut className="h-5 w-5" aria-hidden="true" />
