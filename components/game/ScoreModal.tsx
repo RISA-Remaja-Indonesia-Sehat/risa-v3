@@ -3,10 +3,7 @@
 import Image from "next/image";
 import { X } from "lucide-react";
 
-import type {
-  GameResult,
-  StarRating,
-} from "@/types/game-result";
+import type { GameResult, StarRating } from "@/types/game-result";
 
 type ScoreModalProps = {
   open: boolean;
@@ -19,12 +16,10 @@ type ScoreModalProps = {
   onNext: () => void;
 
   nextLoading?: boolean;
+  closable?: boolean;
 };
 
-const STAR_ASSETS: Record<
-  StarRating,
-  string
-> = {
+const STAR_ASSETS: Record<StarRating, string> = {
   0: "/img/game-result/stars-0.png",
   1: "/img/game-result/stars-1.png",
   2: "/img/game-result/stars-2.png",
@@ -39,6 +34,7 @@ export default function ScoreModal({
   onRetry,
   onNext,
   nextLoading = false,
+  closable = true,
 }: ScoreModalProps) {
   if (!open) {
     return null;
@@ -86,11 +82,12 @@ export default function ScoreModal({
           sm:p-8
         "
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Tutup hasil"
-          className="
+        {closable && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Tutup hasil"
+            className="
             absolute
             right-4
             top-4
@@ -119,9 +116,10 @@ export default function ScoreModal({
 
             active:scale-95
           "
-        >
-          <X className="h-5 w-5" />
-        </button>
+          >
+            <X className="h-5 w-5" />
+          </button>
+        )}
 
         <div
           className="
@@ -162,11 +160,7 @@ export default function ScoreModal({
             "
           >
             <Image
-              src={
-                STAR_ASSETS[
-                  result.stars
-                ]
-              }
+              src={STAR_ASSETS[result.stars]}
               alt={`${result.stars} dari 3 bintang`}
               fill
               priority
@@ -203,42 +197,43 @@ export default function ScoreModal({
             {result.message}
           </p>
 
-          {result.score !== undefined &&
+          {result.summary ? (
+            <div
+              className="
+      mt-5
+      rounded-2xl
+      border border-yellow-200
+      bg-white/80
+      px-5 py-3
+      text-sm font-semibold
+      text-gray-600
+    "
+            >
+              {result.summary}
+            </div>
+          ) : (
+            result.score !== undefined &&
             result.total !== undefined && (
               <div
                 className="
-                  mt-5
-
-                  rounded-2xl
-
-                  border
-                  border-yellow-200
-
-                  bg-white/80
-
-                  px-5
-                  py-3
-
-                  text-sm
-                  text-gray-600
-                "
+        mt-5
+        rounded-2xl
+        border border-yellow-200
+        bg-white/80
+        px-5 py-3
+        text-sm
+        text-gray-600
+      "
               >
                 Kamu menjawab{" "}
-                <span
-                  className="
-                    font-semibold
-                    text-pink-600
-                  "
-                >
+                <span className="font-semibold text-pink-600">
                   {result.score}
                 </span>{" "}
-                dari{" "}
-                <span className="font-semibold">
-                  {result.total}
-                </span>{" "}
+                dari <span className="font-semibold">{result.total}</span>{" "}
                 dengan benar.
               </div>
-            )}
+            )
+          )}
         </div>
 
         <div
@@ -332,9 +327,7 @@ export default function ScoreModal({
               disabled:active:scale-100
             "
           >
-            {nextLoading
-              ? "Memeriksa..."
-              : "Chapter berikutnya"}
+            {nextLoading ? "Memeriksa..." : "Chapter berikutnya"}
           </button>
         </div>
       </div>

@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { House } from "lucide-react";
 import { game_5, SnackItem } from "../../data-local/game";
+import { useRouter } from "next/navigation";
+import ScoreModal from "@/components/game/ScoreModal";
+import { evaluateChapter5 } from "@/lib/game/evaluate/chapter-5";
 
 const TOTAL_TIME = 60;
 const ITEM_SIZE = 72;
@@ -23,6 +26,8 @@ type FallingItem = {
 };
 
 export default function GamePage() {
+  const router = useRouter();
+
   const areaRef = useRef<HTMLDivElement>(null);
   const stateRef = useRef({
     basketX: 50,
@@ -182,6 +187,8 @@ export default function GamePage() {
   const seconds = String(timeLeft % 60).padStart(2, "0");
   const isUrgent = timeLeft <= 10;
 
+    const gameResult = evaluateChapter5(score);
+
   return (
     <div className="relative w-full h-screen overflow-hidden flex flex-col">
       {/* Soft pastel gradient background overlay */}
@@ -267,35 +274,19 @@ export default function GamePage() {
           />
         </div>
 
-        {/* Game Over overlay */}
-        {gameOver && (
-          <div className="absolute inset-0 bg-black-950/60 backdrop-blur-sm flex flex-col items-center justify-center gap-5">
-            <div className="bg-white/90 rounded-3xl px-10 py-8 flex flex-col items-center gap-4 shadow-2xl border-2 border-pink-200">
-              <p className="text-4xl">🎀</p>
-              <h2 className="font-jaro text-3xl text-pink-600">Waktu Habis!</h2>
-              <p className="text-gray-500 text-sm">Skor akhirmu</p>
-              <p
-                className={`text-5xl font-bold ${score < 0 ? "text-red-400" : "text-pink-500"}`}
-              >
-                {score}
-              </p>
-              <div className="flex gap-3 mt-1">
-                <button
-                  onClick={handleRestart}
-                  className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-6 rounded-full shadow-md transition text-sm"
-                >
-                  Main Lagi
-                </button>
-                <Link
-                  href="/"
-                  className="bg-white border-2 border-pink-300 hover:bg-pink-50 text-pink-500 font-bold py-2 px-6 rounded-full shadow-md transition text-sm"
-                >
-                  Home
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
+        <ScoreModal
+  open={gameOver}
+  chapterNumber={5}
+  result={gameResult}
+  onClose={() => {}}
+  onRetry={handleRestart}
+  onNext={() =>
+    router.push(
+      "/chapters/chapter-6"
+    )
+  }
+  closable={false}
+/>
       </div>
     </div>
   );

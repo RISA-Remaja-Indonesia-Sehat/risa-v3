@@ -12,4 +12,6 @@ export type GameResult = {
 
   score?: number;
   total?: number;
+
+  summary?: string;
 };
