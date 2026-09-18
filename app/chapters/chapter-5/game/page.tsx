@@ -45,12 +45,9 @@ export default function GamePage() {
   const [gameOver, setGameOver] = useState(false);
 
   const rafRef = useRef<number>(0);
-  const gameLoopRef = useRef<() => void>(() => {});
   const spawnRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const keysRef = useRef<Set<string>>(new Set());
-
-  const getAreaWidth = () => areaRef.current?.clientWidth ?? 400;
 
   const spawnItem = useCallback(() => {
     const s = stateRef.current;
@@ -71,12 +68,12 @@ export default function GamePage() {
     setItems([...s.items]);
   }, []);
 
-  const gameLoop = useCallback(() => {
+  const gameLoop = useCallback(function runGameLoop() {
     const s = stateRef.current;
     if (s.gameOver) return;
 
     const areaH = areaRef.current?.clientHeight ?? 600;
-    const areaW = getAreaWidth();
+    const areaW = areaRef.current?.clientWidth ?? 400;
 
     if (keysRef.current.has("ArrowLeft")) {
       const minX = (BASKET_WIDTH / 2 / areaW) * 100;
@@ -117,23 +114,49 @@ export default function GamePage() {
     if (scoreChanged) setScore(s.score);
     setItems([...s.items]);
 
-    rafRef.current = requestAnimationFrame(gameLoopRef.current);
+    rafRef.current = requestAnimationFrame(runGameLoop);
   }, []);
-
-  gameLoopRef.current = gameLoop;
 
   const startTimers = useCallback(() => {
     const s = stateRef.current;
-    rafRef.current = requestAnimationFrame(gameLoopRef.current);
+
+    cancelAnimationFrame(rafRef.current);
+
+    if (spawnRef.current) {
+      clearInterval(spawnRef.current);
+    }
+
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
+    rafRef.current = requestAnimationFrame(gameLoop);
+
     spawnRef.current = setInterval(spawnItem, SPAWN_INTERVAL);
+
     timerRef.current = setInterval(() => {
       s.timeLeft -= 1;
+
       setTimeLeft(s.timeLeft);
+
       if (s.timeLeft <= 0) {
+        s.timeLeft = 0;
         s.gameOver = true;
+
+        // Pastikan ScoreModal
+        // mendapatkan skor final.
+        setScore(s.score);
+        setTimeLeft(0);
         setGameOver(true);
-        clearInterval(spawnRef.current!);
-        clearInterval(timerRef.current!);
+
+        if (spawnRef.current) {
+          clearInterval(spawnRef.current);
+        }
+
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+        }
+
         cancelAnimationFrame(rafRef.current);
       }
     }, 1000);
@@ -187,7 +210,7 @@ export default function GamePage() {
   const seconds = String(timeLeft % 60).padStart(2, "0");
   const isUrgent = timeLeft <= 10;
 
-    const gameResult = evaluateChapter5(score);
+  const gameResult = evaluateChapter5(score);
 
   return (
     <div className="relative w-full h-screen overflow-hidden flex flex-col">
@@ -275,18 +298,14 @@ export default function GamePage() {
         </div>
 
         <ScoreModal
-  open={gameOver}
-  chapterNumber={5}
-  result={gameResult}
-  onClose={() => {}}
-  onRetry={handleRestart}
-  onNext={() =>
-    router.push(
-      "/chapters/chapter-6"
-    )
-  }
-  closable={false}
-/>
+          open={gameOver}
+          chapterNumber={5}
+          result={gameResult}
+          onClose={() => {}}
+          onRetry={handleRestart}
+          onNext={() => router.push("/chapters/chapter-6")}
+          closable={false}
+        />
       </div>
     </div>
   );

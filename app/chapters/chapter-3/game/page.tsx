@@ -22,6 +22,14 @@ import { game_3, GameItem } from "../../data-local/game";
 
 const TOTAL_TIME = 60;
 
+const calculateScore = (items: GameItem[]) => {
+  const correct = items.filter((item) => item.isCorrect).length;
+
+  const wrong = items.filter((item) => !item.isCorrect).length;
+
+  return Math.max(0, correct - wrong);
+};
+
 function DraggableItem({
   item,
   disabled,
@@ -99,6 +107,8 @@ export default function GamePage() {
   const [gameOver, setGameOver] = useState(false);
   const [timeLeft, setTimeLeft] = useState(TOTAL_TIME);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const bagItemsRef = useRef<GameItem[]>([]);
+  const timeLeftRef = useRef(TOTAL_TIME);
 
   const [itemZones] = useState<Record<number, "left" | "right">>(() => {
     const shuffled = [...game_3].sort(() => Math.random() - 0.5);
@@ -113,33 +123,7 @@ export default function GamePage() {
   const isUrgent = timeLeft <= 10 && timeLeft > 0;
   const isGameDone = submitted || gameOver;
 
-  const calculateScore = (items: GameItem[]) => {
-    const correct = items.filter((item) => item.isCorrect).length;
-
-    const wrong = items.filter((item) => !item.isCorrect).length;
-
-    return Math.max(0, correct - wrong);
-  };
-
   const totalCorrect = game_3.filter((item) => item.isCorrect).length;
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          setGameOver(true);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(intervalRef.current!);
-  }, []);
-
-  useEffect(() => {
-    if (submitted) clearInterval(intervalRef.current!);
-  }, [submitted]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -160,35 +144,49 @@ export default function GamePage() {
     const draggedItem = game_3.find((item) => item.id === Number(active.id));
     if (!draggedItem) return;
     if (over.id === "bag") {
-      setBagItems((prev) =>
-        prev.find((b) => b.id === draggedItem.id)
-          ? prev
-          : [...prev, draggedItem],
+      const alreadyInBag = bagItemsRef.current.some(
+        (item) => item.id === draggedItem.id,
       );
+
+      if (alreadyInBag) {
+        return;
+      }
+
+      const nextItems = [...bagItemsRef.current, draggedItem];
+
+      bagItemsRef.current = nextItems;
+
+      setBagItems(nextItems);
     }
   };
 
   const handleSubmit = () => {
-    const finalScore = calculateScore(bagItems);
+  if (intervalRef.current) {
+    clearInterval(
+      intervalRef.current
+    );
 
-    setScore(finalScore);
-    setSubmitted(true);
-    setShowScore(true);
-  };
+    intervalRef.current = null;
+  }
 
-  const handleReset = () => setBagItems([]);
+  const finalScore =
+    calculateScore(
+      bagItemsRef.current
+    );
+
+  setScore(finalScore);
+  setSubmitted(true);
+  setShowScore(true);
+};
+
+  const handleReset = () => {
+  bagItemsRef.current = [];
+
+  setBagItems([]);
+};
 
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
   const seconds = String(timeLeft % 60).padStart(2, "0");
-
-  useEffect(() => {
-    if (!gameOver) return;
-
-    const finalScore = calculateScore(bagItems);
-
-    setScore(finalScore);
-    setShowScore(true);
-  }, [gameOver, bagItems]);
 
   const gameResult = evaluateChapter3(score, totalCorrect);
 
@@ -196,31 +194,57 @@ export default function GamePage() {
     router.push("/chapters/chapter-4");
   };
 
-  const startTimer = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+  const finishGame =
+  useCallback(() => {
+    const finalScore =
+      calculateScore(
+        bagItemsRef.current
+      );
 
-    setTimeLeft(TOTAL_TIME);
-    setGameOver(false);
-
-    intervalRef.current = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-          }
-
-          setGameOver(true);
-
-          return 0;
-        }
-
-        return prev - 1;
-      });
-    }, 1000);
+    setScore(finalScore);
+    setGameOver(true);
+    setShowScore(true);
   }, []);
 
+  const startTimer =
+  useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(
+        intervalRef.current
+      );
+    }
+
+    intervalRef.current =
+      setInterval(() => {
+        timeLeftRef.current =
+          Math.max(
+            0,
+            timeLeftRef.current - 1
+          );
+
+        const nextTime =
+          timeLeftRef.current;
+
+        setTimeLeft(nextTime);
+
+        if (nextTime === 0) {
+          if (
+            intervalRef.current
+          ) {
+            clearInterval(
+              intervalRef.current
+            );
+
+            intervalRef.current =
+              null;
+          }
+
+          finishGame();
+        }
+      }, 1000);
+  }, [finishGame]);
+
+  // Effect Mount
   useEffect(() => {
     startTimer();
 
@@ -232,14 +256,21 @@ export default function GamePage() {
   }, [startTimer]);
 
   const retryGame = () => {
-    setBagItems([]);
-    setSubmitted(false);
-    setGameOver(false);
-    setScore(0);
-    setShowScore(false);
+  bagItemsRef.current = [];
+  timeLeftRef.current =
+    TOTAL_TIME;
 
-    startTimer();
-  };
+  setBagItems([]);
+  setSubmitted(false);
+  setGameOver(false);
+
+  setTimeLeft(TOTAL_TIME);
+
+  setScore(0);
+  setShowScore(false);
+
+  startTimer();
+};
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden flex flex-col">
