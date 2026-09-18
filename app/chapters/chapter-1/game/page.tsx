@@ -1,5 +1,7 @@
 "use client";
-import { House, X } from "lucide-react";
+import { House } from "lucide-react";
+import ScoreModal from "@/components/game/ScoreModal";
+import { evaluateChapter1 } from "@/lib/game/evaluate/chapter-1";
 import Image from "next/image";
 import Link from "next/link";
 import { game_1 } from "../../data-local/game";
@@ -106,6 +108,8 @@ export default function GamePage() {
     return results[key] ? "border-green-500" : "border-red-500";
   };
 
+  const gameResult = evaluateChapter1(score, KEYS.length);
+
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100">
@@ -159,145 +163,15 @@ export default function GamePage() {
         </section>
       </div>
 
-      {showScore && (
-        <div
-          className="
-      fixed
-      inset-0
-      z-50
-      flex
-      items-center
-      justify-center
-      bg-black/40
-      px-4
-    "
-        >
-          <div
-            className="
-        w-full
-        max-w-md
-        rounded-2xl
-        bg-white
-        p-6
-        shadow-xl
-
-        sm:p-7
-      "
-          >
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={() => setShowScore(false)}
-                aria-label="Tutup"
-                className="
-            rounded-lg
-            p-1.5
-            text-gray-400
-            transition
-            hover:bg-gray-100
-            hover:text-gray-700
-          "
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="text-center">
-              <p
-                className="
-            text-sm
-            font-semibold
-            text-[#637A65]
-          "
-              >
-                Chapter 1 selesai
-              </p>
-
-              <h2
-                className="
-            mt-2
-            text-3xl
-            font-bold
-            text-[#26352A]
-          "
-              >
-                {score} / {KEYS.length}
-              </h2>
-
-              <p
-                className="
-            mx-auto
-            mt-3
-            max-w-xs
-            text-sm
-            leading-6
-            text-gray-500
-          "
-              >
-                Kamu menjawab {score} dari {KEYS.length} pertanyaan dengan
-                benar.
-              </p>
-            </div>
-
-            <div
-              className="
-          mt-7
-          flex
-          flex-col
-          gap-3
-
-          sm:flex-row
-        "
-            >
-              <button
-                type="button"
-                onClick={retryGame}
-                className="
-            flex-1
-            rounded-xl
-            border
-            border-[#CCD5CA]
-            bg-white
-            px-4
-            py-3
-            text-sm
-            font-semibold
-            text-[#506453]
-            transition
-
-            hover:bg-[#F4F6F2]
-          "
-              >
-                Coba lagi
-              </button>
-
-              <button
-                type="button"
-                onClick={goToNextChapter}
-                disabled={childLoading}
-                className="
-            flex-1
-            rounded-xl
-            bg-[#4F6751]
-            px-4
-            py-3
-            text-sm
-            font-semibold
-            text-white
-            transition
-
-            hover:bg-[#405642]
-
-            disabled:cursor-not-allowed
-            disabled:opacity-50
-          "
-              >
-                {childLoading ? "Memeriksa..." : "Chapter berikutnya"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ScoreModal
+        open={showScore}
+        chapterNumber={1}
+        result={gameResult}
+        onClose={() => setShowScore(false)}
+        onRetry={retryGame}
+        onNext={goToNextChapter}
+        nextLoading={childLoading}
+      />
 
       <LoginPrompt
         open={showLoginPrompt}

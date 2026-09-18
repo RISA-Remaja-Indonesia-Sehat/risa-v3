@@ -6,8 +6,9 @@ import patients, {
   type ChatOption,
   type Patient,
 } from "../../data-local/game-6";
-import Link from "next/link";
-import { House } from "lucide-react";
+import { useRouter } from "next/navigation";
+import ScoreModal from "@/components/game/ScoreModal";
+import { evaluateChapter6 } from "@/lib/game/evaluate/chapter-6";
 
 type Message = {
   id: number;
@@ -79,6 +80,8 @@ function TypingIndicator() {
 }
 
 export default function GamePage() {
+  const router = useRouter();
+
   const [patientIndex, setPatientIndex] = useState(0);
   const [phase, setPhase] = useState<Phase>("intro");
   const [turnIndex, setTurnIndex] = useState(0);
@@ -106,6 +109,27 @@ export default function GamePage() {
     const newId = id ?? Date.now() + Math.random();
     setMessages((prev) => [...prev, { id: newId, sender, text }]);
     setMsgCounter((c) => c + 1);
+  };
+
+  const restartGame = () => {
+    setPatientIndex(0);
+    setTurnIndex(0);
+
+    setMessages([]);
+    setMsgCounter(0);
+
+    setShowTyping(false);
+    setPendingPatientMsgs([]);
+
+    setSelectedOption(null);
+
+    setTotalAccuracy(0);
+    setTotalEmpathy(0);
+    setTurnCount(0);
+
+    setPatientResults([]);
+
+    setPhase("intro");
   };
 
   // Auto-scroll
@@ -156,7 +180,6 @@ export default function GamePage() {
       1200 + Math.random() * 600,
     );
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, pendingPatientMsgs]);
 
   const handleChoice = (option: ChatOption) => {
@@ -230,88 +253,33 @@ export default function GamePage() {
     const overallEmp = Math.round(
       allResults.reduce((s, r) => s + r.empathy, 0) / allResults.length,
     );
-    const stars = getStars(overallAcc, overallEmp);
+
+    const gameResult = evaluateChapter6(overallAcc, overallEmp);
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white flex flex-col items-center justify-center p-6 gap-8">
-        <Link href="/" className="absolute top-4 left-4">
-          <House className="w-6 h-6 text-pink-500 drop-shadow" />
-        </Link>
-        <div className="text-center space-y-2">
-          <p className="text-4xl">
-            {"⭐".repeat(stars)}
-            {"☆".repeat(3 - stars)}
-          </p>
-          <h2 className="text-2xl font-bold text-zinc-800">
-            Konsultasi Selesai!
-          </h2>
-          <p className="text-zinc-500 text-sm">
-            Kamu telah menangani semua pasien
-          </p>
-        </div>
-
-        <div className="w-full max-w-sm space-y-4">
-          {allResults.map((r, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-4 shadow-sm border border-zinc-100 space-y-3"
-            >
-              <div className="flex items-center gap-3">
-                <Image
-                  src={patients[i].avatar}
-                  alt={patients[i].name}
-                  width={36}
-                  height={36}
-                  className="rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-semibold text-zinc-800 text-sm">
-                    {patients[i].name}, {patients[i].age} tahun
-                  </p>
-                  <p className="text-xs text-zinc-400">{patients[i].level}</p>
-                </div>
-                <span className="ml-auto text-lg">
-                  {"⭐".repeat(getStars(r.accuracy, r.empathy))}
-                </span>
-              </div>
-              <ScoreBar
-                label="Akurasi Medis"
-                value={r.accuracy}
-                color="bg-sky-400"
-              />
-              <ScoreBar label="Empati" value={r.empathy} color="bg-rose-400" />
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-white rounded-2xl p-5 w-full max-w-sm shadow-sm border border-zinc-100 space-y-3">
-          <p className="font-semibold text-zinc-700 text-center">
-            Skor Keseluruhan
-          </p>
-          <ScoreBar
-            label="Akurasi Medis"
-            value={overallAcc}
-            color="bg-sky-400"
-          />
-          <ScoreBar label="Empati" value={overallEmp} color="bg-rose-400" />
-        </div>
-
-        <p className="text-center text-sm text-zinc-500 max-w-xs">
-          {stars === 3
-            ? "Luar biasa! Kamu dokter yang akurat sekaligus penuh empati 🌟"
-            : stars === 2
-              ? "Bagus! Terus tingkatkan empati dan akurasi medismu 💪"
-              : "Terus belajar ya! Pasien butuh dokter yang hangat dan tepat 🌱"}
-        </p>
-      </div>
-    );
+  <div className="min-h-screen bg-rose-50">
+    <ScoreModal
+      open
+      chapterNumber={6}
+      result={gameResult}
+      onClose={() => {}}
+      onRetry={restartGame}
+      onNext={() =>
+        router.push(
+          "/chapters/chapter-7"
+        )
+      }
+      closable={false}
+    />
+  </div>
+);
   }
 
   // ── RESULT SCREEN ─────────────────────────────────────────────────────────
   if (phase === "result") {
     const stars = getStars(avgAccuracy, avgEmpathy);
     return (
-      <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white flex flex-col items-center justify-center p-6 gap-6">
+      <div className="min-h-screen bg-linear-to-b from-rose-50 to-white flex flex-col items-center justify-center p-6 gap-6">
         <div className="flex items-center gap-3">
           <Image
             src={patient.avatar}
