@@ -124,7 +124,7 @@ export default function ChildLogoutPrompt({
             disabled:opacity-50
           "
         >
-          Batal
+          Tetap di sini
         </button>
       </div>
     </div>

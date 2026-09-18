@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "RISA | Edukasi Kesehatan Reproduksi Remaja",
+      "RISA | Platform Edukasi Kesehatan Reproduksi Remaja",
     template: "%s | RISA",
   },
 
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "RISA | Platform Edukasi Kesehatan Reproduksi",
+      "RISA | Platform Edukasi Kesehatan Reproduksi Remaja",
     description:
       "Belajar kesehatan reproduksi dengan cara yang lebih mudah dan menyenangkan melalui microlearning dan permainan interaktif.",
     url: "https://risa-v2.vercel.app",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "/img/og-image.png",
         width: 1200,
         height: 630,
         alt: "RISA - Remaja Indonesia Sehat",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       "RISA | Platform Edukasi Kesehatan Reproduksi",
     description:
       "Platform edukasi kesehatan reproduksi remaja perempuan dengan microlearning dan permainan interaktif.",
-    images: ["/og-image.png"],
+    images: ["/img/og-image.png"],
   },
 
   robots: {
