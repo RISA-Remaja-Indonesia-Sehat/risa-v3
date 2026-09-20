@@ -1,7 +1,4 @@
-export type ProgressStatus =
-  | "locked"
-  | "current"
-  | "completed";
+export type ProgressStatus = "locked" | "current" | "completed";
 
 type GetChapterStatusParams = {
   chapterNumber: number;
@@ -22,9 +19,7 @@ export function getChapterStatus({
   if (!isChildAuthenticated) {
     // Hanya Chapter 1 yang boleh dimainkan
     if (chapterNumber === 1) {
-      return guestChapter1Completed
-        ? "completed"
-        : "current";
+      return guestChapter1Completed ? "completed" : "current";
     }
 
     return "locked";
@@ -34,18 +29,16 @@ export function getChapterStatus({
   // USER SUDAH LOGIN
   // =========================
 
-  // Chapter sudah selesai
   if (completedChapters.includes(chapterNumber)) {
     return "completed";
   }
 
-  // Cari chapter berikutnya
-  const nextChapter =
-    completedChapters.length === 0
-      ? 1
-      : Math.max(...completedChapters) + 1;
+  const CHAPTER_NUMBERS = [1, 2, 3, 4, 5, 6, 7];
 
-  // Chapter berikutnya menjadi current
+  const nextChapter = CHAPTER_NUMBERS.find(
+    (number) => !completedChapters.includes(number),
+  );
+
   if (chapterNumber === nextChapter) {
     return "current";
   }
@@ -75,12 +68,9 @@ export function getPostTestStatus({
   }
 
   // Pastikan Chapter 1 sampai 7 semuanya selesai
-  const allChaptersCompleted = [1, 2, 3, 4, 5, 6, 7].every(
-    (chapterNumber) =>
-      completedChapters.includes(chapterNumber),
+  const allChaptersCompleted = [1, 2, 3, 4, 5, 6, 7].every((chapterNumber) =>
+    completedChapters.includes(chapterNumber),
   );
 
-  return allChaptersCompleted
-    ? "current"
-    : "locked";
+  return allChaptersCompleted ? "current" : "locked";
 }

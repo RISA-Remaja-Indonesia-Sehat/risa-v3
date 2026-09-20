@@ -16,6 +16,7 @@ import ScoreModal from "@/components/game/ScoreModal";
 import { evaluateChapter7 } from "@/lib/game/evaluate/chapter-7";
 
 import { game_7 } from "../../data-local/game";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 const GRID_SIZE = 10;
 const MAX_HINTS_PER_WORD = 2;
@@ -332,7 +333,7 @@ export default function GamePage() {
    * ========================================
    */
 
-  const finalizeSubmit = () => {
+  const finalizeSubmit = async () => {
     let correct = 0;
 
     const results: Record<number, WordResult> = {};
@@ -366,14 +367,17 @@ export default function GamePage() {
     setWordResults(results);
 
     setScore(correct);
+
+    try {
+      await completeChildChapter(7, correct);
+    } catch (error) {
+      console.error("Gagal menyimpan Chapter 7:", error);
+    }
+
     setShowScore(true);
-
     setIsFinished(true);
-
     setShowSubmitWarning(false);
-
     setSelectedCell(null);
-
     setActiveWordId(null);
 
     if (correct === game_7.words.length) {

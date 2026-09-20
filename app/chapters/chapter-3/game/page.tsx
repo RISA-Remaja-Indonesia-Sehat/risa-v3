@@ -19,6 +19,7 @@ import {
   pointerWithin,
 } from "@dnd-kit/core";
 import { game_3, GameItem } from "../../data-local/game";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 const TOTAL_TIME = 60;
 
@@ -160,30 +161,32 @@ export default function GamePage() {
     }
   };
 
-  const handleSubmit = () => {
-  if (intervalRef.current) {
-    clearInterval(
-      intervalRef.current
-    );
+  const handleSubmit = async () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
 
-    intervalRef.current = null;
-  }
+      intervalRef.current = null;
+    }
 
-  const finalScore =
-    calculateScore(
-      bagItemsRef.current
-    );
+    const finalScore = calculateScore(bagItemsRef.current);
 
-  setScore(finalScore);
-  setSubmitted(true);
-  setShowScore(true);
-};
+    setScore(finalScore);
+    setSubmitted(true);
+
+    try {
+      await completeChildChapter(3, finalScore);
+    } catch (error) {
+      console.error("Gagal menyimpan Chapter 3:", error);
+    }
+
+    setShowScore(true);
+  };
 
   const handleReset = () => {
-  bagItemsRef.current = [];
+    bagItemsRef.current = [];
 
-  setBagItems([]);
-};
+    setBagItems([]);
+  };
 
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
   const seconds = String(timeLeft % 60).padStart(2, "0");
@@ -194,54 +197,39 @@ export default function GamePage() {
     router.push("/chapters/chapter-4");
   };
 
-  const finishGame =
-  useCallback(() => {
-    const finalScore =
-      calculateScore(
-        bagItemsRef.current
-      );
+  const finishGame = useCallback(async () => {
+    const finalScore = calculateScore(bagItemsRef.current);
 
     setScore(finalScore);
     setGameOver(true);
+
+    await completeChildChapter(3, finalScore);
+
     setShowScore(true);
   }, []);
 
-  const startTimer =
-  useCallback(() => {
+  const startTimer = useCallback(() => {
     if (intervalRef.current) {
-      clearInterval(
-        intervalRef.current
-      );
+      clearInterval(intervalRef.current);
     }
 
-    intervalRef.current =
-      setInterval(() => {
-        timeLeftRef.current =
-          Math.max(
-            0,
-            timeLeftRef.current - 1
-          );
+    intervalRef.current = setInterval(() => {
+      timeLeftRef.current = Math.max(0, timeLeftRef.current - 1);
 
-        const nextTime =
-          timeLeftRef.current;
+      const nextTime = timeLeftRef.current;
 
-        setTimeLeft(nextTime);
+      setTimeLeft(nextTime);
 
-        if (nextTime === 0) {
-          if (
-            intervalRef.current
-          ) {
-            clearInterval(
-              intervalRef.current
-            );
+      if (nextTime === 0) {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
 
-            intervalRef.current =
-              null;
-          }
-
-          finishGame();
+          intervalRef.current = null;
         }
-      }, 1000);
+
+        finishGame();
+      }
+    }, 1000);
   }, [finishGame]);
 
   // Effect Mount
@@ -256,21 +244,20 @@ export default function GamePage() {
   }, [startTimer]);
 
   const retryGame = () => {
-  bagItemsRef.current = [];
-  timeLeftRef.current =
-    TOTAL_TIME;
+    bagItemsRef.current = [];
+    timeLeftRef.current = TOTAL_TIME;
 
-  setBagItems([]);
-  setSubmitted(false);
-  setGameOver(false);
+    setBagItems([]);
+    setSubmitted(false);
+    setGameOver(false);
 
-  setTimeLeft(TOTAL_TIME);
+    setTimeLeft(TOTAL_TIME);
 
-  setScore(0);
-  setShowScore(false);
+    setScore(0);
+    setShowScore(false);
 
-  startTimer();
-};
+    startTimer();
+  };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden flex flex-col">

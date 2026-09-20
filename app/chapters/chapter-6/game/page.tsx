@@ -9,6 +9,7 @@ import patients, {
 import { useRouter } from "next/navigation";
 import ScoreModal from "@/components/game/ScoreModal";
 import { evaluateChapter6 } from "@/lib/game/evaluate/chapter-6";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 type Message = {
   id: number;
@@ -216,7 +217,7 @@ export default function GamePage() {
     setPhase("result");
   };
 
-  const handleNextPatient = () => {
+  const handleNextPatient = async () => {
     const avgAcc = Math.round(totalAccuracy / turnCount);
     const avgEmp = Math.round(totalEmpathy / turnCount);
     setPatientResults((prev) => [
@@ -226,6 +227,11 @@ export default function GamePage() {
 
     if (isLastPatient) {
       playSound("/audio/level-up.mp3", 0.5);
+      try {
+        await completeChildChapter(6, Math.round((avgAcc + avgEmp) / 2));
+      } catch (error) {
+        console.error("Gagal menyimpan Chapter 6:", error);
+      }
       setPhase("final");
     } else {
       playSound("/audio/level-up.mp3", 0.5);

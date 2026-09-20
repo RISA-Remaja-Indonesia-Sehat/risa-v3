@@ -8,6 +8,7 @@ import { game_5, SnackItem } from "../../data-local/game";
 import { useRouter } from "next/navigation";
 import ScoreModal from "@/components/game/ScoreModal";
 import { evaluateChapter5 } from "@/lib/game/evaluate/chapter-5";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 const TOTAL_TIME = 60;
 const ITEM_SIZE = 72;
@@ -134,7 +135,7 @@ export default function GamePage() {
 
     spawnRef.current = setInterval(spawnItem, SPAWN_INTERVAL);
 
-    timerRef.current = setInterval(() => {
+    timerRef.current = setInterval(async () => {
       s.timeLeft -= 1;
 
       setTimeLeft(s.timeLeft);
@@ -147,8 +148,15 @@ export default function GamePage() {
         // mendapatkan skor final.
         setScore(s.score);
         setTimeLeft(0);
-        setGameOver(true);
 
+        
+        setGameOver(true);
+        try {
+          await completeChildChapter(5, s.score);
+        } catch (error) {
+          console.error("Gagal menyimpan Chapter 5:", error);
+        }
+        
         if (spawnRef.current) {
           clearInterval(spawnRef.current);
         }
