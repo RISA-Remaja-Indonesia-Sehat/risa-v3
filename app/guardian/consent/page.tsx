@@ -87,10 +87,15 @@ export default function GuardianConsentPage() {
       const requestId =
         result.data.consentRequest.id;
 
+      const fromDashboard =
+        sessionStorage.getItem(
+          "risa-child-setup-origin"
+        ) === "guardian-dashboard";
+
       router.push(
         `/child/setup?consentRequestId=${encodeURIComponent(
           requestId
-        )}`
+        )}${fromDashboard ? "&from=dashboard" : ""}`
       );
     } catch (error) {
       setErrorMessage(
