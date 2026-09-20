@@ -1,19 +1,12 @@
 "use client";
 
-import {
-  FormEvent,
-  useState,
-} from "react";
-
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-
+import { FormEvent, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import CharacterPicker from "@/components/profile/CharacterPicker";
-
+import Image from "next/image";
 import { apiFetch } from "@/lib/api/client";
 import { supabase } from "@/lib/supabase/client";
+import { CHARACTERS } from "@/components/profile/data-local";
 
 import {
   clearGuestChapter1Progress,
@@ -35,72 +28,48 @@ type SetupResponse = {
 export default function ChildSetupContent() {
   const router = useRouter();
 
-  const searchParams =
-    useSearchParams();
+  const searchParams = useSearchParams();
 
-  const consentRequestId =
-    searchParams.get(
-      "consentRequestId"
-    );
+  const consentRequestId = searchParams.get("consentRequestId");
 
-  const fromDashboard =
-    searchParams.get("from") ===
-    "dashboard";
+  const fromDashboard = searchParams.get("from") === "dashboard";
 
-  const [username, setUsername] =
-    useState("");
+  const [username, setUsername] = useState("");
 
-  const [pin, setPin] =
-    useState("");
+  const [pin, setPin] = useState("");
 
-  const [
-    confirmPin,
-    setConfirmPin,
-  ] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
 
-  const [avatarId, setAvatarId] =
-    useState("avatar-01");
+  const [avatarId, setAvatarId] = useState("avatar-01");
 
-  const [
-    showPicker,
-    setShowPicker,
-  ] = useState(false);
+  const selectedAvatar =
+    CHARACTERS.find((character) => character.id === avatarId) ?? CHARACTERS[0];
 
-  const [loading, setLoading] =
-    useState(false);
+  const [showPicker, setShowPicker] = useState(false);
 
-  const [
-    errorMessage,
-    setErrorMessage,
-  ] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrorMessage("");
 
     if (!consentRequestId) {
-      setErrorMessage(
-        "Persetujuan tidak ditemukan."
-      );
+      setErrorMessage("Persetujuan tidak ditemukan.");
 
       return;
     }
 
     if (!/^\d{6}$/.test(pin)) {
-      setErrorMessage(
-        "PIN harus terdiri dari 6 angka."
-      );
+      setErrorMessage("PIN harus terdiri dari 6 angka.");
 
       return;
     }
 
     if (pin !== confirmPin) {
-      setErrorMessage(
-        "Konfirmasi PIN tidak sama."
-      );
+      setErrorMessage("Konfirmasi PIN tidak sama.");
 
       return;
     }
@@ -108,22 +77,18 @@ export default function ChildSetupContent() {
     setLoading(true);
 
     try {
-      await apiFetch<SetupResponse>(
-        "/api/child/setup",
-        {
-          method: "POST",
+      await apiFetch<SetupResponse>("/api/child/setup", {
+        method: "POST",
 
-          body: JSON.stringify({
-            consentRequestId,
-            username,
-            pin,
-            avatarId,
+        body: JSON.stringify({
+          consentRequestId,
+          username,
+          pin,
+          avatarId,
 
-            guestChapter1Completed:
-              isGuestChapter1Completed(),
-          }),
-        }
-      );
+          guestChapter1Completed: isGuestChapter1Completed(),
+        }),
+      });
 
       /*
        * Progress guest sudah aman
@@ -132,9 +97,7 @@ export default function ChildSetupContent() {
       clearGuestChapter1Progress();
 
       if (fromDashboard) {
-        router.replace(
-          "/guardian/dashboard"
-        );
+        router.replace("/guardian/dashboard");
 
         return;
       }
@@ -145,14 +108,10 @@ export default function ChildSetupContent() {
        */
       await supabase.auth.signOut();
 
-      router.push(
-        "/child/login?created=true&next=/chapters/chapter-2/game"
-      );
+      router.push("/child/login?created=true&next=/chapters/chapter-2/game");
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Gagal membuat profil anak."
+        error instanceof Error ? error.message : "Gagal membuat profil anak.",
       );
     } finally {
       setLoading(false);
@@ -171,14 +130,10 @@ export default function ChildSetupContent() {
         </h1>
 
         <p className="mt-3 text-sm leading-6 text-[#667068]">
-          Username dan PIN akan digunakan
-          anak untuk masuk ke RISA.
+          Username dan PIN akan digunakan anak untuk masuk ke RISA.
         </p>
 
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8 space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <div>
             <label
               htmlFor="username"
@@ -195,17 +150,12 @@ export default function ChildSetupContent() {
               autoComplete="username"
               placeholder="Contoh: Naya27"
               value={username}
-              onChange={(event) =>
-                setUsername(
-                  event.target.value
-                )
-              }
+              onChange={(event) => setUsername(event.target.value)}
               className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
             />
 
             <p className="mt-1.5 text-xs text-[#8A928B]">
-              Gunakan 3–24 karakter:
-              huruf, angka, atau underscore.
+              Gunakan 3–24 karakter: huruf, angka, atau underscore.
             </p>
           </div>
 
@@ -227,12 +177,7 @@ export default function ChildSetupContent() {
               placeholder="6 angka"
               value={pin}
               onChange={(event) =>
-                setPin(
-                  event.target.value.replace(
-                    /\D/g,
-                    ""
-                  )
-                )
+                setPin(event.target.value.replace(/\D/g, ""))
               }
               className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
             />
@@ -256,35 +201,101 @@ export default function ChildSetupContent() {
               placeholder="Masukkan kembali PIN"
               value={confirmPin}
               onChange={(event) =>
-                setConfirmPin(
-                  event.target.value.replace(
-                    /\D/g,
-                    ""
-                  )
-                )
+                setConfirmPin(event.target.value.replace(/\D/g, ""))
               }
               className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
             />
           </div>
 
           <div>
-            <p className="mb-2 text-sm font-semibold text-[#344238]">
-              Avatar
-            </p>
+            <p className="mb-2 text-sm font-semibold text-[#344238]">Avatar</p>
 
             <button
               type="button"
-              onClick={() =>
-                setShowPicker(true)
-              }
-              className="rounded-xl border border-[#CBD2C9] px-4 py-3 text-sm font-semibold text-[#4F6751] hover:bg-[#F5F6F2]"
-            >
-              Pilih avatar
-            </button>
+              onClick={() => setShowPicker(true)}
+              aria-haspopup="dialog"
+              aria-expanded={showPicker}
+              className="
+      flex
+      w-full
+      items-center
+      gap-4
 
-            <p className="mt-2 text-xs text-[#8A928B]">
-              Avatar terpilih: {avatarId}
-            </p>
+      rounded-2xl
+      border
+      border-[#CBD2C9]
+
+      bg-[#F8F9F6]
+      p-4
+
+      text-left
+      transition
+
+      hover:border-[#AEBBAA]
+      hover:bg-[#F2F5EF]
+
+      focus-visible:outline-none
+      focus-visible:ring-4
+      focus-visible:ring-[#758A72]/10
+    "
+            >
+              <span
+                className="
+        relative
+        h-20
+        w-20
+        shrink-0
+        overflow-hidden
+        rounded-2xl
+        bg-[#F5E5DF]
+      "
+              >
+                <Image
+                  src={selectedAvatar.src}
+                  alt={selectedAvatar.name}
+                  fill
+                  sizes="80px"
+                  className="object-contain object-bottom"
+                />
+              </span>
+
+              <span className="min-w-0">
+                <span
+                  className="
+          block
+          text-sm
+          font-semibold
+          text-[#344238]
+        "
+                >
+                  Avatar terpilih
+                </span>
+
+                <span
+                  className="
+          mt-1
+          block
+          text-xs
+          leading-5
+          text-[#778078]
+        "
+                >
+                  {selectedAvatar.name}
+                </span>
+
+                <span
+                  className="
+          mt-2
+          block
+          text-sm
+          font-semibold
+          text-[#4F6751]
+        "
+                >
+                  Ganti avatar
+                </span>
+              </span>
+            </button>
           </div>
 
           {errorMessage && (
@@ -301,25 +312,19 @@ export default function ChildSetupContent() {
             disabled={loading}
             className="w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white hover:bg-[#405642] disabled:opacity-50"
           >
-            {loading
-              ? "Membuat profil..."
-              : "Buat profil anak"}
+            {loading ? "Membuat profil..." : "Buat profil anak"}
           </button>
         </form>
       </section>
 
       {showPicker && (
         <CharacterPicker
-          currentAvatarId={
-            avatarId
-          }
+          currentAvatarId={avatarId}
           onSelect={(id) => {
             setAvatarId(id);
             setShowPicker(false);
           }}
-          onClose={() =>
-            setShowPicker(false)
-          }
+          onClose={() => setShowPicker(false)}
         />
       )}
     </main>
