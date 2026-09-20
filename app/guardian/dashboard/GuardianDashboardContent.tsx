@@ -45,9 +45,6 @@ type DashboardResponse = {
   };
 };
 
-const SETUP_ORIGIN_KEY =
-  "risa-child-setup-origin";
-
 export default function GuardianDashboardContent() {
   const router = useRouter();
 
@@ -95,12 +92,9 @@ export default function GuardianDashboardContent() {
   }, [loadDashboard]);
 
   function handleAddChild() {
-    sessionStorage.setItem(
-      SETUP_ORIGIN_KEY,
-      "guardian-dashboard",
+    router.push(
+      "/guardian/consent?source=dashboard",
     );
-
-    router.push("/guardian/consent");
   }
 
   async function handleLogout() {

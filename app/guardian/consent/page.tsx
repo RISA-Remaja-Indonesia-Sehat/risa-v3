@@ -88,9 +88,10 @@ export default function GuardianConsentPage() {
         result.data.consentRequest.id;
 
       const fromDashboard =
-        sessionStorage.getItem(
-          "risa-child-setup-origin"
-        ) === "guardian-dashboard";
+        new URLSearchParams(
+          window.location.search
+        ).get("source") ===
+        "dashboard";
 
       router.push(
         `/child/setup?consentRequestId=${encodeURIComponent(

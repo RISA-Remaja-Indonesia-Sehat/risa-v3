@@ -132,10 +132,6 @@ export default function ChildSetupContent() {
       clearGuestChapter1Progress();
 
       if (fromDashboard) {
-        sessionStorage.removeItem(
-          "risa-child-setup-origin"
-        );
-
         router.replace(
           "/guardian/dashboard"
         );
