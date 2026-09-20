@@ -43,6 +43,10 @@ export default function ChildSetupContent() {
       "consentRequestId"
     );
 
+  const fromDashboard =
+    searchParams.get("from") ===
+    "dashboard";
+
   const [username, setUsername] =
     useState("");
 
@@ -126,6 +130,14 @@ export default function ChildSetupContent() {
        * tersimpan di database.
        */
       clearGuestChapter1Progress();
+
+      if (fromDashboard) {
+        router.replace(
+          "/guardian/dashboard"
+        );
+
+        return;
+      }
 
       /*
        * Guardian logout sebelum

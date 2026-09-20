@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { supabase } from "@/lib/supabase/client";
 import { apiFetch } from "@/lib/api/client";
+import { getSafeNext } from "@/lib/navigation/safe-next";
 
 type MeResponse = {
   success: boolean;
@@ -22,6 +23,11 @@ type MeResponse = {
 export default function GuardianLoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const next = getSafeNext(
+    searchParams.get("next"),
+    "/guardian/dashboard",
+  );
 
 
   const emailConfirmed =
@@ -69,7 +75,7 @@ export default function GuardianLoginContent() {
         profile.data.guardian
       );
 
-      router.push("/guardian/dashboard");
+      router.push(next);
       router.refresh();
     } catch (error) {
       if (error instanceof Error) {

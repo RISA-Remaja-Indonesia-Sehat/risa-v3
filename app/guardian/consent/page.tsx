@@ -87,10 +87,16 @@ export default function GuardianConsentPage() {
       const requestId =
         result.data.consentRequest.id;
 
+      const fromDashboard =
+        new URLSearchParams(
+          window.location.search
+        ).get("source") ===
+        "dashboard";
+
       router.push(
         `/child/setup?consentRequestId=${encodeURIComponent(
           requestId
-        )}`
+        )}${fromDashboard ? "&from=dashboard" : ""}`
       );
     } catch (error) {
       setErrorMessage(
