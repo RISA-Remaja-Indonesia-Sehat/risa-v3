@@ -39,8 +39,17 @@ export default function ChildLoginForm() {
         }),
       });
 
-      router.push(next);
+      /*
+       * Pastikan cookie session
+       * benar-benar tersimpan dan bisa dibaca.
+       */
+      await childApiFetch("/api/child/me", {
+        method: "GET",
+      });
+
+      router.replace(next);
       router.refresh();
+      
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Gagal masuk.");
     } finally {

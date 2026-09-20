@@ -34,6 +34,8 @@ export default function ChildSetupContent() {
 
   const fromDashboard = searchParams.get("from") === "dashboard";
 
+  const fromGuest = searchParams.get("from") === "guest";
+
   const [username, setUsername] = useState("");
 
   const [pin, setPin] = useState("");
@@ -76,6 +78,8 @@ export default function ChildSetupContent() {
 
     setLoading(true);
 
+    const shouldTransferGuestChapter1 = fromGuest && isGuestChapter1Completed();
+
     try {
       await apiFetch<SetupResponse>("/api/child/setup", {
         method: "POST",
@@ -86,7 +90,7 @@ export default function ChildSetupContent() {
           pin,
           avatarId,
 
-          guestChapter1Completed: isGuestChapter1Completed(),
+          guestChapter1Completed: shouldTransferGuestChapter1,
         }),
       });
 
@@ -94,7 +98,9 @@ export default function ChildSetupContent() {
        * Progress guest sudah aman
        * tersimpan di database.
        */
-      clearGuestChapter1Progress();
+      if (shouldTransferGuestChapter1) {
+        clearGuestChapter1Progress();
+      }
 
       if (fromDashboard) {
         router.replace("/guardian/dashboard");
@@ -108,7 +114,13 @@ export default function ChildSetupContent() {
        */
       await supabase.auth.signOut();
 
-      router.push("/child/login?created=true&next=/chapters/chapter-2/game");
+      const nextPath = shouldTransferGuestChapter1
+        ? "/chapters/chapter-2"
+        : "/";
+
+      router.push(
+        `/child/login?created=true&next=${encodeURIComponent(nextPath)}`,
+      );
     } catch (error) {
       setErrorMessage(
         error instanceof Error ? error.message : "Gagal membuat profil anak.",

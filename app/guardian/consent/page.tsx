@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  FormEvent,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -26,29 +22,22 @@ type ApproveConsentResponse = {
 export default function GuardianConsentPage() {
   const router = useRouter();
 
-  const [checkingAuth, setCheckingAuth] =
-    useState(true);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
-  const [agreed, setAgreed] =
-    useState(false);
+  const [agreed, setAgreed] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [errorMessage, setErrorMessage] =
-    useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function checkGuardian() {
       const {
         data: { session },
-      } =
-        await supabase.auth.getSession();
+      } = await supabase.auth.getSession();
 
       if (!session) {
-        router.replace(
-          "/guardian/login?next=/guardian/consent"
-        );
+        router.replace("/guardian/login?next=/guardian/consent");
 
         return;
       }
@@ -59,15 +48,11 @@ export default function GuardianConsentPage() {
     void checkGuardian();
   }, [router]);
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!agreed) {
-      setErrorMessage(
-        "Silakan berikan persetujuan terlebih dahulu."
-      );
+      setErrorMessage("Silakan berikan persetujuan terlebih dahulu.");
 
       return;
     }
@@ -76,33 +61,32 @@ export default function GuardianConsentPage() {
     setLoading(true);
 
     try {
-      const result =
-        await apiFetch<ApproveConsentResponse>(
-          "/api/consent/approve",
-          {
-            method: "POST",
-          }
-        );
+      const result = await apiFetch<ApproveConsentResponse>(
+        "/api/consent/approve",
+        {
+          method: "POST",
+        },
+      );
 
-      const requestId =
-        result.data.consentRequest.id;
+      const requestId = result.data.consentRequest.id;
 
-      const fromDashboard =
-        new URLSearchParams(
-          window.location.search
-        ).get("source") ===
-        "dashboard";
+      const source = new URLSearchParams(window.location.search).get("source");
+
+      const setupSource =
+        source === "dashboard"
+          ? "&from=dashboard"
+          : source === "guest"
+            ? "&from=guest"
+            : "";
 
       router.push(
         `/child/setup?consentRequestId=${encodeURIComponent(
-          requestId
-        )}${fromDashboard ? "&from=dashboard" : ""}`
+          requestId,
+        )}${setupSource}`,
       );
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Gagal menyimpan persetujuan."
+        error instanceof Error ? error.message : "Gagal menyimpan persetujuan.",
       );
     } finally {
       setLoading(false);
@@ -112,9 +96,7 @@ export default function GuardianConsentPage() {
   if (checkingAuth) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE]">
-        <p className="text-sm text-[#667068]">
-          Memeriksa akun...
-        </p>
+        <p className="text-sm text-[#667068]">Memeriksa akun...</p>
       </main>
     );
   }
@@ -131,54 +113,40 @@ export default function GuardianConsentPage() {
         </h1>
 
         <p className="mt-4 text-sm leading-6 text-[#667068]">
-          Sebelum membuat profil anak,
-          kami membutuhkan persetujuan
-          orang tua atau wali.
+          Sebelum membuat profil anak, kami membutuhkan persetujuan orang tua
+          atau wali.
         </p>
 
         <div className="mt-8 space-y-4 rounded-2xl bg-[#F6F7F3] p-5 text-sm leading-6 text-[#566159]">
           <p>
-            RISA akan menyimpan informasi
-            yang diperlukan untuk menjalankan
-            pengalaman belajar anak, seperti
-            username, avatar, dan progres
+            RISA akan menyimpan informasi yang diperlukan untuk menjalankan
+            pengalaman belajar anak, seperti username, avatar, dan progres
             chapter.
           </p>
 
           <p>
-            Informasi tersebut digunakan
-            untuk menyimpan progres dan
-            mengelola akses anak ke RISA.
+            Informasi tersebut digunakan untuk menyimpan progres dan mengelola
+            akses anak ke RISA.
           </p>
 
           <p>
-            Orang tua atau wali nantinya
-            dapat melihat progres belajar
-            anak yang terhubung ke akun mereka.
+            Orang tua atau wali nantinya dapat melihat progres belajar anak yang
+            terhubung ke akun mereka.
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="mt-8"
-        >
+        <form onSubmit={handleSubmit} className="mt-8">
           <label className="flex cursor-pointer items-start gap-3">
             <input
               type="checkbox"
               checked={agreed}
-              onChange={(event) =>
-                setAgreed(
-                  event.target.checked
-                )
-              }
+              onChange={(event) => setAgreed(event.target.checked)}
               className="mt-1 h-4 w-4"
             />
 
             <span className="text-sm leading-6 text-[#475349]">
-              Saya adalah orang tua atau
-              wali dan saya memberikan izin
-              untuk membuat profil anak
-              di RISA.
+              Saya adalah orang tua atau wali dan saya memberikan izin untuk
+              membuat profil anak di RISA.
             </span>
           </label>
 
@@ -193,23 +161,16 @@ export default function GuardianConsentPage() {
 
           <button
             type="submit"
-            disabled={
-              loading || !agreed
-            }
+            disabled={loading || !agreed}
             className="mt-7 w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#405642] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading
-              ? "Menyimpan..."
-              : "Berikan persetujuan"}
+            {loading ? "Menyimpan..." : "Berikan persetujuan"}
           </button>
         </form>
 
         <p className="mt-6 text-xs leading-5 text-[#8A928B]">
-          Teks ini cocok untuk demo.
-          Sebelum RISA digunakan secara
-          publik, teks persetujuan dan
-          kebijakan privasi sebaiknya
-          ditinjau secara khusus.
+          Teks ini cocok untuk demo. Sebelum RISA digunakan secara publik, teks
+          persetujuan dan kebijakan privasi sebaiknya ditinjau secara khusus.
         </p>
       </section>
     </main>
