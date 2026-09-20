@@ -9,6 +9,7 @@ import Link from "next/link";
 import { House, ChevronRight } from "lucide-react";
 import { game_4, SimulationOption } from "../../data-local/game";
 import { motion } from "motion/react";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 type AnswerState = "idle" | "correct" | "wrong";
 
@@ -73,8 +74,13 @@ export default function GamePage() {
     if (option.isCorrect) setScore((s) => s + 1);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isLast) {
+      try {
+        await completeChildChapter(4, score);
+      } catch (error) {
+        console.error("Gagal menyimpan Chapter 4:", error);
+      }
       setFinished(true);
       return;
     }

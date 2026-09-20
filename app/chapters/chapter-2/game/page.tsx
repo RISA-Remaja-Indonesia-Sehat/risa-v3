@@ -17,6 +17,7 @@ import { game_2 } from "../../data-local/game";
 import { useRouter } from "next/navigation";
 import ScoreModal from "@/components/game/ScoreModal";
 import { evaluateChapter2 } from "@/lib/game/evaluate/chapter-2";
+import { completeChildChapter } from "@/lib/game/child-progress";
 
 type Statement = (typeof game_2)[number];
 type Zone = "myth" | "fact";
@@ -125,13 +126,22 @@ export default function GamePage() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const correct = [
       ...zones.myth.filter((s) => s.isMyth),
+
       ...zones.fact.filter((s) => !s.isMyth),
     ].length;
+
     setScore(correct);
     setSubmitted(true);
+
+    try {
+      await completeChildChapter(2, correct);
+    } catch (error) {
+      console.error("Gagal menyimpan Chapter 2:", error);
+    }
+
     setShowScore(true);
   };
 
@@ -149,10 +159,8 @@ export default function GamePage() {
   };
 
   const goToNextChapter = () => {
-  router.push(
-    "/chapters/chapter-3"
-  );
-};
+    router.push("/chapters/chapter-3");
+  };
 
   const allPlaced = unplaced.length === 0;
   const gameResult = evaluateChapter2(score, game_2.length);

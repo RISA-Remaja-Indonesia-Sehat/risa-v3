@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "RISA | Platform Edukasi Kesehatan Reproduksi Remaja",
-    template: "%s | RISA",
+      "RISA",
+    template: "RISA | %s",
   },
 
   description:
