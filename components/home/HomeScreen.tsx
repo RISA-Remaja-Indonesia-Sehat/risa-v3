@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import Profile from "@/components/profile/Profile";
 import SunflowerProgressMap from "./SunflowerProgressMap";
+import CloudCurtain from "./CloudCurtain";
 import LoginPrompt from "@/components/auth/LoginPrompt";
 import ChildLogoutPrompt from "@/components/auth/ChildLogoutPrompt";
 import TemankuShortcut from "./TemankuShortcut";
@@ -539,6 +540,8 @@ export default function HomeScreen() {
           </div>
         </div>
       )}
+
+      <CloudCurtain ready={!childLoading} />
 
       <LoginPrompt
         open={authDialog === "login"}
