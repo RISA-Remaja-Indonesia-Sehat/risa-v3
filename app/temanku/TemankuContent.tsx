@@ -17,7 +17,7 @@ import { useCallback, useEffect, useState, type FormEvent } from "react";
 
 import { CHARACTERS } from "@/components/profile/data-local";
 import { useChildSession } from "@/hooks/useChildSession";
-import { childApiFetch } from "@/lib/api/child-client";
+import { childApiFetch, ChildApiError } from "@/lib/api/child-client";
 
 type Category = "STORY" | "QUESTION" | "TIPS" | "SUPPORT";
 type CategoryFilter = "ALL" | Category;
@@ -121,6 +121,13 @@ type ModerationSuggestion = {
   reason: string;
   suggestedTitle: string;
   suggestedContent: string;
+};
+
+type ModerationErrorResponse = {
+  success: false;
+  code: "CONTENT_NEEDS_REVISION";
+  message: string;
+  moderation: ModerationSuggestion;
 };
 
 function categoryData(category: CategoryFilter) {
@@ -237,16 +244,20 @@ export default function TemankuContent() {
   async function handleCreatePost(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!content.trim() || posting) return;
+    if (!content.trim() || posting) {
+      return;
+    }
 
     try {
       setPosting(true);
       setFeedError("");
+      setModerationSuggestion(null);
 
       const response = await childApiFetch<PostResponse>(
         "/api/community/posts",
         {
           method: "POST",
+
           body: JSON.stringify({
             title,
             content,
@@ -257,10 +268,26 @@ export default function TemankuContent() {
       );
 
       setPosts((current) => [response.data.post, ...current]);
+
       setTitle("");
       setContent("");
       setIsAnonymous(false);
+      setModerationSuggestion(null);
     } catch (error) {
+      if (error instanceof ChildApiError && error.status === 422) {
+        const errorData = error.data as ModerationErrorResponse | undefined;
+
+        if (
+          errorData?.code === "CONTENT_NEEDS_REVISION" &&
+          errorData.moderation
+        ) {
+          setModerationSuggestion(errorData.moderation);
+
+          setFeedError("");
+          return;
+        }
+      }
+
       setFeedError(
         error instanceof Error
           ? error.message
@@ -585,6 +612,52 @@ export default function TemankuContent() {
             ))}
           </div>
 
+          {moderationSuggestion && (
+            <div className="mt-4 rounded-2xl border border-[#F2CF71] bg-[#FFF8D9] p-4">
+              <p className="font-semibold text-[#6B5725]">
+                Yuk, rapikan sedikit
+              </p>
+
+              <p className="mt-1 text-sm text-[#756840]">
+                {moderationSuggestion.reason}
+              </p>
+
+              <div className="mt-3 rounded-xl bg-white p-3">
+                <p className="font-medium">
+                  {moderationSuggestion.suggestedTitle}
+                </p>
+
+                <p className="mt-1 text-sm">
+                  {moderationSuggestion.suggestedContent}
+                </p>
+              </div>
+
+              <div className="mt-3 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTitle(moderationSuggestion.suggestedTitle);
+
+                    setContent(moderationSuggestion.suggestedContent);
+
+                    setModerationSuggestion(null);
+                  }}
+                  className="rounded-xl bg-[#F39AB5] px-4 py-2 font-semibold text-white"
+                >
+                  Gunakan saran
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setModerationSuggestion(null)}
+                  className="rounded-xl bg-white px-4 py-2 text-[#6B5725]"
+                >
+                  Edit sendiri
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="mt-5 flex flex-col gap-4 border-t border-[#F0ECE7] pt-4 sm:flex-row sm:items-center sm:justify-between">
             <label className="flex cursor-pointer items-center gap-3 text-sm font-semibold text-[#5E6860]">
               <input
@@ -609,52 +682,6 @@ export default function TemankuContent() {
             </button>
           </div>
         </form>
-
-        {moderationSuggestion && (
-          <div className="rounded-2xl border border-[#F2CF71] bg-[#FFF8D9] p-4">
-            <p className="font-semibold text-[#6B5725]">
-              Yuk, rapikan sedikit 🌻
-            </p>
-
-            <p className="mt-1 text-sm text-[#756840]">
-              {moderationSuggestion.reason}
-            </p>
-
-            <div className="mt-3 rounded-xl bg-white p-3">
-              <p className="font-medium">
-                {moderationSuggestion.suggestedTitle}
-              </p>
-
-              <p className="mt-1 text-sm">
-                {moderationSuggestion.suggestedContent}
-              </p>
-            </div>
-
-            <div className="mt-3 flex gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setTitle(moderationSuggestion.suggestedTitle);
-
-                  setContent(moderationSuggestion.suggestedContent);
-
-                  setModerationSuggestion(null);
-                }}
-                className="rounded-xl bg-[#F39AB5] px-4 py-2 font-semibold text-white"
-              >
-                Gunakan saran
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setModerationSuggestion(null)}
-                className="rounded-xl bg-white px-4 py-2 text-[#6B5725]"
-              >
-                Edit sendiri
-              </button>
-            </div>
-          </div>
-        )}
 
         <nav
           aria-label="Filter kategori Temanku"
