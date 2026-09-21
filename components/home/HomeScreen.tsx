@@ -172,6 +172,31 @@ export default function HomeScreen() {
     setFtueStep(null);
   };
 
+  if (childLoading) {
+    return (
+      <div
+        className="
+          fixed inset-0
+          flex flex-col items-center justify-center gap-5
+          bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)]
+        "
+      >
+        <div
+          className="
+            h-12 w-12
+            rounded-full
+            border-4 border-white/40
+            border-t-white
+            animate-spin
+          "
+        />
+        <p className="font-jaro text-xl text-white drop-shadow">
+          Memuat...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       <main
@@ -189,8 +214,7 @@ export default function HomeScreen() {
           md:pt-120
         "
       >
-        {!childLoading && (
-          <button
+        <button
             type="button"
             onClick={handleAuthButtonClick}
             aria-label={
@@ -205,7 +229,6 @@ export default function HomeScreen() {
               <LogIn className="h-5 w-5" aria-hidden="true" />
             )}
           </button>
-        )}
 
         {/* SEO + accessibility */}
         <section className="sr-only">
@@ -217,7 +240,7 @@ export default function HomeScreen() {
           </p>
         </section>
 
-        {!childLoading && child && (
+        {child && (
           <Profile
             username={child.username}
             avatarId={child.avatarId}
