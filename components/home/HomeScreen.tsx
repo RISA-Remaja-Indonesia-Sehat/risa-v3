@@ -9,6 +9,7 @@ import Profile from "@/components/profile/Profile";
 import SunflowerProgressMap from "./SunflowerProgressMap";
 import LoginPrompt from "@/components/auth/LoginPrompt";
 import ChildLogoutPrompt from "@/components/auth/ChildLogoutPrompt";
+import TemankuShortcut from "./TemankuShortcut";
 
 import { useChildSession } from "@/hooks/useChildSession";
 import { isGuestChapter1Completed } from "@/lib/game/guest-progress";
@@ -234,6 +235,8 @@ export default function HomeScreen() {
           onStartChapter1={handleStartChapter1}
         />
       </main>
+
+      <TemankuShortcut />
 
       {/* ===================== */}
       {/* WELCOME FTUE */}
