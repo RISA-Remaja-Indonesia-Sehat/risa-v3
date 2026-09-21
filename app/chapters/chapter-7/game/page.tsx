@@ -818,7 +818,7 @@ export default function GamePage() {
         result={gameResult}
         onClose={() => setShowScore(false)}
         onRetry={handleRetry}
-        onNext={() => router.push("/post-test")}
+        onNext={() => router.push("/")}
       />
     </div>
   );

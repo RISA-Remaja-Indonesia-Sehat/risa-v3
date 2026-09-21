@@ -448,7 +448,7 @@ export default function HomeScreen() {
 
                 rounded-full
 
-                bg-yellow-100
+                bg-green-100
               "
             >
               <CheckCircle2
@@ -456,7 +456,7 @@ export default function HomeScreen() {
                   h-8
                   w-8
 
-                  text-yellow-600
+                  text-green-600
                 "
               />
             </div>
@@ -469,10 +469,10 @@ export default function HomeScreen() {
                 font-jaro
 
                 text-3xl
-                text-[#52731C]
+                text-pink-500
               "
             >
-              Semua chapter selesai! 🌻
+              Semua chapter selesai!
             </h2>
 
             <p
@@ -497,7 +497,7 @@ export default function HomeScreen() {
 
                 rounded-full
 
-                bg-[#6F8F2F]
+                bg-pink-500
 
                 px-6
                 py-3.5
@@ -510,7 +510,7 @@ export default function HomeScreen() {
 
                 transition
 
-                hover:bg-[#5E7928]
+                hover:bg-pink-600
               "
             >
               Mulai Post Test

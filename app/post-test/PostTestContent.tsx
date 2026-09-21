@@ -10,7 +10,6 @@ import {
   Check,
   House,
   RotateCcw,
-  Sparkles,
 } from "lucide-react";
 
 import { childApiFetch } from "@/lib/api/child-client";
@@ -256,10 +255,10 @@ export default function PostTestContent() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FFF9F4] px-6">
-        <div className="rounded-3xl border border-[#F2D7CE] bg-white px-8 py-6 text-center shadow-sm">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#F3C8BC] border-t-[#D97066]" />
-          <p className="mt-4 text-sm font-semibold text-[#536054]">
+      <main className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
+        <div className="rounded-3xl border-2 border-pink-200 bg-white/90 px-9 py-7 text-center shadow-lg backdrop-blur-sm">
+          <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-yellow-200 border-t-pink-500" />
+          <p className="mt-4 text-sm font-semibold text-gray-600">
             Menyiapkan soal untukmu...
           </p>
         </div>
@@ -269,24 +268,24 @@ export default function PostTestContent() {
 
   if (error && questions.length === 0) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FFF9F4] px-6">
-        <section className="w-full max-w-md rounded-3xl border border-[#F2D7CE] bg-white p-7 text-center shadow-sm">
-          <h1 className="font-jaro text-3xl text-[#C95F57]">
+      <main className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
+        <section className="w-full max-w-md rounded-3xl border-2 border-pink-200 bg-white/90 p-7 text-center shadow-lg backdrop-blur-sm">
+          <h1 className="mt-4 font-jaro text-3xl text-pink-600">
             Soal belum bisa dibuka
           </h1>
-          <p className="mt-3 text-sm leading-6 text-[#667067]">{error}</p>
+          <p className="mt-3 text-sm leading-6 text-gray-600">{error}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="min-h-12 flex-1 rounded-full border border-[#CBD6C8] bg-white px-5 text-sm font-semibold text-[#4F6751]"
+              className="min-h-12 flex-1 rounded-full border-2 border-pink-200 bg-white px-5 text-sm font-semibold text-pink-600 transition hover:bg-pink-50"
             >
               Kembali ke beranda
             </button>
             <button
               type="button"
               onClick={() => void loadQuestions()}
-              className="min-h-12 flex-1 rounded-full bg-[#557A59] px-5 text-sm font-semibold text-white"
+               className="min-h-12 flex-1 rounded-full bg-pink-500 px-5 text-sm font-semibold text-white shadow-md shadow-pink-200 transition hover:bg-pink-600"
             >
               Coba lagi
             </button>
@@ -298,19 +297,17 @@ export default function PostTestContent() {
 
   if (screen === "intro") {
     return (
-      <main className="min-h-screen bg-[#FFF9F4] px-4 py-8 sm:px-6 sm:py-12">
-        <section className="mx-auto max-w-2xl overflow-hidden rounded-[2rem] border border-[#F2D7CE] bg-white shadow-[0_18px_55px_rgba(111,78,62,0.10)]">
-          <div className="bg-linear-to-br from-[#FBE6DF] via-[#FFF6D8] to-[#E6F0E2] px-6 py-10 text-center sm:px-10">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/85 text-[#D97066] shadow-sm">
-              <Sparkles className="h-7 w-7" />
-            </div>
-            <p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-[#69806B]">
-              Ujian akhir RISA
+       <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
+        <section className="relative mx-auto max-w-2xl overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_24px_70px_rgba(190,92,132,0.16)] backdrop-blur-sm">
+          <div className="relative overflow-hidden bg-pink-100 px-6 py-11 text-center sm:px-10 sm:py-12">
+            
+           <p className="relative mt-6 text-xs font-bold uppercase tracking-[0.22em] text-pink-600">
+              Langkah terakhir perjalanan RISA
             </p>
-            <h1 className="mt-2 font-jaro text-4xl text-[#B65352] sm:text-5xl">
+            <h1 className="relative mt-2 font-jaro text-4xl leading-tight text-pink-600 sm:text-5xl">
               Post Test
             </h1>
-            <p className="mx-auto mt-4 max-w-lg text-sm leading-7 text-[#59645B] sm:text-base">
+            <p className="relative mx-auto mt-4 max-w-lg text-sm leading-7 text-gray-600 sm:text-base">
               Saatnya melihat seberapa banyak yang kamu pahami setelah
               menyelesaikan tujuh chapter RISA.
             </p>
@@ -325,26 +322,26 @@ export default function PostTestContent() {
               ].map(([value, label]) => (
                 <div
                   key={label}
-                  className="rounded-2xl border border-[#E5EBDD] bg-[#F8FAF5] px-4 py-4 text-center"
+                  className="rounded-2xl border border-pink-100 bg-linear-to-br from-pink-50 to-yellow-50 px-4 py-4 text-center"
                 >
-                  <strong className="block text-xl text-[#4F6751]">
+                   <strong className="block text-xl text-pink-600">
                     {value}
                   </strong>
-                  <span className="mt-1 block text-xs text-[#7C867D]">
+                  <span className="mt-1 block text-xs font-medium text-gray-500">
                     {label}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 rounded-2xl bg-[#FFF7E1] p-5">
+            <div className="mt-6 rounded-2xl border border-yellow-200 bg-yellow-50 p-5">
               <div className="flex gap-3">
-                <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-[#C18A31]" />
+                <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-yellow-700" />
                 <div>
-                  <h2 className="text-sm font-bold text-[#66552D]">
-                    Sebelum mulai
+                  <h2 className="text-sm font-bold text-yellow-900">
+                    Kamu tidak perlu terburu-buru
                   </h2>
-                  <p className="mt-1 text-sm leading-6 text-[#756746]">
+                  <p className="mt-1 text-sm leading-6 text-yellow-900/70">
                     Jawablah dengan tenang. Pembahasan akan muncul setelah semua
                     jawaban dikirim, dan kamu boleh mencoba kembali.
                   </p>
@@ -353,9 +350,9 @@ export default function PostTestContent() {
             </div>
 
             {previousResult?.score != null && (
-              <div className="mt-4 rounded-2xl border border-[#F0D4CB] bg-[#FFF8F5] p-4 text-sm text-[#6C5C58]">
+              <div className="mt-4 rounded-2xl border border-pink-200 bg-pink-50 p-4 text-center text-sm text-gray-600">
                 Nilai terbaikmu sebelumnya:{" "}
-                <strong className="text-[#C45F58]">
+                <strong className="text-pink-600">
                   {previousResult.score}
                 </strong>
               </div>
@@ -364,7 +361,7 @@ export default function PostTestContent() {
             <button
               type="button"
               onClick={startQuiz}
-              className="mt-7 flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-[#557A59] px-6 text-sm font-bold text-white shadow-[0_8px_20px_rgba(85,122,89,0.22)] transition hover:bg-[#486B4C] active:scale-[0.99]"
+              className="mt-7 flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-pink-500 px-6 text-sm font-bold text-white shadow-lg shadow-pink-200 transition hover:-translate-y-0.5 hover:bg-pink-600 hover:shadow-xl active:translate-y-0 active:scale-[0.99]"
             >
               {previousResult ? "Kerjakan kembali" : "Mulai Post Test"}
               <ArrowRight className="h-4 w-4" />
@@ -377,48 +374,54 @@ export default function PostTestContent() {
 
   if (screen === "quiz" && currentQuestion) {
     return (
-      <main className="min-h-screen bg-[#FFF9F4] px-4 py-6 sm:px-6 sm:py-10">
-        <section className="mx-auto max-w-3xl">
+      <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-6 sm:px-6 sm:py-10">
+        <div className="pointer-events-none absolute -left-20 top-20 h-52 w-52 rounded-full bg-pink-200/35 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 bottom-16 h-64 w-64 rounded-full bg-yellow-200/45 blur-3xl" />
+
+        <section className="relative mx-auto max-w-3xl">
           <header className="mb-5 flex items-center justify-between gap-4">
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#D9E1D5] bg-white text-[#557A59] transition hover:bg-[#F5F8F2]"
-              aria-label="Kembali ke beranda"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-pink-50 hover:shadow-md"
             >
               <House className="h-4 w-4" />
             </button>
             <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between text-xs font-semibold text-[#6D786E]">
+              <div className="flex items-center justify-between text-xs font-semibold text-pink-700">
                 <span>
                   Pertanyaan {currentIndex + 1} dari {questions.length}
                 </span>
                 <span>{Math.round(progress)}%</span>
               </div>
-              <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#E8EADF]">
+              <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/80 shadow-inner">
                 <div
-                  className="h-full rounded-full bg-linear-to-r from-[#E58B7F] to-[#E8B64F] transition-[width] duration-300"
+                  className="h-full rounded-full bg-pink-400 transition-[width] duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
             </div>
           </header>
 
-          <article className="rounded-[2rem] border border-[#F0D8CF] bg-white p-6 shadow-[0_16px_45px_rgba(111,78,62,0.09)] sm:p-9">
+           <article className="rounded-4xl border-2 border-pink-200 bg-white/90 p-6 shadow-[0_20px_55px_rgba(244,114,182,0.15)] backdrop-blur-sm sm:p-9">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-[#EAF2E6] px-3 py-1 text-xs font-bold text-[#557A59]">
+               <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-bold text-pink-700">
                 Chapter {currentQuestion.chapterNumber}
               </span>
               {currentQuestion.type === "TRUE_FALSE" && (
-                <span className="rounded-full bg-[#FFF2CE] px-3 py-1 text-xs font-bold text-[#9A7025]">
+                <span className="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold text-yellow-800">
                   Benar atau salah
                 </span>
               )}
             </div>
 
-            <h1 className="mt-5 text-lg font-bold leading-8 text-[#344238] sm:text-xl">
+            <h1 className="mt-5 text-lg font-bold leading-8 text-gray-800 sm:text-xl">
               {currentQuestion.prompt}
             </h1>
+            <p className="mt-2 text-sm text-gray-500">
+              Pilih jawaban yang menurutmu paling tepat.
+            </p>
+
 
             <div className="mt-7 grid gap-3">
               {currentQuestion.options.map((option) => {
@@ -432,15 +435,15 @@ export default function PostTestContent() {
                     aria-pressed={selected}
                     className={`flex min-h-14 w-full items-start gap-3 rounded-2xl border-2 px-4 py-4 text-left text-sm leading-6 transition sm:px-5 ${
                       selected
-                        ? "border-[#6D9470] bg-[#EFF6EB] text-[#344C37] shadow-sm"
-                        : "border-[#E5E5DD] bg-white text-[#59625A] hover:border-[#BFD0BB] hover:bg-[#FAFCF8]"
+                        ? "border-pink-400 bg-pink-50 text-pink-950 shadow-sm shadow-pink-100"
+                        : "border-pink-100 bg-white text-gray-600 hover:border-pink-300 hover:bg-yellow-50/60"
                     }`}
                   >
                     <span
                       className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                         selected
-                          ? "bg-[#557A59] text-white"
-                          : "bg-[#F3F1EC] text-[#6F766F]"
+                          ? "bg-pink-500 text-white"
+                          : "bg-yellow-100 text-yellow-800"
                       }`}
                     >
                       {selected ? <Check className="h-4 w-4" /> : option.id}
@@ -452,7 +455,7 @@ export default function PostTestContent() {
             </div>
 
             {error && (
-              <p className="mt-5 rounded-xl bg-[#FFF0ED] px-4 py-3 text-sm text-[#A84F49]">
+               <p className="mt-5 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3 text-sm text-pink-700">
                 {error}
               </p>
             )}
@@ -464,7 +467,7 @@ export default function PostTestContent() {
                   setCurrentIndex((index) => Math.max(0, index - 1))
                 }
                 disabled={currentIndex === 0 || submitting}
-                className="flex min-h-12 items-center gap-2 rounded-full border border-[#D7DED3] bg-white px-5 text-sm font-semibold text-[#566758] transition disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex min-h-12 items-center gap-2 rounded-full border-2 border-pink-200 bg-white px-5 text-sm font-semibold text-pink-600 transition hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Sebelumnya
@@ -474,7 +477,7 @@ export default function PostTestContent() {
                 type="button"
                 onClick={goNext}
                 disabled={!selectedOptionId || submitting}
-                className="flex min-h-12 items-center gap-2 rounded-full bg-[#557A59] px-6 text-sm font-bold text-white transition hover:bg-[#486B4C] disabled:cursor-not-allowed disabled:bg-[#B8C3B7]"
+                className="flex min-h-12 items-center gap-2 rounded-full bg-pink-500 px-6 text-sm font-bold text-white shadow-md shadow-pink-200 transition hover:-translate-y-0.5 hover:bg-pink-600 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-pink-200 disabled:shadow-none"
               >
                 {submitting
                   ? "Mengirim..."
@@ -494,11 +497,16 @@ export default function PostTestContent() {
     const resultCopy = getResultCopy(result.score);
 
     return (
-      <main className="min-h-screen bg-[#FFF9F4] px-4 py-8 sm:px-6 sm:py-12">
-        <section className="mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-[2rem] border border-[#F0D8CF] bg-white shadow-[0_18px_55px_rgba(111,78,62,0.10)]">
-            <div className="bg-linear-to-br from-[#FBE6DF] via-[#FFF8DF] to-[#E7F1E3] px-6 py-8 text-center sm:px-10">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B806D]">
+      <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
+        <div className="pointer-events-none absolute -left-24 top-24 h-64 w-64 rounded-full bg-yellow-200/45 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-24 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
+
+        <section className="relative mx-auto max-w-3xl">
+          <div className="overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_22px_60px_rgba(244,114,182,0.16)] backdrop-blur-sm">
+            <div className="relative overflow-hidden bg-linear-to-br from-pink-100 via-yellow-50 to-yellow-100 px-6 py-8 text-center sm:px-10">
+              <div className="pointer-events-none absolute -left-12 -top-12 h-32 w-32 rounded-full bg-white/45" />
+              <div className="pointer-events-none absolute -bottom-16 -right-8 h-40 w-40 rounded-full bg-pink-200/45" />
+              <p className="relative text-xs font-bold uppercase tracking-[0.2em] text-pink-600">
                 Post Test selesai
               </p>
               <div className="relative mx-auto mt-2 h-48 w-full max-w-sm sm:h-56">
@@ -510,50 +518,50 @@ export default function PostTestContent() {
                   className="object-contain"
                 />
               </div>
-              <h1 className="font-jaro text-4xl text-[#B65352] sm:text-5xl">
+              <h1 className="relative font-jaro text-4xl text-pink-600 sm:text-5xl">
                 {resultCopy.title}
               </h1>
-              <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-[#5D685F]">
+              <p className="relative mx-auto mt-3 max-w-lg text-sm leading-6 text-gray-600">
                 {resultCopy.message}
               </p>
             </div>
 
             <div className="p-6 sm:p-9">
               <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl bg-[#EFF6EB] p-5 text-center">
-                  <span className="block text-xs font-bold uppercase tracking-wider text-[#708172]">
+                <div className="rounded-2xl border border-pink-200 bg-pink-50 p-5 text-center">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-pink-700">
                     Nilai
                   </span>
-                  <strong className="mt-1 block text-4xl text-[#4F7453]">
+                  <strong className="mt-1 block text-4xl text-pink-600">
                     {result.score}
                   </strong>
                 </div>
-                <div className="rounded-2xl bg-[#FFF4D7] p-5 text-center">
-                  <span className="block text-xs font-bold uppercase tracking-wider text-[#8B7747]">
+                <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-5 text-center">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-yellow-800">
                     Jawaban benar
                   </span>
-                  <strong className="mt-1 block text-4xl text-[#A3782A]">
+                  <strong className="mt-1 block text-4xl text-yellow-700">
                     {result.correctAnswers}/{result.totalQuestions}
                   </strong>
                 </div>
               </div>
 
               {result.recommendedChapters.length > 0 ? (
-                <div className="mt-6 rounded-2xl border border-[#F0D6CD] bg-[#FFF9F6] p-5">
-                  <h2 className="font-bold text-[#5D4A45]">
+                <div className="mt-6 rounded-2xl border border-yellow-200 bg-linear-to-r from-yellow-50 to-pink-50 p-5">
+                  <h2 className="font-bold text-gray-800">
                     Materi yang bisa kamu pelajari kembali
                   </h2>
-                  <ul className="mt-3 space-y-2 text-sm text-[#6C625E]">
+                  <ul className="mt-3 space-y-2 text-sm text-gray-600">
                     {result.recommendedChapters.map((chapter) => (
                       <li key={chapter} className="flex gap-2">
-                        <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-[#D07368]" />
+                         <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-pink-500" />
                         Chapter {chapter}: {CHAPTER_TITLES[chapter]}
                       </li>
                     ))}
                   </ul>
                 </div>
               ) : (
-                <div className="mt-6 rounded-2xl border border-[#CFE0CA] bg-[#F1F8EE] p-5 text-sm leading-6 text-[#4F6751]">
+                <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-5 text-sm leading-6 text-green-800">
                   Semua jawabanmu benar. Kamu sudah memahami seluruh materi
                   dengan sangat baik!
                 </div>
@@ -561,7 +569,7 @@ export default function PostTestContent() {
 
               {wrongAnswers.length > 0 && (
                 <div className="mt-8">
-                  <h2 className="text-lg font-bold text-[#344238]">
+                  <h2 className="text-lg font-bold text-gray-800">
                     Pembahasan jawaban
                   </h2>
                   <p className="mt-1 text-sm text-[#778078]">
@@ -573,22 +581,22 @@ export default function PostTestContent() {
                     {wrongAnswers.map((item) => (
                       <article
                         key={item.questionId}
-                        className="rounded-2xl border border-[#E8E2DA] bg-[#FFFEFB] p-5"
+                        className="rounded-2xl border border-pink-100 bg-pink-50/40 p-5"
                       >
-                        <p className="text-xs font-bold text-[#C26A61]">
+                        <p className="text-xs font-bold text-pink-600">
                           Soal {item.order} · Chapter {item.chapterNumber}
                         </p>
-                        <h3 className="mt-2 text-sm font-semibold leading-6 text-[#3F4941]">
+                        <h3 className="mt-2 text-sm font-semibold leading-6 text-gray-800">
                           {item.prompt}
                         </h3>
                         <div className="mt-3 space-y-2 text-sm leading-6">
-                          <p className="text-[#9A5B55]">
+                           <p className="text-pink-700">
                             Jawabanmu: {item.selectedOptionLabel}
                           </p>
-                          <p className="font-semibold text-[#4F7453]">
+                           <p className="font-semibold text-green-700">
                             Jawaban tepat: {item.correctOptionLabel}
                           </p>
-                          <p className="rounded-xl bg-[#F5F7F1] px-4 py-3 text-[#667067]">
+                           <p className="rounded-xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-gray-600">
                             {item.explanation}
                           </p>
                         </div>
@@ -602,7 +610,7 @@ export default function PostTestContent() {
                 <button
                   type="button"
                   onClick={() => router.push("/")}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[#CCD7C9] bg-white px-5 text-sm font-bold text-[#557A59]"
+                 className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border-2 border-pink-200 bg-white px-5 text-sm font-bold text-pink-600 transition hover:bg-pink-50"
                 >
                   <House className="h-4 w-4" />
                   Kembali ke beranda
@@ -610,7 +618,7 @@ export default function PostTestContent() {
                 <button
                   type="button"
                   onClick={startQuiz}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#557A59] px-5 text-sm font-bold text-white"
+                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-pink-500 px-5 text-sm font-bold text-white shadow-md shadow-pink-200 transition hover:-translate-y-0.5 hover:bg-pink-600 hover:shadow-lg"
                 >
                   <RotateCcw className="h-4 w-4" />
                   Coba lagi

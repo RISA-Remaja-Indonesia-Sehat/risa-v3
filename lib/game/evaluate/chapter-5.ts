@@ -5,7 +5,7 @@ import type {
 export function evaluateChapter5(
   score: number
 ): GameResult {
-  if (score >= 40) {
+  if (score >= 90) {
     return {
       stars: 3,
       title: "Luar biasa!",
@@ -16,7 +16,7 @@ export function evaluateChapter5(
     };
   }
 
-  if (score >= 20) {
+  if (score >= 50) {
     return {
       stars: 2,
       title: "Hebat!",
@@ -27,7 +27,7 @@ export function evaluateChapter5(
     };
   }
 
-  if (score > 0) {
+  if (score > 10) {
     return {
       stars: 1,
       title: "Bagus, lanjutkan!",
