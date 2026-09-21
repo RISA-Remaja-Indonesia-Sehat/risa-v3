@@ -362,7 +362,7 @@ function ChildProgressCard({
   return (
     <article className="rounded-3xl border border-[#DFE1DA] bg-white p-5 shadow-sm sm:p-6">
       <div className="flex items-center gap-4">
-        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-[#F5E5DF]">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden">
           <Image
             src={character.src}
             alt={character.name}

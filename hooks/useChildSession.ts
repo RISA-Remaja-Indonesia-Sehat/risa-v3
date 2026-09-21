@@ -33,7 +33,6 @@ export function useChildSession() {
       const response = await fetch(`${API_URL}/api/child/me`, {
         method: "GET",
         credentials: "include",
-        cache: "no-store",
       });
 
       if (response.status === 401) {

@@ -10,7 +10,6 @@ import {
   Check,
   House,
   RotateCcw,
-  Sparkles,
 } from "lucide-react";
 
 import { childApiFetch } from "@/lib/api/child-client";
@@ -271,9 +270,6 @@ export default function PostTestContent() {
     return (
       <main className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
         <section className="w-full max-w-md rounded-3xl border-2 border-pink-200 bg-white/90 p-7 text-center shadow-lg backdrop-blur-sm">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 text-pink-500">
-            <Sparkles className="h-6 w-6" />
-          </div>
           <h1 className="mt-4 font-jaro text-3xl text-pink-600">
             Soal belum bisa dibuka
           </h1>
@@ -289,7 +285,7 @@ export default function PostTestContent() {
             <button
               type="button"
               onClick={() => void loadQuestions()}
-              className="min-h-12 flex-1 rounded-full bg-pink-500 px-5 text-sm font-semibold text-white shadow-md shadow-pink-200 transition hover:bg-pink-600"
+               className="min-h-12 flex-1 rounded-full bg-pink-500 px-5 text-sm font-semibold text-white shadow-md shadow-pink-200 transition hover:bg-pink-600"
             >
               Coba lagi
             </button>
@@ -301,27 +297,19 @@ export default function PostTestContent() {
 
   if (screen === "intro") {
     return (
-      <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
-        <div className="pointer-events-none absolute -left-16 top-16 h-44 w-44 rounded-full bg-pink-200/45 blur-2xl" />
-        <div className="pointer-events-none absolute -right-12 bottom-10 h-52 w-52 rounded-full bg-yellow-200/55 blur-2xl" />
-
-        <section className="relative mx-auto max-w-2xl overflow-hidden rounded-[2rem] border-2 border-pink-200 bg-white/90 shadow-[0_24px_70px_rgba(190,92,132,0.16)] backdrop-blur-sm">
-          <div className="relative overflow-hidden bg-linear-to-br from-pink-100 via-yellow-50 to-yellow-100 px-6 py-11 text-center sm:px-10 sm:py-12">
-            <div className="pointer-events-none absolute -left-8 -top-8 h-28 w-28 rounded-full border-[18px] border-white/35" />
-            <div className="pointer-events-none absolute -bottom-12 -right-8 h-36 w-36 rounded-full bg-pink-200/35" />
-
-            <div className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-pink-500 text-white shadow-lg shadow-pink-200 ring-8 ring-white/50">
-              <Sparkles className="h-7 w-7" />
-            </div>
-            <p className="relative mt-6 text-xs font-bold uppercase tracking-[0.22em] text-pink-600">
+       <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
+        <section className="relative mx-auto max-w-2xl overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_24px_70px_rgba(190,92,132,0.16)] backdrop-blur-sm">
+          <div className="relative overflow-hidden bg-pink-100 px-6 py-11 text-center sm:px-10 sm:py-12">
+            
+           <p className="relative mt-6 text-xs font-bold uppercase tracking-[0.22em] text-pink-600">
               Langkah terakhir perjalanan RISA
             </p>
             <h1 className="relative mt-2 font-jaro text-4xl leading-tight text-pink-600 sm:text-5xl">
-              Lihat seberapa jauh kamu bertumbuh
+              Post Test
             </h1>
             <p className="relative mx-auto mt-4 max-w-lg text-sm leading-7 text-gray-600 sm:text-base">
-              Ini bukan tentang harus sempurna. Jawab dengan tenang dan lihat
-              hal-hal hebat yang sudah kamu pelajari.
+              Saatnya melihat seberapa banyak yang kamu pahami setelah
+              menyelesaikan tujuh chapter RISA.
             </p>
           </div>
 
@@ -336,7 +324,7 @@ export default function PostTestContent() {
                   key={label}
                   className="rounded-2xl border border-pink-100 bg-linear-to-br from-pink-50 to-yellow-50 px-4 py-4 text-center"
                 >
-                  <strong className="block text-xl text-pink-600">
+                   <strong className="block text-xl text-pink-600">
                     {value}
                   </strong>
                   <span className="mt-1 block text-xs font-medium text-gray-500">
@@ -396,7 +384,6 @@ export default function PostTestContent() {
               type="button"
               onClick={() => router.push("/")}
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-500 shadow-sm transition hover:-translate-y-0.5 hover:bg-pink-50 hover:shadow-md"
-              aria-label="Kembali ke beranda"
             >
               <House className="h-4 w-4" />
             </button>
@@ -409,16 +396,16 @@ export default function PostTestContent() {
               </div>
               <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/80 shadow-inner">
                 <div
-                  className="h-full rounded-full bg-linear-to-r from-pink-400 via-pink-300 to-yellow-400 transition-[width] duration-300"
+                  className="h-full rounded-full bg-pink-400 transition-[width] duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
             </div>
           </header>
 
-          <article className="rounded-[2rem] border-2 border-pink-200 bg-white/90 p-6 shadow-[0_20px_55px_rgba(244,114,182,0.15)] backdrop-blur-sm sm:p-9">
+           <article className="rounded-4xl border-2 border-pink-200 bg-white/90 p-6 shadow-[0_20px_55px_rgba(244,114,182,0.15)] backdrop-blur-sm sm:p-9">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-bold text-pink-700">
+               <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-bold text-pink-700">
                 Chapter {currentQuestion.chapterNumber}
               </span>
               {currentQuestion.type === "TRUE_FALSE" && (
@@ -467,7 +454,7 @@ export default function PostTestContent() {
             </div>
 
             {error && (
-              <p className="mt-5 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3 text-sm text-pink-700">
+               <p className="mt-5 rounded-xl border border-pink-200 bg-pink-50 px-4 py-3 text-sm text-pink-700">
                 {error}
               </p>
             )}
@@ -514,7 +501,7 @@ export default function PostTestContent() {
         <div className="pointer-events-none absolute -right-24 bottom-24 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
 
         <section className="relative mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-[2rem] border-2 border-pink-200 bg-white/90 shadow-[0_22px_60px_rgba(244,114,182,0.16)] backdrop-blur-sm">
+          <div className="overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_22px_60px_rgba(244,114,182,0.16)] backdrop-blur-sm">
             <div className="relative overflow-hidden bg-linear-to-br from-pink-100 via-yellow-50 to-yellow-100 px-6 py-8 text-center sm:px-10">
               <div className="pointer-events-none absolute -left-12 -top-12 h-32 w-32 rounded-full bg-white/45" />
               <div className="pointer-events-none absolute -bottom-16 -right-8 h-40 w-40 rounded-full bg-pink-200/45" />
@@ -566,7 +553,7 @@ export default function PostTestContent() {
                   <ul className="mt-3 space-y-2 text-sm text-gray-600">
                     {result.recommendedChapters.map((chapter) => (
                       <li key={chapter} className="flex gap-2">
-                        <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-pink-500" />
+                         <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-pink-500" />
                         Chapter {chapter}: {CHAPTER_TITLES[chapter]}
                       </li>
                     ))}
@@ -602,13 +589,13 @@ export default function PostTestContent() {
                           {item.prompt}
                         </h3>
                         <div className="mt-3 space-y-2 text-sm leading-6">
-                          <p className="text-pink-700">
+                           <p className="text-pink-700">
                             Jawabanmu: {item.selectedOptionLabel}
                           </p>
-                          <p className="font-semibold text-green-700">
+                           <p className="font-semibold text-green-700">
                             Jawaban tepat: {item.correctOptionLabel}
                           </p>
-                          <p className="rounded-xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-gray-600">
+                           <p className="rounded-xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-gray-600">
                             {item.explanation}
                           </p>
                         </div>
@@ -622,7 +609,7 @@ export default function PostTestContent() {
                 <button
                   type="button"
                   onClick={() => router.push("/")}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border-2 border-pink-200 bg-white px-5 text-sm font-bold text-pink-600 transition hover:bg-pink-50"
+                 className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border-2 border-pink-200 bg-white px-5 text-sm font-bold text-pink-600 transition hover:bg-pink-50"
                 >
                   <House className="h-4 w-4" />
                   Kembali ke beranda
