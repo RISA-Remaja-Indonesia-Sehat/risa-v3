@@ -422,7 +422,6 @@ export default function PostTestContent() {
               Pilih jawaban yang menurutmu paling tepat.
             </p>
 
-
             <div className="mt-7 grid gap-3">
               {currentQuestion.options.map((option) => {
                 const selected = selectedOptionId === option.id;
@@ -572,7 +571,7 @@ export default function PostTestContent() {
                   <h2 className="text-lg font-bold text-gray-800">
                     Pembahasan jawaban
                   </h2>
-                  <p className="mt-1 text-sm text-[#778078]">
+                  <p className="mt-1 text-sm text-gray-500">
                     Baca kembali bagian yang masih keliru tanpa perlu merasa
                     malu.
                   </p>
