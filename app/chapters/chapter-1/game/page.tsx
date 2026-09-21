@@ -180,7 +180,9 @@ export default function GamePage() {
           router.push("/child/login?next=/chapters/chapter-2");
         }}
         onCreateAccess={() => {
-          router.push("/guardian/login");
+          const next = "/guardian/consent?source=guest";
+
+          router.push(`/guardian/login?next=${encodeURIComponent(next)}`);
         }}
       />
     </>
