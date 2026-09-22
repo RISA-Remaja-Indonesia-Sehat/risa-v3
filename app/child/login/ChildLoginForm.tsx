@@ -121,17 +121,17 @@ export default function ChildLoginForm() {
     }
   }
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE] px-4 py-10">
+    <main className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-4 py-10">
       <section className="w-full max-w-md rounded-3xl border border-[#DFE1DA] bg-white p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#667D68]">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-700">
           RISA
         </p>
 
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#253029]">
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight">
           Masuk ke RISA
         </h1>
 
-        <p className="mt-3 text-sm leading-6 text-[#667068]">
+        <p className="mt-3 text-sm leading-6 text-gray-600">
           Gunakan username dan PIN yang sudah dibuat bersama orang tua atau
           wali.
         </p>
@@ -146,7 +146,7 @@ export default function ChildLoginForm() {
           <div>
             <label
               htmlFor="username"
-              className="mb-1.5 block text-sm font-semibold text-[#344238]"
+              className="mb-1.5 block text-sm font-semibold text-gray-700"
             >
               Username
             </label>
@@ -158,14 +158,14 @@ export default function ChildLoginForm() {
               placeholder="Masukkan username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
             />
           </div>
 
           <div>
             <label
               htmlFor="pin"
-              className="mb-1.5 block text-sm font-semibold text-[#344238]"
+              className="mb-1.5 block text-sm font-semibold text-gray-700"
             >
               PIN
             </label>
@@ -182,7 +182,7 @@ export default function ChildLoginForm() {
               onChange={(event) =>
                 setPin(event.target.value.replace(/\D/g, ""))
               }
-              className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
             />
           </div>
 
@@ -198,7 +198,7 @@ export default function ChildLoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white hover:bg-[#405642] disabled:opacity-50"
+            className="w-full rounded-xl bg-[#0077ff] px-5 py-3.5 text-sm font-semibold text-white disabled:opacity-50"
           >
             {loading ? "Masuk..." : "Masuk"}
           </button>

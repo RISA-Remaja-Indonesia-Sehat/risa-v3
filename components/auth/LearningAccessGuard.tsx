@@ -64,7 +64,7 @@ export default function LearningAccessGuard({ children, mode }: Props) {
   useEffect(() => {
     const requiresProtection = chapterNeedsProtection || mode === "post-test";
 
-    if (!requiresProtection || loading || canAccess) {
+    if (!requiresProtection || loading || canAccess || sessionError) {
       return;
     }
 
@@ -92,11 +92,8 @@ export default function LearningAccessGuard({ children, mode }: Props) {
     mode,
     pathname,
     router,
+    sessionError
   ]);
-
-  if (!chapterNeedsProtection || loading || canAccess || sessionError) {
-    return;
-  }
 
   /*
    * Chapter 1 tidak perlu menunggu
