@@ -200,19 +200,7 @@ export default function HomeScreen() {
   return (
     <>
       <main
-        className="
-          min-h-screen
-          w-full
-          overflow-x-hidden
-
-          bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)]
-
-          px-5
-          pt-80
-          pb-0
-
-          md:pt-120
-        "
+        className="min-h-screen w-full overflow-x-hidden bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-5 pt-80 pb-0 md:pt-120"
       >
         <button
             type="button"

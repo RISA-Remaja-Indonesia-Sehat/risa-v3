@@ -169,7 +169,7 @@ export default function GuardianConsentPage() {
         </form>
 
         <p className="mt-6 text-xs leading-5 text-[#8A928B]">
-          Teks ini cocok untuk demo. Sebelum RISA digunakan secara publik, teks
+          Teks ini hanya demo. Sebelum RISA digunakan secara publik, teks
           persetujuan dan kebijakan privasi sebaiknya ditinjau secara khusus.
         </p>
       </section>

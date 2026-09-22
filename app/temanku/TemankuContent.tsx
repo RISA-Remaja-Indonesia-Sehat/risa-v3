@@ -457,15 +457,32 @@ export default function TemankuContent() {
 
   if (sessionLoading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#FFF9F4]">
-        <LoaderCircle className="h-8 w-8 animate-spin text-[#F06F9B]" />
-      </main>
+      <div
+        className="
+          fixed inset-0
+          flex flex-col items-center justify-center gap-5
+          bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)]
+        "
+      >
+        <div
+          className="
+            h-12 w-12
+            rounded-full
+            border-4 border-white/40
+            border-t-white
+            animate-spin
+          "
+        />
+        <p className="font-jaro text-xl text-white drop-shadow">
+          Memuat...
+        </p>
+      </div>
     );
   }
 
   if (!isChildAuthenticated || !child) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-sky-50 px-5 py-10">
+      <main className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-5 py-10">
         <section className="w-full max-w-md rounded-4xl border border-[#F1D4DE] bg-white p-7 text-center shadow-[0_18px_50px_rgba(112,78,92,0.12)]">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFE5EF] text-[#D95F89]">
             <LockKeyhole className="h-8 w-8" />
@@ -495,7 +512,7 @@ export default function TemankuContent() {
   }
 
   return (
-    <main className="min-h-screen bg-sky-50 pb-16">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] pb-16">
       <header className="sticky top-0 z-30 border-b border-white/70 bg-white/85 px-4 py-3 backdrop-blur-xl sm:px-6">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <button
