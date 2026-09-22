@@ -4,6 +4,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 
 import type { GameResult, StarRating } from "@/types/game-result";
+import { CHAPTER_1_RULE } from "@/lib/game/chapter-rules";
 
 type ScoreModalProps = {
   open: boolean;
@@ -17,6 +18,11 @@ type ScoreModalProps = {
 
   nextLoading?: boolean;
   closable?: boolean;
+
+  passed?: boolean;
+  nextDisabled?: boolean;
+  errorMessage?: string;
+  statusLabel?: string;
 };
 
 const STAR_ASSETS: Record<StarRating, string> = {
@@ -35,130 +41,37 @@ export default function ScoreModal({
   onNext,
   nextLoading = false,
   closable = true,
+  passed = true,
+  nextDisabled = false,
+  errorMessage = "",
+  statusLabel,
 }: ScoreModalProps) {
   if (!open) {
     return null;
   }
 
   return (
-    <div
-      className="
-        fixed
-        inset-0
-        z-50
-
-        flex
-        items-center
-        justify-center
-
-        bg-pink-950/20
-        px-4
-
-        backdrop-blur-sm
-      "
-    >
-      <div
-        className="
-          relative
-
-          w-full
-          max-w-md
-
-          overflow-hidden
-
-          rounded-3xl
-          border-2
-          border-pink-200
-
-          bg-linear-to-br
-          from-white
-          via-pink-50
-          to-yellow-50
-
-          p-6
-
-          shadow-xl
-
-          sm:p-8
-        "
-      >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-pink-950/20 px-4 backdrop-blur-sm">
+      <div className="relative w-full max-w-md overflow-hidden rounded-3xl border-2 border-pink-200 bg-linear-to-br from-white via-pink-50 to-yellow-50 p-6 shadow-xl sm:p-8">
         {closable && (
           <button
             type="button"
             onClick={onClose}
             aria-label="Tutup hasil"
-            className="
-            absolute
-            right-4
-            top-4
-            z-10
-
-            flex
-            h-10
-            w-10
-
-            items-center
-            justify-center
-
-            rounded-full
-
-            bg-white/90
-            text-gray-400
-
-            shadow-sm
-
-            transition
-
-            cursor-pointer
-
-            hover:bg-white
-            hover:text-pink-600
-
-            active:scale-95
-          "
+            className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-400 shadow-sm transition cursor-pointer hover:bg-white hover:text-pink-600 active:scale-95"
           >
             <X className="h-5 w-5" />
           </button>
         )}
 
-        <div
-          className="
-            flex
-            flex-col
-            items-center
-
-            text-center
-          "
-        >
-          <span
-            className="
-              rounded-full
-
-              bg-green-50
-
-              px-4
-              py-1.5
-
-              text-xs
-              font-semibold
-              text-green-700
-            "
-          >
-            Chapter {chapterNumber} selesai
+        <div className="flex flex-col items-center text-center">
+          <span>
+            {passed
+              ? `Chapter ${chapterNumber} selesai`
+              : `Belum lulus · minimal ${CHAPTER_1_RULE.minimumScore}/${CHAPTER_1_RULE.totalQuestions}`}
           </span>
 
-          <div
-            className="
-              relative
-
-              mt-4
-
-              h-44
-              w-full
-
-              sm:h-52
-            "
-          >
+          <div className="relative mt-4 h-44 w-full sm:h-52">
             <Image
               src={STAR_ASSETS[result.stars]}
               alt={`${result.stars} dari 3 bintang`}
@@ -168,62 +81,23 @@ export default function ScoreModal({
             />
           </div>
 
-          <h2
-            className="
-              mt-2
-
-              font-jaro
-
-              text-3xl
-              text-pink-600
-
-              sm:text-4xl
-            "
-          >
+          <h2 className="mt-2 font-jaro text-3xl text-pink-600 sm:text-4xl">
             {result.title}
           </h2>
 
-          <p
-            className="
-              mx-auto
-              mt-3
-              max-w-xs
-
-              text-sm
-              leading-6
-              text-gray-600
-            "
-          >
+          <p className="mx-auto mt-3 max-w-xs text-sm leading-6 text-gray-600">
             {result.message}
           </p>
 
           {result.summary ? (
-            <div
-              className="
-      mt-5
-      rounded-2xl
-      border border-yellow-200
-      bg-white/80
-      px-5 py-3
-      text-sm font-semibold
-      text-gray-600
-    "
-            >
+            <div className="mt-5 rounded-2xl border border-yellow-200 bg-white/80 px-5 py-3 text-sm font-semibold text-gray-600">
               {result.summary}
             </div>
           ) : (
             result.score !== undefined &&
             result.total !== undefined && (
               <div
-                className="
-        mt-5
-        rounded-2xl
-        border border-yellow-200
-        bg-white/80
-        px-5 py-3
-        text-sm
-        text-gray-600
-      "
+                className="mt-5 rounded-2xl border border-yellow-200 bg-white/80 px-5 py-3 text-sm text-gray-600"
               >
                 Kamu menjawab{" "}
                 <span className="font-semibold text-pink-600">
@@ -236,16 +110,14 @@ export default function ScoreModal({
           )}
         </div>
 
+        {errorMessage && (
+          <p role="alert" className="mt-4 text-sm text-red-600">
+            {errorMessage}
+          </p>
+        )}
+
         <div
-          className="
-            mt-7
-
-            flex
-            flex-col
-            gap-3
-
-            sm:flex-row
-          "
+          className="mt-7 flex flex-col gap-3 sm:flex-row"
         >
           <button
             type="button"
@@ -290,7 +162,7 @@ export default function ScoreModal({
           <button
             type="button"
             onClick={onNext}
-            disabled={nextLoading}
+            disabled={nextLoading || nextDisabled}
             className="
               flex
               min-h-12
@@ -327,7 +199,7 @@ export default function ScoreModal({
               disabled:active:scale-100
             "
           >
-            {nextLoading ? "Memeriksa..." : "Chapter berikutnya"}
+            {nextLoading ? "Menyimpan..." : "Chapter berikutnya"}
           </button>
         </div>
       </div>
