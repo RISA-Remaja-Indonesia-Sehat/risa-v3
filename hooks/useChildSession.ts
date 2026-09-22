@@ -2,22 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-type Child = {
-  id: string;
-  username: string;
-  avatarId: string;
-};
-
-type ChildSessionData = {
-  child: Child;
-  completedChapters: number[];
-  postTestCompleted: boolean;
-};
-
-type ChildMeResponse = {
-  success: boolean;
-  data: ChildSessionData;
-};
+import {
+  type ChildSessionData,
+  isChildMeResponse,
+} from "@/types/child-session";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -44,7 +32,11 @@ export function useChildSession() {
         throw new Error("Gagal memeriksa session anak.");
       }
 
-      const result = (await response.json()) as ChildMeResponse;
+      const result: unknown = await response.json();
+
+      if (!isChildMeResponse(result)) {
+        throw new Error("Respons session anak tidak valid.");
+      }
 
       setSession(result.data);
     } catch (error) {

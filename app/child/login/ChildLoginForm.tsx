@@ -4,8 +4,61 @@ import { useState, type FormEvent } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { childApiFetch } from "@/lib/api/child-client";
+import { ChildApiError, childApiFetch } from "@/lib/api/child-client";
+
+import { isChildMeResponse } from "@/types/child-session";
+
 import { getSafeNext } from "@/lib/navigation/safe-next";
+
+type LoginPhase = "credentials" | "session";
+
+function getLoginErrorMessage(error: unknown, phase: LoginPhase) {
+  /*
+   * Fetch gagal sebelum mendapat respons.
+   * Biasanya karena internet terputus,
+   * backend mati, atau DNS bermasalah.
+   */
+  if (error instanceof TypeError) {
+    return "Server tidak dapat dihubungi. Periksa koneksi internet lalu coba lagi.";
+  }
+
+  /*
+   * Kredensial ditolak oleh endpoint login.
+   */
+  if (
+    phase === "credentials" &&
+    error instanceof ChildApiError &&
+    error.status === 401
+  ) {
+    return "Username atau PIN salah.";
+  }
+
+  /*
+   * Login berhasil, tetapi cookie tidak dapat
+   * digunakan untuk mengambil session anak.
+   */
+  if (
+    phase === "session" &&
+    error instanceof ChildApiError &&
+    error.status === 401
+  ) {
+    return "Login berhasil, tetapi sesi anak gagal dibuat. Silakan coba masuk kembali.";
+  }
+
+  /*
+   * /me merespons error lain atau bentuk
+   * responsnya tidak sesuai kontrak.
+   */
+  if (phase === "session") {
+    return "Sesi anak tidak dapat diverifikasi. Silakan coba masuk kembali.";
+  }
+
+  /*
+   * Backend menerima request login,
+   * tetapi mengalami internal error.
+   */
+  return "Terjadi masalah saat masuk. Silakan coba lagi.";
+}
 
 export default function ChildLoginForm() {
   const router = useRouter();
@@ -29,6 +82,8 @@ export default function ChildLoginForm() {
     setErrorMessage("");
     setLoading(true);
 
+    let phase: LoginPhase = "credentials";
+
     try {
       await childApiFetch("/api/child/login", {
         method: "POST",
@@ -40,23 +95,31 @@ export default function ChildLoginForm() {
       });
 
       /*
-       * Pastikan cookie session
-       * benar-benar tersimpan dan bisa dibaca.
+       * Kredensial sudah diterima.
+       * Selanjutnya verifikasi session.
        */
-      await childApiFetch("/api/child/me", {
+      phase = "session";
+
+      const sessionResponse = await childApiFetch<unknown>("/api/child/me", {
         method: "GET",
       });
 
+      /*
+       * Jangan redirect jika respons /me
+       * tidak berisi profil dan progres valid.
+       */
+      if (!isChildMeResponse(sessionResponse)) {
+        throw new Error("INVALID_CHILD_SESSION_RESPONSE");
+      }
+
       router.replace(next);
       router.refresh();
-      
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : "Gagal masuk.");
+      setErrorMessage(getLoginErrorMessage(error, phase));
     } finally {
       setLoading(false);
     }
   }
-
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE] px-4 py-10">
       <section className="w-full max-w-md rounded-3xl border border-[#DFE1DA] bg-white p-6 sm:p-8">
