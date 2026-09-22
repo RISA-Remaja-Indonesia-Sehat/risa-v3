@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import CharacterPicker from "@/components/profile/CharacterPicker";
 import Image from "next/image";
@@ -25,12 +25,48 @@ type SetupResponse = {
   };
 };
 
+type ConsentValidationResponse = {
+  success: true;
+
+  data: {
+    consentRequest: {
+      id: string;
+      status: "APPROVED";
+      expiresAt: string;
+    };
+  };
+};
+
+type ConsentValidationState =
+  | {
+      status: "checking";
+    }
+  | {
+      status: "valid";
+    }
+  | {
+      status: "invalid";
+      message: string;
+    };
+
 export default function ChildSetupContent() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
 
   const consentRequestId = searchParams.get("consentRequestId");
+
+  const [consentValidation, setConsentValidation] =
+    useState<ConsentValidationState>(() =>
+      consentRequestId
+        ? {
+            status: "checking",
+          }
+        : {
+            status: "invalid",
+            message: "ID persetujuan tidak ditemukan.",
+          },
+    );
 
   const fromDashboard = searchParams.get("from") === "dashboard";
 
@@ -52,6 +88,63 @@ export default function ChildSetupContent() {
   const [loading, setLoading] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (!consentRequestId) {
+      setConsentValidation({
+        status: "invalid",
+        message: "ID persetujuan tidak ditemukan.",
+      });
+
+      return;
+    }
+
+    const controller = new AbortController();
+
+    setConsentValidation({
+      status: "checking",
+    });
+
+    async function validateConsent() {
+      try {
+        await apiFetch<ConsentValidationResponse>(
+          `/api/consent/${encodeURIComponent(consentRequestId!)}/validate`,
+          {
+            method: "GET",
+            signal: controller.signal,
+          },
+        );
+
+        if (!controller.signal.aborted) {
+          setConsentValidation({
+            status: "valid",
+          });
+        }
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        const message =
+          error instanceof TypeError
+            ? "Server tidak dapat dihubungi. Periksa koneksi internet lalu coba lagi."
+            : error instanceof Error
+              ? error.message
+              : "Gagal memeriksa persetujuan.";
+
+        setConsentValidation({
+          status: "invalid",
+          message,
+        });
+      }
+    }
+
+    void validateConsent();
+
+    return () => {
+      controller.abort();
+    };
+  }, [consentRequestId]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -128,6 +221,55 @@ export default function ChildSetupContent() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (consentValidation.status === "checking") {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE] px-4">
+        <section className="text-center">
+          <div
+            className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#D8DDD4] border-t-[#4F6751]"
+            aria-hidden="true"
+          />
+
+          <p
+            role="status"
+            aria-live="polite"
+            className="mt-4 text-sm font-medium text-[#667068]"
+          >
+            Memeriksa persetujuan...
+          </p>
+        </section>
+      </main>
+    );
+  }
+
+  if (consentValidation.status === "invalid") {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE] px-4 py-10">
+        <section className="w-full max-w-md rounded-3xl border border-[#E7C7C7] bg-white p-6 text-center sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#9B4545]">
+            Persetujuan tidak valid
+          </p>
+
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#253029]">
+            Profil anak belum dapat dibuat
+          </h1>
+
+          <p role="alert" className="mt-3 text-sm leading-6 text-[#667068]">
+            {consentValidation.message}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => router.replace("/guardian/dashboard")}
+            className="mt-6 w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white hover:bg-[#405642]"
+          >
+            Kembali ke dashboard
+          </button>
+        </section>
+      </main>
+    );
   }
 
   return (
