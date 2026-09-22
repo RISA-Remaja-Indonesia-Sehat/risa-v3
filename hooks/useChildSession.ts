@@ -7,42 +7,52 @@ import {
   isChildMeResponse,
 } from "@/types/child-session";
 
+type ChildSessionError = "network" | "server" | null;
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function useChildSession() {
   const [session, setSession] = useState<ChildSessionData | null>(null);
+
+  const [sessionError, setSessionError] = useState<ChildSessionError>(null);
 
   const [loading, setLoading] = useState(true);
 
   const refreshChild = useCallback(async () => {
     try {
       setLoading(true);
+      setSessionError(null);
 
       const response = await fetch(`${API_URL}/api/child/me`, {
         method: "GET",
         credentials: "include",
       });
 
+      /*
+       * Hanya 401 yang berarti belum login.
+       */
       if (response.status === 401) {
         setSession(null);
         return;
       }
 
       if (!response.ok) {
-        throw new Error("Gagal memeriksa session anak.");
+        setSessionError("server");
+        return;
       }
 
       const result: unknown = await response.json();
 
       if (!isChildMeResponse(result)) {
-        throw new Error("Respons session anak tidak valid.");
+        setSessionError("server");
+        return;
       }
 
       setSession(result.data);
     } catch (error) {
       console.error("Child session error:", error);
 
-      setSession(null);
+      setSessionError(error instanceof TypeError ? "network" : "server");
     } finally {
       setLoading(false);
     }
@@ -70,13 +80,11 @@ export function useChildSession() {
   return {
     child: session?.child ?? null,
     loading,
+    sessionError,
     refreshChild,
     logoutChild,
-
     completedChapters: session?.completedChapters ?? [],
-
     postTestCompleted: session?.postTestCompleted ?? false,
-
     isChildAuthenticated: session !== null,
   };
 }

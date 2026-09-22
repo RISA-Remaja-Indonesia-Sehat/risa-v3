@@ -22,6 +22,8 @@ export default function LearningAccessGuard({ children, mode }: Props) {
 
   const {
     loading,
+    sessionError,
+    refreshChild,
     isChildAuthenticated,
     completedChapters,
     postTestCompleted,
@@ -92,6 +94,10 @@ export default function LearningAccessGuard({ children, mode }: Props) {
     router,
   ]);
 
+  if (!chapterNeedsProtection || loading || canAccess || sessionError) {
+    return;
+  }
+
   /*
    * Chapter 1 tidak perlu menunggu
    * pemeriksaan session.
@@ -113,6 +119,32 @@ export default function LearningAccessGuard({ children, mode }: Props) {
         "
       >
         <p className="text-sm text-gray-500">Memeriksa progres...</p>
+      </main>
+    );
+  }
+
+  if (sessionError) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-pink-50 px-4">
+        <section className="max-w-sm text-center">
+          <h1 className="text-xl font-semibold text-gray-800">
+            Sesi belum dapat diperiksa
+          </h1>
+
+          <p className="mt-2 text-sm leading-6 text-gray-600">
+            {sessionError === "network"
+              ? "Server tidak dapat dihubungi. Periksa koneksi internetmu."
+              : "Server sedang mengalami masalah. Silakan coba lagi."}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => void refreshChild()}
+            className="mt-5 rounded-full bg-pink-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-600"
+          >
+            Coba lagi
+          </button>
+        </section>
       </main>
     );
   }
