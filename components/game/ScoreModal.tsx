@@ -4,7 +4,6 @@ import Image from "next/image";
 import { X } from "lucide-react";
 
 import type { GameResult, StarRating } from "@/types/game-result";
-import { CHAPTER_1_RULE } from "@/lib/game/chapter-rules";
 
 type ScoreModalProps = {
   open: boolean;
@@ -17,12 +16,10 @@ type ScoreModalProps = {
   onNext: () => void;
 
   nextLoading?: boolean;
-  closable?: boolean;
-
-  passed?: boolean;
   nextDisabled?: boolean;
   errorMessage?: string;
-  statusLabel?: string;
+  isCompleted?: boolean;
+  closable?: boolean;
 };
 
 const STAR_ASSETS: Record<StarRating, string> = {
@@ -40,11 +37,10 @@ export default function ScoreModal({
   onRetry,
   onNext,
   nextLoading = false,
-  closable = true,
-  passed = true,
   nextDisabled = false,
   errorMessage = "",
-  statusLabel,
+  isCompleted = true,
+  closable = true,
 }: ScoreModalProps) {
   if (!open) {
     return null;
@@ -65,10 +61,18 @@ export default function ScoreModal({
         )}
 
         <div className="flex flex-col items-center text-center">
-          <span>
-            {passed
+          <span
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold
+              ${
+                isCompleted
+                  ? "bg-green-50 text-green-700"
+                  : "bg-yellow-50 text-yellow-700"
+              }
+            `}
+          >
+            {isCompleted
               ? `Chapter ${chapterNumber} selesai`
-              : `Belum lulus · minimal ${CHAPTER_1_RULE.minimumScore}/${CHAPTER_1_RULE.totalQuestions}`}
+              : `Chapter ${chapterNumber} belum selesai`}
           </span>
 
           <div className="relative mt-4 h-44 w-full sm:h-52">
@@ -96,9 +100,7 @@ export default function ScoreModal({
           ) : (
             result.score !== undefined &&
             result.total !== undefined && (
-              <div
-                className="mt-5 rounded-2xl border border-yellow-200 bg-white/80 px-5 py-3 text-sm text-gray-600"
-              >
+              <div className="mt-5 rounded-2xl border border-yellow-200 bg-white/80 px-5 py-3 text-sm text-gray-600">
                 Kamu menjawab{" "}
                 <span className="font-semibold text-pink-600">
                   {result.score}
@@ -116,9 +118,7 @@ export default function ScoreModal({
           </p>
         )}
 
-        <div
-          className="mt-7 flex flex-col gap-3 sm:flex-row"
-        >
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <button
             type="button"
             onClick={onRetry}

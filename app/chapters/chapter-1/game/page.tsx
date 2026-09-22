@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useChildSession } from "@/hooks/useChildSession";
 import LoginPrompt from "@/components/auth/LoginPrompt";
 import { useRouter } from "next/navigation";
-import { saveGuestChapter1Progress } from "@/lib/game/guest-progress";
+import { completeGuestChapter1 } from "@/lib/game/guest-progress";
 import { completeChildChapter } from "@/lib/game/child-progress";
 import { hasPassedChapter1 } from "@/lib/game/chapter-rules";
 
@@ -146,7 +146,7 @@ export default function GamePage() {
       if (isChildAuthenticated) {
         await completeChildChapter(1, correctCount);
       } else {
-        const saved = saveGuestChapter1Progress(correctCount);
+        const saved = completeGuestChapter1(correctCount);
 
         if (!saved) {
           throw new Error("Progres Chapter 1 tidak dapat disimpan.");
@@ -182,7 +182,7 @@ export default function GamePage() {
         <section className="max-w-2xl w-full p-4 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-8 mt-8">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-center mb-4 leading-6">
-              Tebak Nama - Nama Organ Berikut
+              Tebak Nama Organ Berikut
             </h2>
             <Image
               src="/img/organ-game.png"
@@ -201,6 +201,15 @@ export default function GamePage() {
                     {key}
                   </h2>
                 </div>
+                {submitted && results[key] !== null && (
+                  <span
+                    className={`min-w-28 text-sm font-semibold ${
+                      results[key] ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
+                    {results[key] ? "Benar" : "Perlu diperbaiki"}
+                  </span>
+                )}
                 <input
                   type="text"
                   name={`answer_${key}`}
@@ -210,7 +219,9 @@ export default function GamePage() {
                   aria-invalid={
                     validationError !== "" && answers[key].trim() === ""
                   }
-                  onChange={(e) => handleChange(key, e.target.value)}
+                  className={`w-full max-w-sm rounded-lg border-2 p-1 shadow-gray-300 focus:shadow-md focus:outline-pink-300 disabled:bg-white md:p-2 ${getBorderClass(key)}
+                   `}
+                  onChange={(event) => handleChange(key, event.target.value)}
                   disabled={submitted}
                 />
               </div>
@@ -231,6 +242,13 @@ export default function GamePage() {
               type="button"
               onClick={submitAnswer}
               disabled={submitted || childLoading}
+              className={`rounded-full px-6 py-2 font-bold text-white shadow-md transition duration-300
+                ${
+                  submitted || childLoading
+                    ? "cursor-not-allowed bg-gray-400"
+                    : "bg-pink-500 hover:bg-pink-600"
+                }
+              `}
             >
               {childLoading
                 ? "Memeriksa sesi..."
@@ -246,8 +264,7 @@ export default function GamePage() {
         open={showScore}
         chapterNumber={1}
         result={gameResult}
-        passed={passed}
-        statusLabel={passed ? "Chapter 1 selesai" : "Belum lulus · minimal 4/6"}
+        isCompleted={passed}
         nextDisabled={!canContinue}
         errorMessage={progressError}
         onClose={() => setShowScore(false)}
