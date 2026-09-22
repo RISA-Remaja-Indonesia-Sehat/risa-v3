@@ -4,8 +4,61 @@ import { useState, type FormEvent } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { childApiFetch } from "@/lib/api/child-client";
+import { ChildApiError, childApiFetch } from "@/lib/api/child-client";
+
+import { isChildMeResponse } from "@/types/child-session";
+
 import { getSafeNext } from "@/lib/navigation/safe-next";
+
+type LoginPhase = "credentials" | "session";
+
+function getLoginErrorMessage(error: unknown, phase: LoginPhase) {
+  /*
+   * Fetch gagal sebelum mendapat respons.
+   * Biasanya karena internet terputus,
+   * backend mati, atau DNS bermasalah.
+   */
+  if (error instanceof TypeError) {
+    return "Server tidak dapat dihubungi. Periksa koneksi internet lalu coba lagi.";
+  }
+
+  /*
+   * Kredensial ditolak oleh endpoint login.
+   */
+  if (
+    phase === "credentials" &&
+    error instanceof ChildApiError &&
+    error.status === 401
+  ) {
+    return "Username atau PIN salah.";
+  }
+
+  /*
+   * Login berhasil, tetapi cookie tidak dapat
+   * digunakan untuk mengambil session anak.
+   */
+  if (
+    phase === "session" &&
+    error instanceof ChildApiError &&
+    error.status === 401
+  ) {
+    return "Login berhasil, tetapi sesi anak gagal dibuat. Silakan coba masuk kembali.";
+  }
+
+  /*
+   * /me merespons error lain atau bentuk
+   * responsnya tidak sesuai kontrak.
+   */
+  if (phase === "session") {
+    return "Sesi anak tidak dapat diverifikasi. Silakan coba masuk kembali.";
+  }
+
+  /*
+   * Backend menerima request login,
+   * tetapi mengalami internal error.
+   */
+  return "Terjadi masalah saat masuk. Silakan coba lagi.";
+}
 
 export default function ChildLoginForm() {
   const router = useRouter();
@@ -29,6 +82,8 @@ export default function ChildLoginForm() {
     setErrorMessage("");
     setLoading(true);
 
+    let phase: LoginPhase = "credentials";
+
     try {
       await childApiFetch("/api/child/login", {
         method: "POST",
@@ -40,35 +95,43 @@ export default function ChildLoginForm() {
       });
 
       /*
-       * Pastikan cookie session
-       * benar-benar tersimpan dan bisa dibaca.
+       * Kredensial sudah diterima.
+       * Selanjutnya verifikasi session.
        */
-      await childApiFetch("/api/child/me", {
+      phase = "session";
+
+      const sessionResponse = await childApiFetch<unknown>("/api/child/me", {
         method: "GET",
       });
 
+      /*
+       * Jangan redirect jika respons /me
+       * tidak berisi profil dan progres valid.
+       */
+      if (!isChildMeResponse(sessionResponse)) {
+        throw new Error("INVALID_CHILD_SESSION_RESPONSE");
+      }
+
       router.replace(next);
       router.refresh();
-      
     } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : "Gagal masuk.");
+      setErrorMessage(getLoginErrorMessage(error, phase));
     } finally {
       setLoading(false);
     }
   }
-
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE] px-4 py-10">
+    <main className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-4 py-10">
       <section className="w-full max-w-md rounded-3xl border border-[#DFE1DA] bg-white p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#667D68]">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-700">
           RISA
         </p>
 
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#253029]">
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight">
           Masuk ke RISA
         </h1>
 
-        <p className="mt-3 text-sm leading-6 text-[#667068]">
+        <p className="mt-3 text-sm leading-6 text-gray-600">
           Gunakan username dan PIN yang sudah dibuat bersama orang tua atau
           wali.
         </p>
@@ -83,7 +146,7 @@ export default function ChildLoginForm() {
           <div>
             <label
               htmlFor="username"
-              className="mb-1.5 block text-sm font-semibold text-[#344238]"
+              className="mb-1.5 block text-sm font-semibold text-gray-700"
             >
               Username
             </label>
@@ -95,14 +158,14 @@ export default function ChildLoginForm() {
               placeholder="Masukkan username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
             />
           </div>
 
           <div>
             <label
               htmlFor="pin"
-              className="mb-1.5 block text-sm font-semibold text-[#344238]"
+              className="mb-1.5 block text-sm font-semibold text-gray-700"
             >
               PIN
             </label>
@@ -119,7 +182,7 @@ export default function ChildLoginForm() {
               onChange={(event) =>
                 setPin(event.target.value.replace(/\D/g, ""))
               }
-              className="w-full rounded-xl border border-[#D8DDD4] px-4 py-3.5 outline-none focus:border-[#758A72] focus:ring-4 focus:ring-[#758A72]/10"
+              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
             />
           </div>
 
@@ -135,7 +198,7 @@ export default function ChildLoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white hover:bg-[#405642] disabled:opacity-50"
+            className="w-full rounded-xl bg-[#0077ff] px-5 py-3.5 text-sm font-semibold text-white disabled:opacity-50"
           >
             {loading ? "Masuk..." : "Masuk"}
           </button>

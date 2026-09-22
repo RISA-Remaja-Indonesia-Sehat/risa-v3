@@ -28,7 +28,7 @@ export function evaluateChapter1(
     };
   }
 
-  if (score <= 2) {
+  if (score <= 3) {
     return {
       stars: 1,
       title: "Bagus, lanjut belajar!",
