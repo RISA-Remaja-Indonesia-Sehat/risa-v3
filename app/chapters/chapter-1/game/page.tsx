@@ -166,45 +166,52 @@ export default function GamePage() {
   };
 
   const getBorderClass = (key: AnswerKey) => {
-    if (results[key] === null) return "border-neutral-300";
-    return results[key] ? "border-green-500" : "border-red-500";
+    if (results[key] === null) return "border-pink-100";
+    return results[key] ? "border-emerald-400" : "border-pink-400";
   };
 
   const gameResult = evaluateChapter1(score, KEYS.length);
 
   return (
     <>
-      <div className="min-h-screen w-full flex items-center justify-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100">
-        <Link href="/" className="absolute top-4 left-4">
-          <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600 cursor-pointer" />
+      <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 p-4 font-jakarta">
+        <div className="pointer-events-none absolute -left-24 top-24 h-56 w-56 rounded-full bg-pink-200/35 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-16 h-64 w-64 rounded-full bg-yellow-200/45 blur-3xl" />
+
+        <Link
+          href="/"
+          aria-label="Kembali ke beranda"
+          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
+        >
+          <House className="h-5 w-5" aria-hidden="true" />
         </Link>
 
-        <section className="max-w-2xl w-full p-4 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-8 mt-8">
+        <section className="relative mt-8 flex w-full max-w-2xl flex-col gap-8 rounded-3xl border-2 border-pink-200 bg-white/95 p-5 shadow-lg md:p-8">
           <div>
-            <h2 className="text-xl md:text-2xl font-bold text-center mb-4 leading-6">
+            <h1 className="mb-4 text-center font-jaro text-3xl leading-tight text-pink-600 md:text-4xl">
               Tebak Nama Organ Berikut
-            </h2>
+            </h1>
             <Image
               src="/img/organ-game.png"
               alt="organ game"
               width={600}
               height={400}
-              className="rounded-2xl shadow-lg"
+              className="w-full rounded-2xl border-2 border-pink-100 shadow-sm"
             />
           </div>
 
-          <div className="flex flex-col gap-2 md:gap-4">
+          <div className="flex flex-col gap-3 md:gap-4">
             {KEYS.map((key) => (
               <div key={key} className="flex items-center gap-2 md:gap-4">
-                <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-pink-500 flex justify-around items-center shadow-md">
-                  <h2 className="text-xl md:text-2xl text-white font-bold">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-pink-500 shadow-md md:h-12 md:w-12">
+                  <span className="font-jaro text-xl text-white md:text-2xl">
                     {key}
-                  </h2>
+                  </span>
                 </div>
                 {submitted && results[key] !== null && (
                   <span
                     className={`min-w-28 text-sm font-semibold ${
-                      results[key] ? "text-green-600" : "text-red-600"
+                      results[key] ? "text-emerald-600" : "text-pink-600"
                     }`}
                   >
                     {results[key] ? "Benar" : "Perlu diperbaiki"}
@@ -219,8 +226,7 @@ export default function GamePage() {
                   aria-invalid={
                     validationError !== "" && answers[key].trim() === ""
                   }
-                  className={`w-full max-w-sm rounded-lg border-2 p-1 shadow-gray-300 focus:shadow-md focus:outline-pink-300 disabled:bg-white md:p-2 ${getBorderClass(key)}
-                   `}
+                  className={`w-full max-w-sm rounded-2xl border-2 bg-white px-3 py-2 text-sm text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-pink-400 focus:ring-4 focus:ring-yellow-100 disabled:bg-gray-50 md:px-4 md:py-2.5 md:text-base ${getBorderClass(key)}`}
                   onChange={(event) => handleChange(key, event.target.value)}
                   disabled={submitted}
                 />
@@ -231,7 +237,7 @@ export default function GamePage() {
           {validationError && (
             <p
               role="alert"
-              className="text-center text-sm font-medium text-red-600"
+              className="rounded-2xl border-2 border-pink-200 bg-pink-50 px-4 py-3 text-center text-sm font-medium text-pink-800"
             >
               {validationError}
             </p>
@@ -242,13 +248,11 @@ export default function GamePage() {
               type="button"
               onClick={submitAnswer}
               disabled={submitted || childLoading}
-              className={`rounded-full px-6 py-2 font-bold text-white shadow-md transition duration-300
-                ${
-                  submitted || childLoading
-                    ? "cursor-not-allowed bg-gray-400"
-                    : "bg-pink-500 hover:bg-pink-600"
-                }
-              `}
+              className={`min-h-12 rounded-full px-8 py-3 text-sm font-bold text-white transition duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 ${
+                submitted || childLoading
+                  ? "cursor-not-allowed bg-gray-300"
+                  : "bg-pink-500 shadow-md shadow-pink-200 hover:bg-pink-600 hover:shadow-lg"
+              }`}
             >
               {childLoading
                 ? "Memeriksa sesi..."

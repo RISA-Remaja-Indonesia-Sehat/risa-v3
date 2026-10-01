@@ -255,7 +255,7 @@ export default function PostTestContent() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
+      <main className="font-jakarta flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
         <div className="rounded-3xl border-2 border-pink-200 bg-white/90 px-9 py-7 text-center shadow-lg backdrop-blur-sm">
           <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-yellow-200 border-t-pink-500" />
           <p className="mt-4 text-sm font-semibold text-gray-600">
@@ -268,7 +268,7 @@ export default function PostTestContent() {
 
   if (error && questions.length === 0) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
+      <main className="font-jakarta flex min-h-screen items-center justify-center bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-6">
         <section className="w-full max-w-md rounded-3xl border-2 border-pink-200 bg-white/90 p-7 text-center shadow-lg backdrop-blur-sm">
           <h1 className="mt-4 font-jaro text-3xl text-pink-600">
             Soal belum bisa dibuka
@@ -297,8 +297,8 @@ export default function PostTestContent() {
 
   if (screen === "intro") {
     return (
-       <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
-        <section className="relative mx-auto max-w-2xl overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_24px_70px_rgba(190,92,132,0.16)] backdrop-blur-sm">
+       <main className="font-jakarta relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
+        <section className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border-2 border-pink-200 bg-white/90 shadow-[0_24px_70px_rgba(190,92,132,0.16)] backdrop-blur-sm">
           <div className="relative overflow-hidden bg-pink-100 px-6 py-11 text-center sm:px-10 sm:py-12">
             
            <p className="relative mt-6 text-xs font-bold uppercase tracking-[0.22em] text-pink-600">
@@ -374,7 +374,7 @@ export default function PostTestContent() {
 
   if (screen === "quiz" && currentQuestion) {
     return (
-      <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-6 sm:px-6 sm:py-10">
+      <main className="font-jakarta relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-6 sm:px-6 sm:py-10">
         <div className="pointer-events-none absolute -left-20 top-20 h-52 w-52 rounded-full bg-pink-200/35 blur-3xl" />
         <div className="pointer-events-none absolute -right-20 bottom-16 h-64 w-64 rounded-full bg-yellow-200/45 blur-3xl" />
 
@@ -396,14 +396,14 @@ export default function PostTestContent() {
               </div>
               <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/80 shadow-inner">
                 <div
-                  className="h-full rounded-full bg-pink-400 transition-[width] duration-300"
+                  className="h-full rounded-full bg-linear-to-r from-pink-400 to-yellow-300 transition-[width] duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>
             </div>
           </header>
 
-           <article className="rounded-4xl border-2 border-pink-200 bg-white/90 p-6 shadow-[0_20px_55px_rgba(244,114,182,0.15)] backdrop-blur-sm sm:p-9">
+           <article className="rounded-3xl border-2 border-pink-200 bg-white/90 p-6 shadow-[0_20px_55px_rgba(244,114,182,0.15)] backdrop-blur-sm sm:p-9">
             <div className="flex flex-wrap items-center gap-2">
                <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-bold text-pink-700">
                 Chapter {currentQuestion.chapterNumber}
@@ -496,12 +496,12 @@ export default function PostTestContent() {
     const resultCopy = getResultCopy(result.score);
 
     return (
-      <main className="relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
+      <main className="font-jakarta relative min-h-screen overflow-hidden bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100 px-4 py-8 sm:px-6 sm:py-12">
         <div className="pointer-events-none absolute -left-24 top-24 h-64 w-64 rounded-full bg-yellow-200/45 blur-3xl" />
         <div className="pointer-events-none absolute -right-24 bottom-24 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
 
         <section className="relative mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-4xl border-2 border-pink-200 bg-white/90 shadow-[0_22px_60px_rgba(244,114,182,0.16)] backdrop-blur-sm">
+          <div className="overflow-hidden rounded-3xl border-2 border-pink-200 bg-white/90 shadow-[0_22px_60px_rgba(244,114,182,0.16)] backdrop-blur-sm">
             <div className="relative overflow-hidden bg-linear-to-br from-pink-100 via-yellow-50 to-yellow-100 px-6 py-8 text-center sm:px-10">
               <div className="pointer-events-none absolute -left-12 -top-12 h-32 w-32 rounded-full bg-white/45" />
               <div className="pointer-events-none absolute -bottom-16 -right-8 h-40 w-40 rounded-full bg-pink-200/45" />

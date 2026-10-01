@@ -95,7 +95,7 @@ const CATEGORIES: Array<{
     value: "STORY",
     label: "Cerita",
     shortLabel: "Cerita",
-    color: "bg-[#FFE8F0] text-[#A94E71] border-[#F8C9D9]",
+    color: "bg-pink-100 text-pink-600 border-pink-200",
   },
   {
     value: "QUESTION",
@@ -107,7 +107,7 @@ const CATEGORIES: Array<{
     value: "TIPS",
     label: "Berbagi tips",
     shortLabel: "Tips",
-    color: "bg-[#FFF3C9] text-[#8B6A1F] border-[#F0D986]",
+    color: "bg-yellow-100 text-yellow-800 border-yellow-200",
   },
   {
     value: "SUPPORT",
@@ -152,7 +152,7 @@ function formatTime(value: string) {
 function AuthorAvatar({ author }: { author: Author | null }) {
   if (!author) {
     return (
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F2EAF5] text-[#8A668F]">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pink-100 text-pink-600">
         <UserRound className="h-5 w-5" aria-hidden="true" />
       </div>
     );
@@ -483,8 +483,8 @@ export default function TemankuContent() {
   if (!isChildAuthenticated || !child) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-5 py-10">
-        <section className="w-full max-w-md rounded-4xl border border-[#F1D4DE] bg-white p-7 text-center shadow-[0_18px_50px_rgba(112,78,92,0.12)]">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFE5EF] text-[#D95F89]">
+        <section className="w-full max-w-md rounded-4xl border border-pink-200 bg-white p-7 text-center shadow-[0_18px_50px_rgba(112,78,92,0.12)]">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-pink-100 text-pink-500">
             <LockKeyhole className="h-8 w-8" />
           </div>
           <h1 className="mt-5 font-jaro text-4xl text-pink-500">Temanku</h1>
@@ -512,14 +512,14 @@ export default function TemankuContent() {
   }
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] pb-16">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] pb-16 font-jakarta">
       <header className="sticky top-0 z-30 border-b border-white/70 bg-white/85 px-4 py-3 backdrop-blur-xl sm:px-6">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => router.push("/")}
             aria-label="Kembali ke beranda"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E3E7DE] bg-white text-[#557A59]"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E3E7DE] bg-white text-[#4F6751]"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
@@ -527,7 +527,7 @@ export default function TemankuContent() {
             <p className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#7A8D78]">
               Ruang cerita
             </p>
-            <h1 className="font-jaro text-3xl leading-none text-[#C6537D]">
+            <h1 className="font-jaro text-3xl leading-none text-pink-600">
               Temanku
             </h1>
           </div>
@@ -544,11 +544,11 @@ export default function TemankuContent() {
       </header>
 
       <div className="mx-auto max-w-3xl px-4 pt-6 sm:px-6 sm:pt-8">
-        <section className="overflow-hidden rounded-4xl border border-[#F1D8DF] bg-white shadow-[0_16px_44px_rgba(112,78,92,0.10)]">
+        <section className="overflow-hidden rounded-4xl border border-pink-200 bg-white shadow-[0_16px_44px_rgba(112,78,92,0.10)]">
           <div className="bg-pink-100 px-6 py-7 sm:px-8">
             <div className="flex items-start gap-4">
               <div>
-                <h2 className="font-jaro text-3xl text-[#A94E71]">
+                <h2 className="font-jaro text-3xl text-pink-600">
                   Hai, {child.username}!
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-[#6B6661]">
@@ -597,7 +597,7 @@ export default function TemankuContent() {
             value={title}
             onChange={(event) => setTitle(event.target.value.slice(0, 80))}
             placeholder="Judul singkat (opsional)"
-            className="mt-5 w-full rounded-2xl border border-[#E5E2DC] bg-[#FFFEFC] px-4 py-3 text-sm font-semibold text-[#404A42] outline-none transition placeholder:font-normal placeholder:text-[#A1A49F] focus:border-[#E7A2B9] focus:ring-4 focus:ring-[#F8DCE5]"
+            className="mt-5 w-full rounded-2xl border border-[#E5E2DC] bg-[#FFFEFC] px-4 py-3 text-sm font-semibold text-[#404A42] outline-none transition placeholder:font-normal placeholder:text-[#A1A49F] focus:border-pink-300 focus:ring-4 focus:ring-pink-100"
           />
           <textarea
             required
@@ -605,7 +605,7 @@ export default function TemankuContent() {
             onChange={(event) => setContent(event.target.value.slice(0, 500))}
             placeholder="Apa yang ingin kamu ceritakan?"
             rows={4}
-            className="mt-3 w-full resize-none rounded-2xl border border-[#E5E2DC] bg-[#FFFEFC] px-4 py-3 text-sm leading-6 text-[#4F5951] outline-none transition placeholder:text-[#A1A49F] focus:border-[#E7A2B9] focus:ring-4 focus:ring-[#F8DCE5]"
+            className="mt-3 w-full resize-none rounded-2xl border border-[#E5E2DC] bg-[#FFFEFC] px-4 py-3 text-sm leading-6 text-[#4F5951] outline-none transition placeholder:text-[#A1A49F] focus:border-pink-300 focus:ring-4 focus:ring-pink-100"
           />
           <div className="mt-1 flex justify-end text-xs text-[#959B94]">
             {content.length}/500
@@ -620,7 +620,7 @@ export default function TemankuContent() {
                 aria-pressed={category === item.value}
                 className={`rounded-full border px-3 py-2 text-xs font-bold transition ${
                   category === item.value
-                    ? `${item.color} ring-2 ring-offset-1 ring-[#E9A9BD]`
+                    ? `${item.color} ring-2 ring-offset-1 ring-pink-300`
                     : "border-[#E5E6E1] bg-white text-[#737B73]"
                 }`}
               >
@@ -630,12 +630,12 @@ export default function TemankuContent() {
           </div>
 
           {moderationSuggestion && (
-            <div className="mt-4 rounded-2xl border border-[#F2CF71] bg-[#FFF8D9] p-4">
-              <p className="font-semibold text-[#6B5725]">
+            <div className="mt-4 rounded-2xl border border-yellow-200 bg-yellow-50 p-4">
+              <p className="font-semibold text-yellow-900">
                 Yuk, rapikan sedikit
               </p>
 
-              <p className="mt-1 text-sm text-[#756840]">
+              <p className="mt-1 text-sm text-yellow-800">
                 {moderationSuggestion.reason}
               </p>
 
@@ -659,7 +659,7 @@ export default function TemankuContent() {
 
                     setModerationSuggestion(null);
                   }}
-                  className="rounded-xl bg-[#F39AB5] px-4 py-2 font-semibold text-white"
+                  className="rounded-xl bg-pink-500 px-4 py-2 font-semibold text-white"
                 >
                   Gunakan saran
                 </button>
@@ -667,7 +667,7 @@ export default function TemankuContent() {
                 <button
                   type="button"
                   onClick={() => setModerationSuggestion(null)}
-                  className="rounded-xl bg-white px-4 py-2 text-[#6B5725]"
+                  className="rounded-xl bg-white px-4 py-2 text-yellow-900"
                 >
                   Edit sendiri
                 </button>
@@ -688,7 +688,7 @@ export default function TemankuContent() {
             <button
               type="submit"
               disabled={!content.trim() || posting}
-              className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#557A59] px-6 text-sm font-bold text-white shadow-[0_8px_20px_rgba(85,122,89,0.20)] transition hover:bg-[#486B4C] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#4F6751] px-6 text-sm font-bold text-white shadow-[0_8px_20px_rgba(85,122,89,0.20)] transition hover:bg-[#405642] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {posting ? (
                 <LoaderCircle className="h-4 w-4 animate-spin" />
@@ -733,12 +733,12 @@ export default function TemankuContent() {
         <section aria-label="Cerita Temanku" className="mt-4 space-y-4">
           {feedLoading ? (
             <div className="rounded-4xl bg-white p-8 text-center text-sm text-[#788178]">
-              <LoaderCircle className="mx-auto h-7 w-7 animate-spin text-[#D7648C]" />
+              <LoaderCircle className="mx-auto h-7 w-7 animate-spin text-pink-500" />
               <p className="mt-3">Mengumpulkan cerita teman...</p>
             </div>
           ) : posts.length === 0 ? (
             <div className="rounded-4xl border border-[#E5E5DC] bg-white p-8 text-center">
-              <h2 className="mt-3 font-jaro text-3xl text-[#557A59]">
+              <h2 className="mt-3 font-jaro text-3xl text-[#4F6751]">
                 Belum ada cerita
               </h2>
               <p className="mt-2 text-sm leading-6 text-[#778078]">
@@ -805,7 +805,7 @@ export default function TemankuContent() {
                       aria-pressed={post.likedByMe}
                       className={`flex min-h-10 items-center gap-2 rounded-full px-3 text-xs font-bold transition ${
                         post.likedByMe
-                          ? "bg-[#FFE7EF] text-[#C84F78]"
+                          ? "bg-pink-100 text-pink-500"
                           : "text-[#707A72] hover:bg-[#FFF1F5]"
                       }`}
                     >
@@ -828,7 +828,7 @@ export default function TemankuContent() {
                   {commentsOpen && (
                     <div className="mt-3 rounded-2xl bg-[#FAF9F6] p-4">
                       {commentsLoading === post.id ? (
-                        <LoaderCircle className="mx-auto h-5 w-5 animate-spin text-[#D7648C]" />
+                        <LoaderCircle className="mx-auto h-5 w-5 animate-spin text-pink-500" />
                       ) : comments.length === 0 ? (
                         <p className="text-center text-xs text-[#8B928C]">
                           Belum ada komentar. Beri dukungan pertama.
@@ -896,7 +896,7 @@ export default function TemankuContent() {
                               commentSubmitting === post.id
                             }
                             aria-label="Kirim komentar"
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#557A59] text-white disabled:opacity-40"
+                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4F6751] text-white disabled:opacity-40"
                           >
                             {commentSubmitting === post.id ? (
                               <LoaderCircle className="h-4 w-4 animate-spin" />

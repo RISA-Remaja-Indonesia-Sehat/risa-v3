@@ -149,14 +149,13 @@ export default function GamePage() {
         setScore(s.score);
         setTimeLeft(0);
 
-        
         setGameOver(true);
         try {
           await completeChildChapter(5, s.score);
         } catch (error) {
           console.error("Gagal menyimpan Chapter 5:", error);
         }
-        
+
         if (spawnRef.current) {
           clearInterval(spawnRef.current);
         }
@@ -235,8 +234,12 @@ export default function GamePage() {
       {/* HUD */}
       {!gameOver && (
         <div className="relative z-20 flex items-center justify-between px-4 pt-4 gap-3">
-          <Link href="/">
-            <House className="w-6 h-6 text-pink-500 drop-shadow" />
+          <Link
+            href="/"
+            aria-label="Kembali ke beranda"
+            className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
+          >
+            <House className="h-5 w-5" aria-hidden="true" />
           </Link>
 
           {/* Score */}

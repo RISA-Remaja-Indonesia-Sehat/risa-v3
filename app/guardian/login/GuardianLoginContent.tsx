@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ShieldCheck } from "lucide-react";
 
 import { supabase } from "@/lib/supabase/client";
 import { apiFetch } from "@/lib/api/client";
 import { getSafeNext } from "@/lib/navigation/safe-next";
+import { guardianUi as ui } from "@/lib/ui/guardian-theme";
+import { BrandDots, GuardianLogo } from "@/components/guardian/GuardianBrand";
 
 type MeResponse = {
   success: boolean;
@@ -24,295 +27,121 @@ export default function GuardianLoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const next = getSafeNext(
-    searchParams.get("next"),
-    "/guardian/dashboard",
-  );
-
-
-  const emailConfirmed =
-    searchParams.get("confirmed") === "true";
+  const next = getSafeNext(searchParams.get("next"), "/guardian/dashboard");
+  const emailConfirmed = searchParams.get("confirmed") === "true";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrorMessage("");
     setLoading(true);
 
     try {
-      const { data, error } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
       if (error) {
-        setErrorMessage(
-          "Email atau password tidak valid."
-        );
+        setErrorMessage("Email atau password tidak valid.");
         return;
       }
 
       if (!data.session) {
         setErrorMessage(
-          "Sesi tidak ditemukan. Pastikan email Anda sudah diverifikasi."
+          "Sesi tidak ditemukan. Pastikan email Anda sudah diverifikasi.",
         );
         return;
       }
 
-      const profile =
-        await apiFetch<MeResponse>("/api/me");
-
-      console.log(
-        "Guardian profile:",
-        profile.data.guardian
-      );
+      // Memastikan profil guardian dapat diambil sebelum pindah halaman.
+      await apiFetch<MeResponse>("/api/me");
 
       router.push(next);
       router.refresh();
     } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      } else {
-        setErrorMessage(
-          "Terjadi kesalahan. Silakan coba kembali."
-        );
-      }
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Terjadi kesalahan. Silakan coba kembali.",
+      );
     } finally {
       setLoading(false);
     }
   }
 
-  const inputClass = `
-    w-full
-    rounded-xl
-    border
-    border-[#D8DDD4]
-    bg-white
-    px-4
-    py-3.5
-    text-[15px]
-    text-[#243027]
-    outline-none
-    transition
-
-    placeholder:text-[#A2AAA3]
-
-    hover:border-[#BCC7BC]
-
-    focus:border-[#758A72]
-    focus:ring-4
-    focus:ring-[#758A72]/10
-  `;
-
-  const labelClass = `
-    mb-1.5
-    block
-    text-sm
-    font-semibold
-    text-[#344238]
-  `;
-
   return (
     <main
-      className="
-        min-h-screen
-        bg-[#F4F3EE]
-        px-4
-        py-8
-
-        sm:px-6
-        sm:py-12
-
-        lg:flex
-        lg:items-center
-        lg:justify-center
-        lg:px-8
-      "
+      className={`${ui.page} relative overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:flex lg:items-center lg:justify-center lg:px-8`}
     >
+      {/* Dekorasi halus pink-kuning di latar */}
+      <div className="pointer-events-none absolute -left-24 top-16 h-64 w-64 rounded-full bg-pink-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-yellow-200/40 blur-3xl" />
+
       <div
-        className="
-          mx-auto
-          grid
-          w-full
-          max-w-5xl
-          overflow-hidden
-          rounded-3xl
-          border
-          border-[#DFE1DA]
-          bg-white
-
-          lg:grid-cols-[0.8fr_1.2fr]
-        "
+        className={`${ui.card} relative mx-auto grid w-full max-w-5xl overflow-hidden lg:grid-cols-[0.8fr_1.2fr]`}
       >
-        {/* Left information panel */}
-        <section
-          className="
-            flex
-            flex-col
-            justify-between
-            border-b
-            border-[#E4E6DF]
-            bg-[#E9EDE6]
-            p-6
+        {/* Panel informasi */}
+        <section className="relative flex flex-col justify-between overflow-hidden border-b-2 border-[#E1E8DB] bg-[#EEF3E9] p-6 sm:p-8 lg:border-b-0 lg:border-r-2 lg:p-10">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-yellow-200/60" />
+          <div className="pointer-events-none absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-pink-200/50" />
 
-            sm:p-8
+          <div className="relative">
+            <GuardianLogo size={132} />
 
-            lg:border-b-0
-            lg:border-r
-            lg:p-10
-          "
-        >
-          <div>
-            <Link
-              href="/"
-              className="
-                inline-flex
-                items-center
-                text-sm
-                font-bold
-                tracking-[0.18em]
-                text-[#5D735D]
-              "
-            >
-              RISA
-            </Link>
-
-            <h1
-              className="
-                mt-8
-                max-w-sm
-                text-3xl
-                font-semibold
-                leading-tight
-                tracking-tight
-                text-[#253029]
-
-                sm:text-4xl
-              "
-            >
+            <h1 className="mt-8 max-w-sm font-jaro text-4xl leading-tight text-[#2F3A31] sm:text-5xl">
               Selamat datang kembali
             </h1>
 
-            <p
-              className="
-                mt-4
-                max-w-sm
-                text-sm
-                leading-6
-                text-[#637067]
+            <BrandDots className="mt-4" />
 
-                sm:text-[15px]
-              "
-            >
-              Masuk menggunakan akun orang tua
-              atau wali untuk mengelola izin,
-              akses, dan progres belajar anak
-              di RISA.
+            <p className="mt-4 max-w-sm text-sm leading-6 text-[#566159] sm:text-[15px]">
+              Masuk menggunakan akun orang tua atau wali untuk mengelola izin,
+              akses, dan progres belajar anak di RISA.
             </p>
           </div>
 
-          <div
-            className="
-              mt-8
-              border-t
-              border-[#D1D8CE]
-              pt-5
-              text-sm
-              leading-6
-              text-[#667269]
-
-              lg:mt-12
-            "
-          >
-            Akses akun hanya diberikan kepada
-            pengguna yang telah terautentikasi.
-            Informasi akun dan data anak tidak
-            ditampilkan secara publik.
+          <div className="relative mt-8 flex gap-3 border-t-2 border-white/70 pt-5 text-sm leading-6 text-[#566159] lg:mt-12">
+            <ShieldCheck
+              className="mt-0.5 h-5 w-5 shrink-0 text-[#4F6751]"
+              aria-hidden="true"
+            />
+            <p>
+              Akses akun hanya diberikan kepada pengguna yang telah
+              terautentikasi. Informasi akun dan data anak tidak ditampilkan
+              secara publik.
+            </p>
           </div>
         </section>
 
-        {/* Login form */}
-        <section
-          className="
-            flex
-            items-center
-            p-6
-
-            sm:p-8
-
-            lg:p-10
-            xl:p-12
-          "
-        >
+        {/* Form login */}
+        <section className="flex items-center p-6 sm:p-8 lg:p-10 xl:p-12">
           <div className="mx-auto w-full max-w-xl">
             <div className="mb-8">
-              <h2
-                className="
-                  text-2xl
-                  font-semibold
-                  tracking-tight
-                  text-[#253029]
-                "
-              >
+              <h2 className="font-jaro text-3xl text-[#2F3A31]">
                 Masuk ke akun
               </h2>
-
-              <p
-                className="
-                  mt-2
-                  text-sm
-                  leading-6
-                  text-[#778078]
-                "
-              >
-                Masukkan email dan password yang
-                digunakan saat membuat akun.
+              <p className={`mt-2 text-sm leading-6 ${ui.muted}`}>
+                Masukkan email dan password yang digunakan saat membuat akun.
               </p>
             </div>
 
-            {/* Confirmation message */}
             {emailConfirmed && (
-              <div
-                role="status"
-                className="
-                  mb-6
-                  rounded-xl
-                  border
-                  border-[#CADCC8]
-                  bg-[#F5FAF4]
-                  px-4
-                  py-3
-                  text-sm
-                  leading-5
-                  text-[#476548]
-                "
-              >
-                Email berhasil diverifikasi.
-                Anda sekarang dapat masuk ke akun.
+              <div role="status" className={`mb-6 ${ui.success}`}>
+                Email berhasil diverifikasi. Anda sekarang dapat masuk ke akun.
               </div>
             )}
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
-              {/* Email */}
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label
-                  htmlFor="email"
-                  className={labelClass}
-                >
+                <label htmlFor="email" className={ui.label}>
                   Email
                 </label>
-
                 <input
                   id="email"
                   type="email"
@@ -321,22 +150,15 @@ export default function GuardianLoginContent() {
                   inputMode="email"
                   placeholder="nama@email.com"
                   value={email}
-                  onChange={(event) =>
-                    setEmail(event.target.value)
-                  }
-                  className={inputClass}
+                  onChange={(event) => setEmail(event.target.value)}
+                  className={ui.input}
                 />
               </div>
 
-              {/* Password */}
               <div>
-                <label
-                  htmlFor="password"
-                  className={labelClass}
-                >
+                <label htmlFor="password" className={ui.label}>
                   Password
                 </label>
-
                 <input
                   id="password"
                   type="password"
@@ -344,92 +166,32 @@ export default function GuardianLoginContent() {
                   autoComplete="current-password"
                   placeholder="Masukkan password"
                   value={password}
-                  onChange={(event) =>
-                    setPassword(
-                      event.target.value
-                    )
-                  }
-                  className={inputClass}
+                  onChange={(event) => setPassword(event.target.value)}
+                  className={ui.input}
                 />
               </div>
 
-              {/* Error */}
               {errorMessage && (
-                <div
-                  role="alert"
-                  aria-live="polite"
-                  className="
-                    rounded-xl
-                    border
-                    border-[#E7C7C7]
-                    bg-[#FFF7F7]
-                    px-4
-                    py-3
-                    text-sm
-                    leading-5
-                    text-[#9B4545]
-                  "
-                >
+                <div role="alert" aria-live="polite" className={ui.error}>
                   {errorMessage}
                 </div>
               )}
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="
-                  mt-2
-                  flex
-                  min-h-12
-                  w-full
-                  items-center
-                  justify-center
-                  rounded-xl
-                  bg-[#4F6751]
-                  px-5
-                  py-3
-                  text-sm
-                  font-semibold
-                  text-white
-                  transition
-
-                  hover:bg-[#405642]
-
-                  focus-visible:outline-none
-                  focus-visible:ring-4
-                  focus-visible:ring-[#4F6751]/20
-
-                  disabled:cursor-not-allowed
-                  disabled:opacity-50
-                "
+                className={`${ui.btnPrimary} mt-2 w-full`}
               >
-                {loading
-                  ? "Memproses..."
-                  : "Masuk"}
+                {loading ? "Memproses..." : "Masuk"}
               </button>
             </form>
 
-            <div
-              className="
-                mt-7
-                border-t
-                border-[#ECEDE8]
-                pt-6
-                text-center
-              "
-            >
+            <div className="mt-7 border-t-2 border-[#F0EEE6] pt-6 text-center">
               <p className="text-sm text-[#747C75]">
                 Belum punya akun?{" "}
                 <Link
                   href="/guardian/register"
-                  className="
-                    font-semibold
-                    text-[#526B55]
-                    underline-offset-4
-
-                    hover:underline
-                  "
+                  className="font-bold text-[#4F6751] underline decoration-pink-300 decoration-2 underline-offset-4 hover:decoration-pink-500"
                 >
                   Buat akun
                 </Link>

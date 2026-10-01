@@ -18,6 +18,9 @@ type Props = {
   cards: ModuleCardData[];
 };
 
+const navButtonClass =
+  "flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-2 border-pink-200 bg-white text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:active:scale-100";
+
 export default function ModuleCard({ cards }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -31,6 +34,8 @@ export default function ModuleCard({ cards }: Props) {
   const isFirstCard = currentIndex === 0;
 
   const isLastCard = currentIndex === totalCards - 1;
+
+  const progress = totalCards ? ((currentIndex + 1) / totalCards) * 100 : 0;
 
   const nextCard = () => {
     if (!isLastCard) {
@@ -56,35 +61,28 @@ export default function ModuleCard({ cards }: Props) {
 
   return (
     <div>
-      <header
-        className="
-          mb-7
-          space-y-2
-        "
-      >
-        <p
-          className="
-            text-sm
-            font-semibold
-            text-pink-400
-          "
+      <header className="mb-7 space-y-3">
+        <div className="flex items-center justify-between gap-4 text-sm font-semibold">
+          <p className="text-pink-500">
+            Materi {currentIndex + 1} / {totalCards}
+          </p>
+        </div>
+
+        <div
+          className="h-2.5 overflow-hidden rounded-full bg-pink-100"
+          role="progressbar"
+          aria-valuenow={currentIndex + 1}
+          aria-valuemin={1}
+          aria-valuemax={totalCards}
+          aria-label="Progres materi"
         >
-          Materi {currentIndex + 1}
-          {" / "}
-          {totalCards}
-        </p>
+          <div
+            className="h-full rounded-full bg-linear-to-r from-pink-400 to-yellow-300 transition-[width] duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
 
-        <h2
-          className="
-            font-jaro
-
-            text-2xl
-            leading-tight
-            text-pink-600
-
-            md:text-3xl
-          "
-        >
+        <h2 className="pt-1 font-jaro text-3xl leading-tight text-pink-600 md:text-4xl">
           {currentCard.title}
         </h2>
       </header>
@@ -92,27 +90,13 @@ export default function ModuleCard({ cards }: Props) {
       <ModuleRenderer blocks={currentCard.content} />
 
       {isLastCard && (
-        <div
-          className="
-            my-8
-            flex
-            justify-center
-          "
-        >
+        <div className="my-8 flex justify-center">
           <Button onClick={showGamePage}>Ayo main! 🎮</Button>
         </div>
       )}
 
       <nav
-        className="
-          mt-8
-
-          flex
-          items-center
-          justify-between
-
-          gap-4
-        "
+        className="mt-8 flex items-center justify-between gap-4"
         aria-label="Navigasi materi"
       >
         <button
@@ -120,21 +104,13 @@ export default function ModuleCard({ cards }: Props) {
           onClick={prevCard}
           disabled={isFirstCard}
           aria-label="Materi sebelumnya"
-          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white text-pink-600 shadow-sm transition cursor-pointer hover:bg-pink-50 active:scale-95    disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:active:scale-100"
+          className={navButtonClass}
         >
           <ArrowLeft className="h-5 w-5" />
         </button>
 
-        <span
-          className="
-            text-sm
-            font-medium
-            text-gray-500
-          "
-        >
-          {currentIndex + 1}
-          {" / "}
-          {totalCards}
+        <span className="text-sm font-medium text-gray-500">
+          {currentIndex + 1} / {totalCards}
         </span>
 
         <button
@@ -142,7 +118,7 @@ export default function ModuleCard({ cards }: Props) {
           onClick={nextCard}
           disabled={isLastCard}
           aria-label="Materi berikutnya"
-          className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200   bg-white text-pink-600 shadow-sm transition cursor-pointer hover:bg-pink-50 active:scale-95    disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white disabled:active:scale-100"
+          className={navButtonClass}
         >
           <ArrowRight className="h-5 w-5" />
         </button>

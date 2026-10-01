@@ -546,10 +546,10 @@ export default function GamePage() {
         <div className="mb-6 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-3 py-2 text-sm font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
+            aria-label="Kembali ke beranda"
+            className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
           >
-            <House className="h-4 w-4" />
-            Home
+            <House className="h-5 w-5" aria-hidden="true" />
           </Link>
 
           <div className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-sky-700 uppercase">
