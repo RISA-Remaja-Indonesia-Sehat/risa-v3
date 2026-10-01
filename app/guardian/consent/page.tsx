@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { supabase } from "@/lib/supabase/client";
 import { apiFetch } from "@/lib/api/client";
+import { guardianUi as ui } from "@/lib/ui/guardian-theme";
+import { BrandDots, GuardianLogo } from "@/components/guardian/GuardianBrand";
 
 type ApproveConsentResponse = {
   success: boolean;
@@ -95,29 +97,48 @@ export default function GuardianConsentPage() {
 
   if (checkingAuth) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F4F3EE]">
-        <p className="text-sm text-[#667068]">Memeriksa akun...</p>
+      <main className={`${ui.page} flex items-center justify-center px-4`}>
+        <section className="text-center">
+          <div
+            className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-yellow-200 border-t-[#4F6751]"
+            aria-hidden="true"
+          />
+          <p
+            role="status"
+            aria-live="polite"
+            className={`mt-4 text-sm font-medium ${ui.muted}`}
+          >
+            Memeriksa akun...
+          </p>
+        </section>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#F4F3EE] px-4 py-10 sm:px-6">
-      <section className="mx-auto max-w-2xl rounded-3xl border border-[#DFE1DA] bg-white p-6 sm:p-8 lg:p-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#667D68]">
-          RISA
-        </p>
+    <main className={`${ui.page} relative overflow-hidden px-4 py-10 sm:px-6`}>
+      <div className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-pink-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-16 h-72 w-72 rounded-full bg-yellow-200/40 blur-3xl" />
 
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#253029]">
+      <section
+        className={`${ui.card} relative mx-auto max-w-2xl p-6 sm:p-8 lg:p-10`}
+      >
+        <GuardianLogo size={120} />
+
+        <h1 className="mt-6 font-jaro text-4xl leading-tight text-[#2F3A31] sm:text-5xl">
           Persetujuan orang tua atau wali
         </h1>
 
-        <p className="mt-4 text-sm leading-6 text-[#667068]">
+        <BrandDots className="mt-4" />
+
+        <p className={`mt-4 text-sm leading-6 ${ui.muted}`}>
           Sebelum membuat profil anak, kami membutuhkan persetujuan orang tua
           atau wali.
         </p>
 
-        <div className="mt-8 space-y-4 rounded-2xl bg-[#F6F7F3] p-5 text-sm leading-6 text-[#566159]">
+        <div
+          className={`${ui.panel} mt-8 space-y-4 p-5 text-sm leading-6 text-[#566159]`}
+        >
           <p>
             RISA akan menyimpan informasi yang diperlukan untuk menjalankan
             pengalaman belajar anak, seperti username, avatar, dan progres
@@ -136,12 +157,18 @@ export default function GuardianConsentPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8">
-          <label className="flex cursor-pointer items-start gap-3">
+          <label
+            className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition ${
+              agreed
+                ? "border-yellow-300 bg-yellow-50"
+                : "border-[#E1E6DA] bg-[#FFFEFB] hover:border-[#C9D3C3]"
+            }`}
+          >
             <input
               type="checkbox"
               checked={agreed}
               onChange={(event) => setAgreed(event.target.checked)}
-              className="mt-1 h-4 w-4"
+              className="mt-1 h-5 w-5 shrink-0 cursor-pointer accent-[#4F6751]"
             />
 
             <span className="text-sm leading-6 text-[#475349]">
@@ -151,10 +178,7 @@ export default function GuardianConsentPage() {
           </label>
 
           {errorMessage && (
-            <p
-              role="alert"
-              className="mt-5 rounded-xl border border-[#E7C7C7] bg-[#FFF7F7] px-4 py-3 text-sm text-[#9B4545]"
-            >
+            <p role="alert" className={`mt-5 ${ui.error}`}>
               {errorMessage}
             </p>
           )}
@@ -162,7 +186,7 @@ export default function GuardianConsentPage() {
           <button
             type="submit"
             disabled={loading || !agreed}
-            className="mt-7 w-full rounded-xl bg-[#4F6751] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#405642] disabled:cursor-not-allowed disabled:opacity-50"
+            className={`${ui.btnPrimary} mt-7 w-full`}
           >
             {loading ? "Menyimpan..." : "Berikan persetujuan"}
           </button>

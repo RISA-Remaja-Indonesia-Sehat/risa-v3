@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { ShieldCheck } from "lucide-react";
 
 import { supabase } from "@/lib/supabase/client";
+import { guardianUi as ui } from "@/lib/ui/guardian-theme";
+import { BrandDots, GuardianLogo } from "@/components/guardian/GuardianBrand";
 
 export default function GuardianRegisterPage() {
   const [name, setName] = useState("");
@@ -16,46 +19,38 @@ export default function GuardianRegisterPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  async function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setErrorMessage("");
     setSuccessMessage("");
 
     if (password.length < 8) {
-      setErrorMessage(
-        "Password harus memiliki minimal 8 karakter."
-      );
+      setErrorMessage("Password harus memiliki minimal 8 karakter.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setErrorMessage(
-        "Konfirmasi password tidak sesuai."
-      );
+      setErrorMessage("Konfirmasi password tidak sesuai.");
       return;
     }
 
     setLoading(true);
 
     try {
-      const { error } =
-        await supabase.auth.signUp({
-          email,
-          password,
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
 
-          options: {
-            emailRedirectTo:
-              `${window.location.origin}/guardian/login?confirmed=true`,
+        options: {
+          emailRedirectTo: `${window.location.origin}/guardian/login?confirmed=true`,
 
-            data: {
-              name,
-              phone,
-            },
+          data: {
+            name,
+            phone,
           },
-        });
+        },
+      });
 
       if (error) {
         setErrorMessage(error.message);
@@ -63,7 +58,7 @@ export default function GuardianRegisterPage() {
       }
 
       setSuccessMessage(
-        "Akun berhasil dibuat. Kami telah mengirimkan tautan verifikasi ke email Anda."
+        "Akun berhasil dibuat. Kami telah mengirimkan tautan verifikasi ke email Anda.",
       );
 
       setName("");
@@ -72,211 +67,73 @@ export default function GuardianRegisterPage() {
       setPassword("");
       setConfirmPassword("");
     } catch {
-      setErrorMessage(
-        "Terjadi kesalahan. Silakan coba kembali."
-      );
+      setErrorMessage("Terjadi kesalahan. Silakan coba kembali.");
     } finally {
       setLoading(false);
     }
   }
 
-  const inputClass = `
-    w-full
-    rounded-xl
-    border
-    border-[#D8DDD4]
-    bg-white
-    px-4
-    py-3.5
-    text-[15px]
-    text-[#243027]
-    outline-none
-    transition
-
-    placeholder:text-[#A2AAA3]
-
-    hover:border-[#BCC7BC]
-
-    focus:border-[#758A72]
-    focus:ring-4
-    focus:ring-[#758A72]/10
-  `;
-
-  const labelClass = `
-    mb-1.5
-    block
-    text-sm
-    font-semibold
-    text-[#344238]
-  `;
+  const hintClass = "mt-1.5 text-xs leading-5 text-[#8A928B]";
 
   return (
     <main
-      className="
-        min-h-screen
-        bg-[#F4F3EE]
-        px-4
-        py-8
-
-        sm:px-6
-        sm:py-12
-
-        lg:flex
-        lg:items-center
-        lg:justify-center
-        lg:px-8
-      "
+      className={`${ui.page} relative overflow-hidden px-4 py-8 sm:px-6 sm:py-12 lg:flex lg:items-center lg:justify-center lg:px-8`}
     >
-      <div
-        className="
-          mx-auto
-          grid
-          w-full
-          max-w-5xl
-          overflow-hidden
-          rounded-3xl
-          border
-          border-[#DFE1DA]
-          bg-white
+      <div className="pointer-events-none absolute -left-24 top-16 h-64 w-64 rounded-full bg-pink-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-yellow-200/40 blur-3xl" />
 
-          lg:grid-cols-[0.8fr_1.2fr]
-        "
+      <div
+        className={`${ui.card} relative mx-auto grid w-full max-w-5xl overflow-hidden lg:grid-cols-[0.8fr_1.2fr]`}
       >
         {/* Intro */}
-        <section
-          className="
-            flex
-            flex-col
-            justify-between
-            border-b
-            border-[#E4E6DF]
-            bg-[#E9EDE6]
-            p-6
+        <section className="relative flex flex-col justify-between overflow-hidden border-b-2 border-[#E1E8DB] bg-[#EEF3E9] p-6 sm:p-8 lg:border-b-0 lg:border-r-2 lg:p-10">
+          <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-yellow-200/60" />
+          <div className="pointer-events-none absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-pink-200/50" />
 
-            sm:p-8
+          <div className="relative">
+            <GuardianLogo size={132} />
 
-            lg:border-b-0
-            lg:border-r
-            lg:p-10
-          "
-        >
-          <div>
-            <Link
-              href="/"
-              className="
-                inline-flex
-                items-center
-                text-sm
-                font-bold
-                tracking-[0.18em]
-                text-[#5D735D]
-              "
-            >
-              RISA
-            </Link>
-
-            <h1
-              className="
-                mt-8
-                max-w-sm
-                text-3xl
-                font-semibold
-                leading-tight
-                tracking-tight
-                text-[#253029]
-
-                sm:text-4xl
-              "
-            >
+            <h1 className="mt-8 max-w-sm font-jaro text-4xl leading-tight text-[#2F3A31] sm:text-5xl">
               Buat akun orang tua atau wali
             </h1>
 
-            <p
-              className="
-                mt-4
-                max-w-sm
-                text-sm
-                leading-6
-                text-[#637067]
+            <BrandDots className="mt-4" />
 
-                sm:text-[15px]
-              "
-            >
-              Akun ini digunakan untuk
-              memberikan izin, mengelola akses,
-              dan melihat progres belajar anak
-              di RISA.
+            <p className="mt-4 max-w-sm text-sm leading-6 text-[#566159] sm:text-[15px]">
+              Akun ini digunakan untuk memberikan izin, mengelola akses, dan
+              melihat progres belajar anak di RISA.
             </p>
           </div>
 
-          <div
-            className="
-              mt-8
-              border-t
-              border-[#D1D8CE]
-              pt-5
-              text-sm
-              leading-6
-              text-[#667269]
-
-              lg:mt-12
-            "
-          >
-            Data akun digunakan untuk keperluan
-            akses dan pengelolaan profil anak.
-            Informasi pribadi anak tidak
-            ditampilkan secara publik.
+          <div className="relative mt-8 flex gap-3 border-t-2 border-white/70 pt-5 text-sm leading-6 text-[#566159] lg:mt-12">
+            <ShieldCheck
+              className="mt-0.5 h-5 w-5 shrink-0 text-[#4F6751]"
+              aria-hidden="true"
+            />
+            <p>
+              Data akun digunakan untuk keperluan akses dan pengelolaan profil
+              anak. Informasi pribadi anak tidak ditampilkan secara publik.
+            </p>
           </div>
         </section>
 
         {/* Form */}
-        <section
-          className="
-            p-6
-
-            sm:p-8
-
-            lg:p-10
-            xl:p-12
-          "
-        >
+        <section className="p-6 sm:p-8 lg:p-10 xl:p-12">
           <div className="mx-auto max-w-xl">
             <div className="mb-8">
-              <h2
-                className="
-                  text-2xl
-                  font-semibold
-                  tracking-tight
-                  text-[#253029]
-                "
-              >
+              <h2 className="font-jaro text-3xl text-[#2F3A31]">
                 Informasi akun
               </h2>
 
-              <p
-                className="
-                  mt-2
-                  text-sm
-                  leading-6
-                  text-[#778078]
-                "
-              >
-                Gunakan email yang aktif karena
-                kami akan mengirimkan tautan
+              <p className={`mt-2 text-sm leading-6 ${ui.muted}`}>
+                Gunakan email yang aktif karena kami akan mengirimkan tautan
                 verifikasi.
               </p>
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
-              {/* Name */}
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label
-                  htmlFor="name"
-                  className={labelClass}
-                >
+                <label htmlFor="name" className={ui.label}>
                   Nama lengkap
                 </label>
 
@@ -287,19 +144,13 @@ export default function GuardianRegisterPage() {
                   autoComplete="name"
                   placeholder="Budi Santoso"
                   value={name}
-                  onChange={(event) =>
-                    setName(event.target.value)
-                  }
-                  className={inputClass}
+                  onChange={(event) => setName(event.target.value)}
+                  className={ui.input}
                 />
               </div>
 
-              {/* Phone */}
               <div>
-                <label
-                  htmlFor="phone"
-                  className={labelClass}
-                >
+                <label htmlFor="phone" className={ui.label}>
                   Nomor telepon
                 </label>
 
@@ -310,31 +161,17 @@ export default function GuardianRegisterPage() {
                   autoComplete="tel"
                   placeholder="0812 3456 7890"
                   value={phone}
-                  onChange={(event) =>
-                    setPhone(event.target.value)
-                  }
-                  className={inputClass}
+                  onChange={(event) => setPhone(event.target.value)}
+                  className={ui.input}
                 />
 
-                <p
-                  className="
-                    mt-1.5
-                    text-xs
-                    leading-5
-                    text-[#8A928B]
-                  "
-                >
-                  Opsional. Gunakan nomor yang
-                  dapat dihubungi.
+                <p className={hintClass}>
+                  Opsional. Gunakan nomor yang dapat dihubungi.
                 </p>
               </div>
 
-              {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className={labelClass}
-                >
+                <label htmlFor="email" className={ui.label}>
                   Email
                 </label>
 
@@ -346,19 +183,13 @@ export default function GuardianRegisterPage() {
                   inputMode="email"
                   placeholder="nama@email.com"
                   value={email}
-                  onChange={(event) =>
-                    setEmail(event.target.value)
-                  }
-                  className={inputClass}
+                  onChange={(event) => setEmail(event.target.value)}
+                  className={ui.input}
                 />
               </div>
 
-              {/* Password */}
               <div>
-                <label
-                  htmlFor="password"
-                  className={labelClass}
-                >
+                <label htmlFor="password" className={ui.label}>
                   Password
                 </label>
 
@@ -370,32 +201,15 @@ export default function GuardianRegisterPage() {
                   autoComplete="new-password"
                   placeholder="Masukkan password"
                   value={password}
-                  onChange={(event) =>
-                    setPassword(
-                      event.target.value
-                    )
-                  }
-                  className={inputClass}
+                  onChange={(event) => setPassword(event.target.value)}
+                  className={ui.input}
                 />
 
-                <p
-                  className="
-                    mt-1.5
-                    text-xs
-                    leading-5
-                    text-[#8A928B]
-                  "
-                >
-                  Gunakan minimal 8 karakter.
-                </p>
+                <p className={hintClass}>Gunakan minimal 8 karakter.</p>
               </div>
 
-              {/* Confirm password */}
               <div>
-                <label
-                  htmlFor="confirm-password"
-                  className={labelClass}
-                >
+                <label htmlFor="confirm-password" className={ui.label}>
                   Konfirmasi password
                 </label>
 
@@ -407,111 +221,38 @@ export default function GuardianRegisterPage() {
                   autoComplete="new-password"
                   placeholder="Masukkan kembali password"
                   value={confirmPassword}
-                  onChange={(event) =>
-                    setConfirmPassword(
-                      event.target.value
-                    )
-                  }
-                  className={inputClass}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  className={ui.input}
                 />
               </div>
 
-              {/* Error */}
               {errorMessage && (
-                <div
-                  role="alert"
-                  className="
-                    rounded-xl
-                    border
-                    border-[#E7C7C7]
-                    bg-[#FFF7F7]
-                    px-4
-                    py-3
-                    text-sm
-                    leading-5
-                    text-[#9B4545]
-                  "
-                >
+                <div role="alert" className={ui.error}>
                   {errorMessage}
                 </div>
               )}
 
-              {/* Success */}
               {successMessage && (
-                <div
-                  role="status"
-                  className="
-                    rounded-xl
-                    border
-                    border-[#CADCC8]
-                    bg-[#F5FAF4]
-                    px-4
-                    py-3
-                    text-sm
-                    leading-5
-                    text-[#476548]
-                  "
-                >
+                <div role="status" className={ui.success}>
                   {successMessage}
                 </div>
               )}
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="
-                  mt-2
-                  flex
-                  min-h-12
-                  w-full
-                  items-center
-                  justify-center
-                  rounded-xl
-                  bg-[#4F6751]
-                  px-5
-                  py-3
-                  text-sm
-                  font-semibold
-                  text-white
-                  transition
-
-                  hover:bg-[#405642]
-
-                  focus-visible:outline-none
-                  focus-visible:ring-4
-                  focus-visible:ring-[#4F6751]/20
-
-                  disabled:cursor-not-allowed
-                  disabled:opacity-50
-                "
+                className={`${ui.btnPrimary} mt-2 w-full`}
               >
-                {loading
-                  ? "Membuat akun..."
-                  : "Buat akun"}
+                {loading ? "Membuat akun..." : "Buat akun"}
               </button>
             </form>
 
-            <div
-              className="
-                mt-7
-                border-t
-                border-[#ECEDE8]
-                pt-6
-                text-center
-              "
-            >
+            <div className="mt-7 border-t-2 border-[#F0EEE6] pt-6 text-center">
               <p className="text-sm text-[#747C75]">
                 Sudah punya akun?{" "}
                 <Link
                   href="/guardian/login"
-                  className="
-                    font-semibold
-                    text-[#526B55]
-                    underline-offset-4
-
-                    hover:underline
-                  "
+                  className="font-bold text-[#4F6751] underline decoration-pink-300 decoration-2 underline-offset-4 hover:decoration-pink-500"
                 >
                   Masuk
                 </Link>
