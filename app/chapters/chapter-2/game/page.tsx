@@ -168,8 +168,12 @@ export default function GamePage() {
   return (
     <>
       <div className="min-h-screen w-full flex items-center justify-center p-4 bg-linear-to-br from-pink-50 via-yellow-50 to-pink-100">
-        <Link href="/" className="absolute top-4 left-4">
-          <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600 cursor-pointer" />
+        <Link
+          href="/"
+          aria-label="Kembali ke beranda"
+          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
+        >
+          <House className="h-5 w-5" aria-hidden="true" />
         </Link>
 
         <section className="max-w-2xl w-full p-4 md:p-8 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-3xl shadow-lg flex flex-col gap-6 mt-8">

@@ -285,8 +285,12 @@ export default function GamePage() {
       />
 
       {/* Home */}
-      <Link href="/" className="absolute top-4 left-4 z-30">
-        <House className="w-6 h-6 lg:w-8 lg:h-8 text-pink-600" />
+      <Link
+        href="/"
+        aria-label="Kembali ke beranda"
+        className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
+      >
+        <House className="h-5 w-5" aria-hidden="true" />
       </Link>
 
       {/* Game layout */}

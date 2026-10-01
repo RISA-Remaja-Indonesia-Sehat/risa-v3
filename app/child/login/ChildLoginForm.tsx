@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
@@ -59,6 +60,9 @@ function getLoginErrorMessage(error: unknown, phase: LoginPhase) {
    */
   return "Terjadi masalah saat masuk. Silakan coba lagi.";
 }
+
+const inputClass =
+  "w-full rounded-2xl border-2 border-pink-100 bg-white px-4 py-3.5 text-[15px] text-gray-800 outline-none transition placeholder:text-gray-400 hover:border-pink-200 focus:border-pink-400 focus:ring-4 focus:ring-yellow-100";
 
 export default function ChildLoginForm() {
   const router = useRouter();
@@ -120,29 +124,41 @@ export default function ChildLoginForm() {
       setLoading(false);
     }
   }
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#78B9F8_0%,#B9DCFF_58%,#EAF5FF_100%)] px-4 py-10">
-      <section className="w-full max-w-md rounded-3xl border border-[#DFE1DA] bg-white p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-700">
-          RISA
-        </p>
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#CDE6FB_0%,#FFF6DC_52%,#FDE3EC_100%)] px-4 py-10 font-jakarta">
+      {/* Biru hanya tersisa di bagian atas sebagai jembatan ke Home */}
+      <div className="pointer-events-none absolute -left-24 bottom-16 h-64 w-64 rounded-full bg-pink-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 top-1/3 h-64 w-64 rounded-full bg-yellow-200/50 blur-3xl" />
 
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight">
-          Masuk ke RISA
-        </h1>
+      <section className="relative w-full max-w-md rounded-3xl border-2 border-pink-200 bg-white/95 p-6 text-center shadow-2xl sm:p-8">
+        <div className="mx-auto w-fit leading-none">
+          <Image
+            src="/img/icon-risa.png"
+            alt="Icon RISA"
+            width={88}
+            height={88}
+            priority
+          />
+        </div>
 
-        <p className="mt-3 text-sm leading-6 text-gray-600">
+        <h1 className="mt-4 font-jaro text-4xl text-pink-600">Masuk ke RISA</h1>
+
+        <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-gray-600">
           Gunakan username dan PIN yang sudah dibuat bersama orang tua atau
           wali.
         </p>
 
         {created && (
-          <div className="mt-6 rounded-xl border border-[#CADCC8] bg-[#F5FAF4] px-4 py-3 text-sm text-[#476548]">
+          <div
+            role="status"
+            className="mt-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50 px-4 py-3 text-left text-sm text-emerald-800"
+          >
             Profil berhasil dibuat. Sekarang kamu dapat masuk.
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-7 space-y-5 text-left">
           <div>
             <label
               htmlFor="username"
@@ -158,7 +174,7 @@ export default function ChildLoginForm() {
               placeholder="Masukkan username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
+              className={inputClass}
             />
           </div>
 
@@ -179,17 +195,15 @@ export default function ChildLoginForm() {
               autoComplete="current-password"
               placeholder="6 angka"
               value={pin}
-              onChange={(event) =>
-                setPin(event.target.value.replace(/\D/g, ""))
-              }
-              className="w-full rounded-xl border border-gray-300 px-4 py-3.5 outline-none focus:border-gray-600 focus:ring-4 focus:ring-gray-600/10"
+              onChange={(event) => setPin(event.target.value.replace(/\D/g, ""))}
+              className={inputClass}
             />
           </div>
 
           {errorMessage && (
             <p
               role="alert"
-              className="rounded-xl border border-[#E7C7C7] bg-[#FFF7F7] px-4 py-3 text-sm text-[#9B4545]"
+              className="rounded-2xl border-2 border-pink-200 bg-pink-50 px-4 py-3 text-sm text-pink-800"
             >
               {errorMessage}
             </p>
@@ -198,7 +212,7 @@ export default function ChildLoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-[#0077ff] px-5 py-3.5 text-sm font-semibold text-white disabled:opacity-50"
+            className="w-full rounded-full bg-pink-500 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-pink-200 transition hover:bg-pink-600 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Masuk..." : "Masuk"}
           </button>

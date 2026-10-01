@@ -136,8 +136,12 @@ export default function GamePage() {
 
       {/* Home + progress */}
       <div className="relative z-20 flex items-center justify-between p-4 pt-5">
-        <Link href="/">
-          <House className="w-6 h-6 text-white drop-shadow" />
+        <Link
+          href="/"
+          aria-label="Kembali ke beranda"
+          className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border-2 border-pink-200 bg-white/90 text-pink-600 shadow-sm transition hover:bg-pink-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 md:left-6 md:top-6"
+        >
+          <House className="h-5 w-5" aria-hidden="true" />
         </Link>
         <div className="flex gap-1.5 items-center">
           {game_4.map((_, i) => (

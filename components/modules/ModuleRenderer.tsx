@@ -276,15 +276,10 @@ export default function ModuleRenderer({
                   "
                 >
                   <img
-                    src={
-                      block.src
-                    }
-                    alt={
-                      block.alt
-                    }
-                    className="
-                      w-full
-                    "
+                    src={block.src}
+                    alt={block.alt}
+                    loading="lazy"
+                    className="w-full rounded-2xl border-2 border-pink-100 bg-white shadow-sm"
                   />
 
                   {block.caption && (
